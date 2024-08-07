@@ -4,7 +4,7 @@
 </script>
 
 <header>
-  <h1>Filters</h1>
+  <h1>SNC Data Dashboard</h1>
 </header>
 
 <main>
