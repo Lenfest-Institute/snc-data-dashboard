@@ -1,15 +1,18 @@
 <script>
   export let data;
   import { page } from '$app/stores';
-  let currentPage = $page.url.pathname;
-  const pages = ['revenue', 'diversity', 'audience', 'staffing'];
+  const pages = ['revenue', 'diversity', 'audience', 'staffing', 'coverage'];
+
+  let currentPath;
+
+  $: currentPath = $page.url.pathname;
 </script>
 
 <nav class="data__nav">
   <ul>
     {#each pages as page}
-      <li>
-        <a href={`/data/${page}`} class={currentPage === `/data/${page}` ? 'active' : ''}>
+      <li class={currentPath === `/data/${page}` ? 'active' : ''}>
+        <a href={`/data/${page}`}>
           {page.charAt(0).toUpperCase() + page.slice(1)}
         </a>
       </li>

@@ -1,7 +1,29 @@
 nav.data__nav {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
-    background-color: $color-primary;
+    background-color: $gray-30;
     color: $color-white;
+}
+
+// Tabs
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $gray-30;
+    width: 50%;
+
+    li {
+        list-style: none;
+        padding: 1rem;
+
+        &.active {
+            background-color: $gray-15;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+    }
 }
