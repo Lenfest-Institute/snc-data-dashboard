@@ -3,27 +3,26 @@ nav.data__nav {
     justify-content: space-between;
     background-color: $gray-30;
     color: $color-white;
-}
 
-// Tabs
-ul {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: $gray-30;
-    width: 50%;
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $gray-30;
+        width: 50%;
 
-    li {
-        list-style: none;
-        padding: 1rem;
+        li {
+            list-style: none;
+            padding: 1rem;
 
-        &.active {
-            background-color: $gray-15;
-        }
+            &.active {
+                background-color: $gray-15;
+            }
 
-        a {
-            text-decoration: none;
-            color: #000;
+            a {
+                text-decoration: none;
+                color: #000;
+            }
         }
     }
 }

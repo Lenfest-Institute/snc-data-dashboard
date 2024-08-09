@@ -4,6 +4,16 @@ import * as d3 from 'd3';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+const ignoreColumns = [
+  "NEON ID",
+  "Org Name",
+  "Primary Contact First name",
+  "Last name",
+  "Title",
+  "Email",
+  "Website"
+];
+
 export async function load() {
   // Determine the path to the CSV file
   const filePath = join(process.cwd(), 'src/static', 'data2023.csv');
@@ -12,7 +22,16 @@ export async function load() {
   const fileContent = readFileSync(filePath, 'utf8');
 
   // Parse the CSV content into an array of objects using D3
-  const data = d3.csvParse(fileContent);
+  const data = d3.csvParse(fileContent, d => {
+    // Filter out keys that are in the ignoreColumns array
+    const filteredData = {};
+    for (const key in d) {
+      if (!ignoreColumns.includes(key)) {
+        filteredData[key] = d[key];
+      }
+    }
+    return filteredData;
+  });
 
   // Return the parsed data to the Svelte component
   return {
