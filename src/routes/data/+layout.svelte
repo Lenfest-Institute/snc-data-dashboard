@@ -1,5 +1,4 @@
 <script>
-  export let data;
   import { page } from '$app/stores';
   const pages = ['revenue', 'diversity', 'audience', 'staffing', 'coverage'];
 
