@@ -11,7 +11,13 @@ const ignoreColumns = [
   "Last name",
   "Title",
   "Email",
-  "Website"
+  "Website",
+  "Explain how you used AI Technology?",
+  "Primary Focus Audience Group: Other/specify",
+  "Zip Code",
+  "V19B Desc_Audience",
+  "V32D Republication_Terms",
+  "VSQ2-2A Rev_OtherEarnText"
 ];
 
 export async function load() {
