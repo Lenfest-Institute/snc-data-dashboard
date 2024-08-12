@@ -7,13 +7,21 @@
   import AxisY from '../../../components/AxisY.svelte';
 
   export let data = [];
-  $: formattedData = data.props.rawdata;
+  // create a JSON array of dummy data where each object has a 'year' and 'value' key, and there are 10 objects
+  const formattedData = Array.from({ length: 10 }, (_, i) => ({
+    year: 1979 + (i * 2),
+    value: Math.random() * 10
+  }));
 
   const xKey = 'year';
   const yKey = 'value';
 
+
+    console.log(formattedData);
+
   formattedData.forEach(d => {
     d[yKey] = +d[yKey];
+  
   });
 </script>
 
@@ -22,12 +30,13 @@
     padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
     x={xKey}
     y={yKey}
-    yDomain={[0, null]}
-    {formattedData}
+    xDomain={[1979, 1997]}
+    yDomain={[0, 10]}
+    data={formattedData}
   >
     <Svg>
       <AxisX />
-      <AxisY ticks={4} />
+      <AxisY ticks={10} />
       <Line />
       <Area />
     </Svg>
