@@ -28,7 +28,7 @@ export async function load() {
   const fileContent = readFileSync(filePath, 'utf8');
 
   // Parse the CSV content into an array of objects using D3
-  const data = d3.csvParse(fileContent, d => {
+  const rawdata = d3.csvParse(fileContent, d => {
     // Filter out keys that are in the ignoreColumns array
     const filteredData = {};
     for (const key in d) {
@@ -42,7 +42,7 @@ export async function load() {
   // Return the parsed data to the Svelte component
   return {
     props: {
-      data
+      rawdata
     }
   };
 }
