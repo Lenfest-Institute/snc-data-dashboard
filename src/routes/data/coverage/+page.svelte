@@ -1,5 +1,5 @@
 <script>
-  import { LayerCake, Svg } from 'layercake';
+  import { LayerCake, ScaledSvg, Html } from 'layercake';
 
   import Line from '../../../components/Line.svelte';
   import Area from '../../../components/Area.svelte';
@@ -37,6 +37,8 @@
     </h2>
     <div class="charts__chart">
       <LayerCake
+        ssr
+        percentRange
         padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
         x={xKey}
         y={yKey}
@@ -44,12 +46,14 @@
         yDomain={[0, 10]}
         data={formattedData}
       >
-        <Svg>
+        <Html>
           <AxisX />
           <AxisY ticks={10} />
+        </Html>
+        <ScaledSvg>
           <Line />
           <Area />
-        </Svg>
+        </ScaledSvg>
       </LayerCake>
     </div>
   </div>
@@ -59,6 +63,8 @@
     </h2>
     <div class="charts__chart">
       <LayerCake
+        ssr
+        percentRange
         padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
         x={xKey}
         y={yKey}
@@ -66,12 +72,14 @@
         yDomain={[0, 10]}
         data={formattedData2}
       >
-        <Svg>
+        <Html>
           <AxisX />
           <AxisY ticks={10} />
+        </Html>
+        <ScaledSvg>
           <Line />
           <Area />
-        </Svg>
+        </ScaledSvg>
       </LayerCake>
     </div>
   </div>
