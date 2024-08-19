@@ -1,12 +1,6 @@
 <script>
   import { LayerCake, ScaledSvg, Html } from 'layercake';
-
-  import Line from '../../../components/Line.svelte';
-  import Area from '../../../components/Area.svelte';
-  import AxisX from '../../../components/AxisX.svelte';
-  import AxisY from '../../../components/AxisY.svelte';
-
-  export let data = [];
+  import Chart from '../../../components/Chart.svelte';
 
   const xKey = 'year';
   const yKey = 'value';
@@ -31,7 +25,21 @@
 </script>
 
 <div class="charts__wrapper charts__coverage">
-  <div class="charts__chart-container">
+  <Chart
+    type={'scatter'}
+    title={'Coverage'}
+    data={formattedData}
+    xKey={xKey}
+    yKey={yKey}
+  />
+  <Chart
+    type={'linearea'}
+    title={'Coverage'}
+    data={formattedData2}
+    xKey={xKey}
+    yKey={yKey}
+  />
+  <!-- <div class="charts__chart-container">
     <h2>
       Data Source 1
     </h2>
@@ -49,11 +57,8 @@
         <Html>
           <AxisX />
           <AxisY ticks={10} />
+          <Scatter  {r} {fill} {stroke} {strokeWidth} />
         </Html>
-        <ScaledSvg>
-          <Line />
-          <Area />
-        </ScaledSvg>
       </LayerCake>
     </div>
   </div>
@@ -82,5 +87,5 @@
         </ScaledSvg>
       </LayerCake>
     </div>
-  </div>
+  </div> -->
 </div>
