@@ -1,9 +1,12 @@
 <script>
+  import * as d3 from 'd3';
   import { LayerCake, ScaledSvg, Html } from 'layercake';
   import Chart from '../../../components/Chart.svelte';
 
   const xKey = 'year';
   const yKey = 'value';
+
+  export let data;
 
   const formattedData = Array.from({ length: 10 }, (_, i) => ({
     year: 1979 + (i * 2),
@@ -22,22 +25,31 @@
   formattedData2.forEach(d => {
     d[yKey] = +d[yKey];
   });
+
+  const rawdata = data.props.rawdata;
+  const data1 = rawdata.filter(d => {
+    const stories = parseInt(d["Stories Produced per Month"], 10);
+    return stories > 0;
+  });
+  console.log(data1.map(d => d["Stories Produced per Month"]));
 </script>
 
 <div class="charts__wrapper charts__coverage">
   <Chart
     type={'scatter'}
     title={'Coverage'}
-    data={formattedData}
-    xKey={xKey}
-    yKey={yKey}
+    data={data1}
+    x={'Stories Produced per Month'}
+    y={'Web Traffic (AMUs)'}
+    xDomain={d3.extent(data1, d => +d["Stories Produced per Month"])}
+    yDomain={d3.extent(data1, d => +d["Web Traffic (AMUs)"])}
   />
   <Chart
     type={'linearea'}
     title={'Coverage'}
     data={formattedData2}
-    xKey={xKey}
-    yKey={yKey}
+    x={xKey}
+    y={yKey}
   />
   <!-- <div class="charts__chart-container">
     <h2>

@@ -10,11 +10,15 @@
   export let data = [];
   export let title;
   export let type;
-  export let xKey;
-  export let yKey;
+  export let x;
+  export let y;
+  export let xDomain;
+  export let yDomain;
+
+  console.log(xDomain);
 
   const r = 4.5;
-  const padding = 2.5;
+  const padding = { top: 8, right: 10, bottom: 20, left: 25 };
   const fill = '#ed7014';
   const stroke = '#d16002';
   const strokeWidth = 1.5;
@@ -29,12 +33,12 @@
       <LayerCake
         ssr
         percentRange
-        padding={{ top: 8, right: 10, bottom: 20, left: 25 }}
-        x={xKey}
-        y={yKey}
-        xDomain={[1979, 1997]}
-        yDomain={[0, 10]}
-        data={data}
+        {padding}
+        {x}
+        {y}
+        {xDomain}
+        {yDomain}
+        {data}
       >
         {#if type === 'scatter'}
           <Html>
