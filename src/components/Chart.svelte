@@ -1,4 +1,5 @@
 <script>
+  import * as d3 from 'd3';
   import { LayerCake, ScaledSvg, Html } from 'layercake';
 
   import Line from './Line.svelte';
@@ -12,13 +13,11 @@
   export let type;
   export let x;
   export let y;
-  export let xDomain;
-  export let yDomain;
-
-  console.log(xDomain);
+  export let xDomain = d3.extent(data, d => +d[x]);
+  export let yDomain = d3.extent(data, d => +d[y]);
 
   const r = 4.5;
-  const padding = { top: 8, right: 10, bottom: 20, left: 25 };
+  const padding = { top: 8, right: 10, bottom: 20, left: 5 + (Math.round(yDomain[1]).toString().length * 10) };
   const fill = '#ed7014';
   const stroke = '#d16002';
   const strokeWidth = 1.5;
@@ -43,13 +42,13 @@
         {#if type === 'scatter'}
           <Html>
             <AxisX />
-            <AxisY ticks={10} />
+            <AxisY />
             <Scatter  {r} {fill} {stroke} {strokeWidth} />
           </Html>
         {:else if type === 'linearea'}
           <Html>
             <AxisX />
-            <AxisY ticks={10} />
+            <AxisY />
           </Html>
           <ScaledSvg>
             <Line />
