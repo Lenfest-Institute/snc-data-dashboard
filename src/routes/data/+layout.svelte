@@ -4,17 +4,14 @@
   import { page } from '$app/stores';
   const pages = ['revenue', 'diversity', 'audience', 'staffing', 'coverage'];
 
+  // Get page URL.
   let currentPath;
   $: currentPath = $page.url.pathname;
 
-  // Get the data from the parent layout
+  // Get the data from the parent layout and set up the filterable store.
   export let data;
   export const rawdata = data.props.rawdata;
   export let filteredData = rawdata;
-
-  $: console.log(filteredData);
-
-  // Create a store
   const filteredDataStore = writable(filteredData);
   $: filteredDataStore.set(filteredData);
   setContext('filteredData', filteredDataStore);
