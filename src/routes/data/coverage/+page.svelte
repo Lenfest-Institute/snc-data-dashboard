@@ -1,4 +1,5 @@
 <script>
+  import { getContext } from 'svelte';
   import * as d3 from 'd3';
   import { LayerCake, ScaledSvg, Html } from 'layercake';
   import Chart from '../../../components/Chart.svelte';
@@ -8,7 +9,8 @@
 
   export let data;
   const rawdata = data.props.rawdata;
-
+	const audience = getContext('audience');
+  
   const formattedData2 = Array.from({ length: 10 }, (_, i) => ({
     year: 2000 + (i * 2),
     value: Math.random() * 10
@@ -18,6 +20,8 @@
     d[yKey] = +d[yKey];
   });
 </script>
+
+<p>Active Option: {$audience}</p>
 
 <div class="charts__wrapper charts__coverage">
   <Chart
