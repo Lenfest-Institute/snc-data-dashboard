@@ -46,21 +46,14 @@
   </select>
 </div>
 
+<span class="badge variant-filled">Badge</span>
 
-<div>
-  <button
-    class="toggle-button {$user === 'default' ? 'active' : ''}"
-    on:click={() => toggleOption('default')}
-  >
-    Default
-  </button>
-  <button
-    class="toggle-button {$user === 'limited' ? 'active' : ''}"
-    on:click={() => toggleOption('limited')}
-  >
-    Limited
-  </button>
-</div>
+
+<aside class="alert variant-ghost">
+    <div class="alert-message">
+        <p>Showing data from {filteredData.length} organizations</p>
+    </div>
+</aside>
 
 <nav class="data__nav">
   <ul>
@@ -73,8 +66,6 @@
     {/each}
   </ul>
 </nav>
-
-<h2>Data Length : {filteredData.length}</h2>
 
 <div class="data__wrapper">
   <slot />
