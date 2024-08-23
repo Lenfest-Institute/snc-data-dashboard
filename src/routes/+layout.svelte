@@ -1,11 +1,12 @@
 <script>
-  import "../styles/app.scss";
+	import '../app.css';
+	import '../styles/app.scss';
 </script>
 
 <header>
-  <h1>Title TK</h1>
+	<h1>Title TK</h1>
 </header>
 
 <main>
-  <slot />
+	<slot></slot>
 </main>
