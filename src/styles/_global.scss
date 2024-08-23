@@ -12,3 +12,15 @@ h1, h2, h3 {
 h1 {
     font-size: 2.5rem;
 }
+
+main > * {
+    margin-bottom: 20px;
+}
+
+.data__filters {
+  /* Display this as a grid with four columns */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  
+}
