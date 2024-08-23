@@ -27,20 +27,23 @@
     user.set(option); // update the store value
   }
 
-  function filterDataset() {
+  function handleAgeFilter() {
+    let selectedMinAge = event.target.options[event.target.selectedIndex].dataset.minage;
+    let selectedMaxAge = event.target.options[event.target.selectedIndex].dataset.maxage;
     filteredData = rawdata.filter(d => {
-      return parseInt(d["Launch Year"], 10) > 2015;
+      return +d["Age"] >= selectedMinAge && +d["Age"] < selectedMaxAge;
     });
   }
 </script>
 
 <div>
-  <button
-    class="toggle-button"
-    on:click={() => filterDataset()}
-  >
-    Filter the Data Set
-  </button>
+  <select on:change={handleAgeFilter} class="select">
+    <option value="1" data-minage="0" data-maxage="200">All</option>
+    <option value="2" data-minage="0" data-maxage="3">Less than 3 years old</option>
+    <option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
+    <option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
+    <option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
+  </select>
 </div>
 
 
