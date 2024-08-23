@@ -46,9 +46,6 @@
   </select>
 </div>
 
-<span class="badge variant-filled">Badge</span>
-
-
 <aside class="alert variant-ghost">
     <div class="alert-message">
         <p>Showing data from {filteredData.length} organizations</p>
