@@ -21,7 +21,10 @@
   $: filteredData = rawdata.filter(d => {
     return (filterRevenueTier ? d["Revenue Tier"] === filterRevenueTier : true) &&
            (filterAge ? +d["Age"] >= filterAge.min : true) &&
-           (filterAge ? +d["Age"] < filterAge.max : true);
+           (filterAge ? +d["Age"] < filterAge.max : true) &&
+           (filterStaff ? +d["Total Staff Size"] >= filterStaff.min : true) &&
+           (filterStaff ? +d["Total Staff Size"] < filterStaff.max : true) &&
+           (filterFocus ? d["Primary Editorial Focus"] === filterFocus : true);
   });
 
   const filteredDataStore = writable(filteredData);
@@ -35,9 +38,27 @@
 	// ...and add it to the context for child components to access
 	setContext('user', user);
 
-  // Filters
+  // Filter options.
+  const filterOptionsRevenue = [
+    "Less than $250K",
+    "$250K to <$500K",
+    "$500K to <$1 million",
+    "$1 million to <$2 million",
+    "$2 million and up",
+  ];
+
+  // Filter options.
+  const filterOptionsFocus = [
+    {label: "Single Topic", value: "Prime_Single"},
+    {label: "Related Topics", value: "Prime_Multi"},
+    {label: "General Coverage", value: "Prime_Gen"}
+  ];
+
+  // Filters placeholders.
   let filterRevenueTier;
   let filterAge;
+  let filterStaff;
+  let filterFocus;
   let filterPubMedia = false;
 
   function handleFilterRevenue() {
@@ -58,27 +79,23 @@
     });
   }
 
-  function handleFilterPubMedia() {
-    if (filterPubMedia) {
-      filteredData = filteredData.filter(d => {
-        return d["Is PubMedia?"] === "PubMedia_Yes";
-      });
-    } else {
-      filteredData = filteredData.filter(d => {
-        return d["Is PubMedia?"];
-      });
-    }
+  function handleFilterStaff() {
+    let selectedMin = event.target.options[event.target.selectedIndex].dataset.min;
+    let selectedMax = event.target.options[event.target.selectedIndex].dataset.max;
+    filterStaff = new Object({
+      min: selectedMin,
+      max: selectedMax
+    });
   }
 
-  const filterOptionsRevenue = [
-    "Less than $250K",
-    "$250K to <$500K",
-    "$500K to <$1 million",
-    "$1 million to <$2 million",
-    "$2 million and up",
-  ]
-
-    console.log(filterOptionsRevenue);
+  function handleFilterFocus() {
+    let selection = event.target.options[event.target.selectedIndex].value;
+    if (selection !== "all") {
+      filterFocus = filterOptionsFocus.filter(option => option.value === selection)[0].value;
+    } else {
+      filterFocus = null;
+    }
+  }
 </script>
 
 <Accordion>
@@ -106,29 +123,26 @@
           </select>
         </div>
 
-        <div class="data__filter-age">
-          <h3>Organization Age</h3>
-          <select on:change={handleFilterAge} class="select">
-            <option value="1" data-minage="0" data-maxage="200">All</option>
-            <option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
-            <option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
-            <option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
+        <div class="data__filter-staff">
+          <h3>Staff</h3>
+          <select on:change={handleFilterStaff} class="select">
+            <option value="1" data-min="0" data-max="200">All</option>
+            <option value="3" data-min="0" data-max="3">Fewer than 3 employees</option>
+            <option value="4" data-min="3" data-max="10">3-10 employees</option>
+            <option value="4" data-min="10" data-max="25">10-25 employees</option>
+            <option value="5" data-min="25" data-max="200">25 or more employees</option>
           </select>
         </div>
 
-        <div class="data__filter-age">
-          <h3>Organization Age</h3>
-          <select on:change={handleFilterAge} class="select">
-            <option value="1" data-minage="0" data-maxage="200">All</option>
-            <option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
-            <option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
-            <option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
+        <div class="data__filter-focus">
+          <h3>Coverage Focus</h3>
+          <select on:change={handleFilterFocus} class="select">
+            <option value="All">All</option>
+            {#each filterOptionsFocus as option}
+              <option value={option.value}>{option.label}</option>
+            {/each}
           </select>
         </div>
-
-        <!-- <div class="data__filter-pubmedia">
-          <SlideToggle bind:checked={filterPubMedia} name="slider-label" on:change={handleFilterPubMedia}>Show only public media</SlideToggle>
-        </div> -->
       </div>
     </svelte:fragment>
   </AccordionItem>
