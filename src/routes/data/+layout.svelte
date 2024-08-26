@@ -61,7 +61,7 @@
   let filterFocus;
   let filterPubMedia = false;
 
-  function handleFilterRevenue() {
+  function handleFilterRevenue(event) {
     let tier = event.target.options[event.target.selectedIndex].dataset.tier;
     if (tier !== "All") {
       filterRevenueTier = tier;
@@ -70,7 +70,7 @@
     }
   }
 
-  function handleFilterAge() {
+  function handleFilterAge(event) {
     let selectedMinAge = event.target.options[event.target.selectedIndex].dataset.minage;
     let selectedMaxAge = event.target.options[event.target.selectedIndex].dataset.maxage;
     filterAge = new Object({
@@ -79,7 +79,7 @@
     });
   }
 
-  function handleFilterStaff() {
+  function handleFilterStaff(event) {
     let selectedMin = event.target.options[event.target.selectedIndex].dataset.min;
     let selectedMax = event.target.options[event.target.selectedIndex].dataset.max;
     filterStaff = new Object({
@@ -88,7 +88,7 @@
     });
   }
 
-  function handleFilterFocus() {
+  function handleFilterFocus(event) {
     let selection = event.target.options[event.target.selectedIndex].value;
     if (selection !== "all") {
       filterFocus = filterOptionsFocus.filter(option => option.value === selection)[0].value;
