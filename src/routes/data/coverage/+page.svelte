@@ -9,7 +9,7 @@
 <div class="charts__wrapper charts__coverage">
   <Chart
     type={'scatter'}
-    title={'Coverage'}
+    title={'Monthly Stories vs. Total AMUs'}
     x={'Stories Produced per Month'}
     y={'Web Traffic (AMUs)'}
     data={$filteredData.filter(d => {
@@ -18,8 +18,8 @@
     })}
   />
   <Chart
-    type={'linearea'}
-    title={'Coverage'}
+    type={'scatter'}
+    title={'Monthly Stories by Launch Year'}
     x={'Launch Year'}
     y={'Stories Produced per Month'}
     data={$filteredData.filter(d => {

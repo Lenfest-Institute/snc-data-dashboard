@@ -33,7 +33,14 @@ export async function load() {
     const filteredData = {};
     for (const key in d) {
       if (!ignoreColumns.includes(key)) {
-        filteredData[key] = d[key];
+        // Check if the value is a string
+        if (typeof d[key] === 'string') {
+          // Trim leading and trailing spaces
+          filteredData[key] = d[key].trim();
+        } else {
+          // If it's not a string, assign the value as is
+          filteredData[key] = d[key];
+        }
       }
     }
     return filteredData;
