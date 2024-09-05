@@ -5,6 +5,7 @@
   import Line from './Line.svelte';
   import Area from './Area.svelte';
   import Scatter from './Scatter.svelte';
+  import Column from './Column.svelte';
   import AxisX from './AxisX.svelte';
   import AxisY from './AxisY.svelte';
 
@@ -14,6 +15,7 @@
   export let x;
   export let y;
 
+  $: xScale = d3.scaleBand().paddingInner(0.028).round(true);
   $: xDomain = d3.extent(data, d => +d[x]);
   $: yDomain = d3.extent(data, d => +d[y]);
   $: padding = { top: 8, right: 10, bottom: 20, left: 5 + (yDomain && yDomain.length > 0 ? (Math.round(yDomain[1]).toString().length * 7) : 0) };
@@ -39,6 +41,7 @@
         {xDomain}
         {yDomain}
         {data}
+        xScale={type === 'column' ? xScale : null}
       >
         {#if type === 'scatter'}
           <Html>
@@ -46,6 +49,14 @@
             <AxisY />
             <Scatter  {r} {fill} {stroke} {strokeWidth} />
           </Html>
+        {:else if type === 'column'}
+          <Html>
+            <AxisX />
+            <AxisY />
+          </Html>
+          <ScaledSvg>
+            <Column />
+          </ScaledSvg>
         {:else if type === 'linearea'}
           <Html>
             <AxisX />
