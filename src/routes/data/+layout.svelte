@@ -24,7 +24,8 @@
            (filterAge ? +d["Age"] < filterAge.max : true) &&
            (filterStaff ? +d["Total Staff Size"] >= filterStaff.min : true) &&
            (filterStaff ? +d["Total Staff Size"] < filterStaff.max : true) &&
-           (filterFocus ? d["Primary Editorial Focus"] === filterFocus : true);
+           (filterFocus ? d["Primary Editorial Focus"] === filterFocus : true) &&
+           (filterPriority ? d["Coverage Priority"] === filterPriority : true);
   });
 
   const filteredDataStore = writable(filteredData);
@@ -54,11 +55,18 @@
     {label: "General Coverage", value: "Prime_Gen"}
   ];
 
+  const filterOptionsPriority = [
+    {label: "News", value: "Cover_News"},
+    {label: "Investigative", value: "Cover_Invest"},
+    {label: "Analysis", value: "Cover_Analysis"}
+  ];
+
   // Filters placeholders.
   let filterRevenueTier;
   let filterAge;
   let filterStaff;
   let filterFocus;
+  let filterPriority;
   let filterPubMedia = false;
 
   function handleFilterRevenue(event) {
@@ -94,6 +102,15 @@
       filterFocus = filterOptionsFocus.filter(option => option.value === selection)[0].value;
     } else {
       filterFocus = null;
+    }
+  }
+
+  function handleFilterPriority(event) {
+    let selection = event.target.options[event.target.selectedIndex].value;
+    if (selection !== "all") {
+      filterPriority = filterOptionsPriority.filter(option => option.value === selection)[0].value;
+    } else {
+      filterPriority = null;
     }
   }
 </script>
@@ -139,6 +156,16 @@
           <select on:change={handleFilterFocus} class="select">
             <option value="All">All</option>
             {#each filterOptionsFocus as option}
+              <option value={option.value}>{option.label}</option>
+            {/each}
+          </select>
+        </div>
+
+        <div class="data__filter-priority">
+          <h3>Coverage Priority</h3>
+          <select on:change={handleFilterPriority} class="select">
+            <option value="All">All</option>
+            {#each filterOptionsPriority as option}
               <option value={option.value}>{option.label}</option>
             {/each}
           </select>

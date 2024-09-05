@@ -18,9 +18,7 @@ main > * {
 }
 
 .data__filters {
-  /* Display this as a grid with four columns */
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 20px;
-  
 }
