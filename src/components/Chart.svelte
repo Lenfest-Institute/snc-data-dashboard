@@ -15,9 +15,9 @@
   export let x;
   export let y;
 
-  $: xScale = d3.scaleBand().paddingInner(0.028).round(true);
-  $: xDomain = d3.extent(data, d => +d[x]);
-  $: yDomain = d3.extent(data, d => +d[y]);
+  export let xScale = d3.scaleBand().paddingInner(0.25).round(true);
+  export let xDomain = d3.extent(data, d => +d[x]);
+  export let yDomain = d3.extent(data, d => +d[y]);
   $: padding = { top: 8, right: 10, bottom: 20, left: 5 + (yDomain && yDomain.length > 0 ? (Math.round(yDomain[1]).toString().length * 7) : 0) };
 
   const r = 4.5;
@@ -38,10 +38,10 @@
         {padding}
         {x}
         {y}
+        {xScale}
         {xDomain}
         {yDomain}
         {data}
-        xScale={type === 'column' ? xScale : null}
       >
         {#if type === 'scatter'}
           <Html>

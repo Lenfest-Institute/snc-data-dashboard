@@ -8,14 +8,14 @@
 	const user = getContext('user');
 
     // Count occurrences of each 'Revenue Tier'
-    // $: revenueTierData = d3.rollups(
-    //     $filteredData,
-    //     v => v.length,  // function to count occurrences
-    //     d => d['Revenue Tier']  // group by 'revenueTier'
-    // ).map(([key, value]) => ({
-    //     revenueTier: key,
-    //     count: value
-    // }));
+    $: revenueTierData = d3.rollups(
+        $filteredData,
+        v => v.length,  // function to count occurrences
+        d => d['Revenue Tier']  // group by 'revenueTier'
+    ).map(([key, value]) => ({
+        revenueTier: key,
+        count: value
+    }));
 
     // $: console.log(revenueTierData);
 </script>
@@ -26,10 +26,10 @@
     title={'Revenue'}
     x={'revenueTier'}
     y={'count'}
-    xScale={d3.scaleBand().paddingInner(0.028).round(true)}
-    xDomain={['blue', 'red']}
+    xScale={d3.scaleBand().paddingInner(0.1).round(true)}
+    xDomain={[...new Set(revenueTierData.map(d => d.revenueTier))]}
     yDomain={[0, null]}
-    data={[{revenueTier: 'blue', count: 30}, {revenueTier: 'red', 'count': 60}]}
+    data={revenueTierData}
   />
   <!-- <Chart
     type={'scatter'}

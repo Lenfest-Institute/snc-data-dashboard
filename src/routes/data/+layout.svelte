@@ -154,7 +154,7 @@
         <div class="data__filter-focus">
           <h3>Coverage Focus</h3>
           <select on:change={handleFilterFocus} class="select">
-            <option value="All">All</option>
+            <option value="all">All</option>
             {#each filterOptionsFocus as option}
               <option value={option.value}>{option.label}</option>
             {/each}
@@ -164,7 +164,7 @@
         <div class="data__filter-priority">
           <h3>Coverage Priority</h3>
           <select on:change={handleFilterPriority} class="select">
-            <option value="All">All</option>
+            <option value="all">All</option>
             {#each filterOptionsPriority as option}
               <option value={option.value}>{option.label}</option>
             {/each}
