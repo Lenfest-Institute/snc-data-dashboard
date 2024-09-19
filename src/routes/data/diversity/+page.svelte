@@ -25,7 +25,7 @@
 		{ label: '...not an official focus', value: 0 }
 	]);
 
-	$: console.log(focusData);
+	
 </script>
 
 <div class="charts__wrapper charts__diversity">
