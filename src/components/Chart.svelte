@@ -6,6 +6,7 @@
   import Area from './Area.svelte';
   import Scatter from './Scatter.svelte';
   import Column from './Column.svelte';
+  import StackBar from './StackBar.svelte';
   import AxisX from './AxisX.svelte';
   import AxisY from './AxisY.svelte';
 
@@ -14,11 +15,17 @@
   export let type;
   export let x;
   export let y;
+  export let z;
+  export let width;
 
   export let xScale;
   export let xDomain;
   export let yDomain = d3.extent(data, d => +d[y]);
   $: padding = { top: 8, right: 10, bottom: 20, left: 5 + (yDomain && yDomain.length > 0 ? (Math.round(yDomain[1]).toString().length * 7) : 0) };
+  export let zScale;
+  export let zDomain;
+  export let zRange;
+  export let flatData;
 
   const r = 4.5;
   const fill = '#ed7014';
@@ -32,15 +39,19 @@
       {title}
     </h2>
     <div class="charts__chart">
-      <LayerCake
+      <LayerCake let:width
         ssr
         percentRange
-        {padding}
+        padding={type === 'stackbar' ? { top: 0, right: 0, bottom: 20, left: 0 } : padding}
         {x}
         {y}
+        {z}
         {xScale}
         {xDomain}
         {yDomain}
+        {zScale}
+        {zDomain}
+        {zRange}
         {data}
       >
         {#if type === 'scatter'}
@@ -56,6 +67,14 @@
           </Html>
           <ScaledSvg>
             <Column />
+          </ScaledSvg>
+        {:else if type === 'stackbar'}
+          <Html>
+            <AxisX baseline snapLabels />
+            <AxisY gridlines={false} />
+          </Html>
+          <ScaledSvg>
+            <StackBar width={width} />
           </ScaledSvg>
         {:else if type === 'linearea'}
           <Html>

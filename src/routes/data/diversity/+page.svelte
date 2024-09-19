@@ -25,10 +25,50 @@
 		{ label: '...not an official focus', value: 0 }
 	]);
 
-	
+	 $: execBIPOCData = Array.from(
+		d3.rollup(
+  		$filteredData,
+			v => v.length,
+			d => d["Is BIPOC Led?"]
+		),
+		([key, value]) => ({
+			group: key,
+			count: value
+		})
+	)
+  .filter(item => item.group === 'YES' || item.group === 'NO')
+  .sort((a, b) => (a.group === 'YES' ? -1 : 1));
+
+	 $: execWomenData = Array.from(
+		d3.rollup(
+  		$filteredData,
+			v => v.length,
+			d => d["Is Women Led?"]
+		),
+		([key, value]) => ({
+			group: key,
+			count: value
+		})
+	)
+  .filter(item => item.group === 'YES' || item.group === 'NO')
+  .sort((a, b) => (a.group === 'YES' ? -1 : 1));
+
+
 </script>
 
 <div class="charts__wrapper charts__diversity">
+	<Chart
+    type={'stackbar'}
+    title={'Proportion of POC leaders'}
+    padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
+    data={execBIPOCData}
+	/>
+	<Chart
+    type={'stackbar'}
+    title={'Proportion of Women leaders'}
+    padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
+    data={execWomenData}
+	/>
 	<Chart
 		type={'column'}
 		title={'Is serving communities of color...'}
