@@ -4,6 +4,8 @@
 
   $: filteredData = getContext('filteredData');
 	const user = getContext('user');
+
+  
 </script>
 
 <div class="charts__wrapper charts__coverage">

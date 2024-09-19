@@ -1,11 +1,10 @@
 <script>
-      import * as d3 from 'd3';
+    import * as d3 from 'd3';
 
-  import { getContext } from 'svelte';
-  import Chart from '../../../components/Chart.svelte';
+    import { getContext } from 'svelte';
+    import Chart from '../../../components/Chart.svelte';
 
-  $: filteredData = getContext('filteredData');
-	const user = getContext('user');
+    $: filteredData = getContext('filteredData');
 
     // Count occurrences of each 'Revenue Tier'
     $: revenueTierData = d3.rollups(
@@ -17,13 +16,16 @@
         count: value
     }));
 
-    // $: console.log(revenueTierData);
+    $: console.log($filteredData.filter(d => {
+      const processed = parseFloat(d["Foundation Revenue_VSQ2-1"].replace(/[^0-9.-]+/g, ""));
+      return !isNaN(processed) && processed > 0;
+    }));
 </script>
 
 <div class="charts__wrapper charts__revenue">
   <Chart
     type={'column'}
-    title={'Revenue'}
+    title={'Annual Revenue'}
     x={'revenueTier'}
     y={'count'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
@@ -33,15 +35,12 @@
   />
   <Chart
     type={'scatter'}
-    title={'Monthly Stories by Launch Year'}
-    x={'Launch Year'}
-    y={'Stories Produced per Month'}
-    xDomain={d3.extent($filteredData, d => +d['Launch Year'])}
+    title={'Monthly Stories vs. Total AMUs'}
+    x={'Foundation Revenue_VSQ2-1'}
+    y={'Web Traffic (AMUs)'}
     data={$filteredData.filter(d => {
-      const stories = parseInt(d["Stories Produced per Month"], 10);
-      return stories > 0;
-    }).sort((a, b) => {
-        return a["Launch Year"] - b["Launch Year"];
+      const processed = parseFloat(d["Foundation Revenue_VSQ2-1"].replace(/[^0-9.-]+/g, ""));
+      return !isNaN(processed) && processed > 0;
     })}
   />
 </div>
