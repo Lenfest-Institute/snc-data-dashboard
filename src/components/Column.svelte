@@ -27,8 +27,6 @@
   $: columnHeight = d => {
     return $yRange[0] - $yGet(d);
   };
-
-  $: console.log($data);
 </script>
 
 <g class="column-group">
@@ -37,7 +35,6 @@
     {@const xGot = $xGet(d)}
     {@const xPos = Array.isArray(xGot) ? xGot[0] : xGot}
     {@const colWidth = $xScale.bandwidth ? $xScale.bandwidth() : columnWidth(d)}
-    {console.log($x(d))}
     {@const yValue = $y(d)}
     <rect
       class="group-rect"

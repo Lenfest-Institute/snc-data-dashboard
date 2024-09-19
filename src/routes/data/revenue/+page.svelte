@@ -1,9 +1,7 @@
 <script>
     import * as d3 from 'd3';
-
     import { getContext } from 'svelte';
     import Chart from '../../../components/Chart.svelte';
-
     $: filteredData = getContext('filteredData');
 
     // Count occurrences of each 'Revenue Tier'
@@ -14,11 +12,6 @@
     ).map(([key, value]) => ({
         revenueTier: key,
         count: value
-    }));
-
-    $: console.log($filteredData.filter(d => {
-      const processed = parseFloat(d["Foundation Revenue_VSQ2-1"].replace(/[^0-9.-]+/g, ""));
-      return !isNaN(processed) && processed > 0;
     }));
 </script>
 
