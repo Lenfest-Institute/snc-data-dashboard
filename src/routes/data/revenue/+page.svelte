@@ -35,7 +35,7 @@
   />
   <Chart
     type={'scatter'}
-    title={'Monthly Stories vs. Total AMUs'}
+    title={'Foundation Revenue vs. Donor Revenue'}
     x={'Foundation Revenue_VSQ2-1'}
     y={'Web Traffic (AMUs)'}
     data={$filteredData.filter(d => {
