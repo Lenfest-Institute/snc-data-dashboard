@@ -69,7 +69,7 @@
 				</Html>
 			{:else if type === 'column'}
 				<Html>
-					<AxisX />
+					<AxisX type={type} />
 					<AxisY />
 				</Html>
 				<ScaledSvg>

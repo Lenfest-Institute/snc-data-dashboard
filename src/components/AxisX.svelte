@@ -42,6 +42,9 @@
   /** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
   export let units = $percentRange === true ? '%' : 'px';
 
+  /** @type {String} type - The type of chart. */
+  export let type;
+
   $: tickLen = tickMarks === true ? tickMarkLength ?? 6 : 0;
 
   $: isBandwidth = typeof $xScale.bandwidth === 'function';
@@ -55,6 +58,27 @@
         : $xScale.ticks(ticks);
 
   $: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
+
+  // Function to split the formatted tick by lines
+  function splitFormat(tick) {
+    const formattedTick = format(tick);
+    const parts = [];
+    let start = 0;
+    while (start < formattedTick.length) {
+      let end = start + 7;
+      if (end < formattedTick.length) {
+        const spaceIndex = formattedTick.indexOf(' ', end);
+        if (spaceIndex !== -1) {
+          end = spaceIndex;
+        } else {
+          end = formattedTick.length;
+        }
+      }
+      parts.push(formattedTick.slice(start, end).trim());
+      start = end + 1;
+    }
+    return parts;
+  }
 </script>
 
 <div class="axis x-axis" class:snapLabels>
@@ -81,13 +105,29 @@
       style:left="{tickValUnits + halfBand}{units}"
       style="top:calc(100% + {tickGutter}px);"
     >
-      <div
-        class="text"
-        style:top="{tickLen}px"
-        style:transform="translate(calc(-50% + {dx}px), {dy}px)"
-      >
-        {format(tick)}
-      </div>
+      {#if type === 'column'}
+        <div
+          class="text"
+          style:top="{tickLen}px"
+          style:transform="translate(calc(-50% + {dx}px), {dy}px)"
+          style:text-align="center"
+        >
+          {#each splitFormat(tick) as part, index}
+            {part}
+            {#if index < splitFormat(tick).length - 1}
+              <br>
+            {/if}
+          {/each}
+        </div>
+      {:else}
+        <div
+          class="text"
+          style:top="{tickLen}px"
+          style:transform="translate(calc(-50% + {dx}px), {dy}px)"
+        >
+          {format(tick)}
+        </div>
+      {/if}
     </div>
   {/each}
 </div>
