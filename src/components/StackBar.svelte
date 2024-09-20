@@ -4,6 +4,8 @@
 
   const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
+  export let labels;
+
   $: stackedData = $data.reduce((acc, item) => {
     const cumulativeCount = acc.length > 0 ? acc[acc.length - 1].offset + acc[acc.length - 1].count : 0;
     acc.push({ ...item, offset: cumulativeCount });
@@ -18,6 +20,10 @@
   const colorScale = d3.scaleOrdinal()
     .domain(['YES', 'NO'])
     .range(['orange', 'grey']); // Define `width` based on your chart size
+
+  const labelScale = d3.scaleOrdinal()
+    .domain(['YES', 'NO'])
+    .range(labels); // Define `width` based on your chart size
 
   // // Create a scale for the y-axis based on the counts
   // const yScale = d3.scaleLinear()
@@ -36,9 +42,15 @@
       data-id={d.group}
       x={xScale(d.offset)}
       y={0}
-      height={25}
+      height={10}
       width={xScale(d.count)}
       fill={colorScale(d.group)}
     ></rect>
   {/each}
 </g>
+
+<style>
+  text {
+    font-size: 20%;
+  }
+</style>

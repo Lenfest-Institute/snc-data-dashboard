@@ -26,6 +26,7 @@
   export let zDomain;
   export let zRange;
   export let flatData;
+  export let labels;
 
   const r = 4.5;
   const fill = '#ed7014';
@@ -71,10 +72,9 @@
         {:else if type === 'stackbar'}
           <Html>
             <AxisX baseline snapLabels />
-            <AxisY gridlines={false} />
           </Html>
-          <ScaledSvg>
-            <StackBar width={width} />
+          <ScaledSvg  fixedAspectRatio={16 / 9}>
+            <StackBar width={width} labels={labels} />
           </ScaledSvg>
         {:else if type === 'linearea'}
           <Html>

@@ -55,6 +55,8 @@
         : $xScale.ticks(ticks);
 
   $: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
+
+  $: console.log($xScale);
 </script>
 
 <div class="axis x-axis" class:snapLabels>
