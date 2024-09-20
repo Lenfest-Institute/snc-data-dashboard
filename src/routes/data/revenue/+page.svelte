@@ -2,15 +2,15 @@
     import * as d3 from 'd3';
     import { getContext } from 'svelte';
     import Chart from '../../../components/Chart.svelte';
+    import { convertToNumber } from '$lib/index';
     $: filteredData = getContext('filteredData');
 
-    // Count occurrences of each 'Revenue Tier'
     $: revenueTierData = d3.rollups(
         $filteredData,
-        v => v.length,  // function to count occurrences
-        d => d['Revenue Tier']  // group by 'revenueTier'
+        v => v.length,
+        d => d['Revenue Tier']
     ).map(([key, value]) => ({
-        revenueTier: key,
+        group: key,
         count: value
     }));
 </script>
@@ -19,10 +19,10 @@
   <Chart
     type={'column'}
     title={'Annual Revenue'}
-    x={'revenueTier'}
+    x={'group'}
     y={'count'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
-    xDomain={[...new Set(revenueTierData.map(d => d.revenueTier))]}
+    xDomain={[...new Set(revenueTierData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
     data={revenueTierData}
   />
