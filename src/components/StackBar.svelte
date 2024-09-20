@@ -36,7 +36,7 @@
       data-id={d.group}
       x={xScale(d.offset)}
       y={0}
-      height={75}
+      height={25}
       width={xScale(d.count)}
       fill={colorScale(d.group)}
     ></rect>
