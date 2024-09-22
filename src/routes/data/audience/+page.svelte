@@ -5,18 +5,30 @@
     import { convertToNumber } from '$lib/index';
 	$: filteredData = getContext('filteredData');
 
-    $: targetAudienceData = d3.rollups(
-        $filteredData,
-        v => v.length,  // function to count occurrences
-        d => d['Target Audience Size']  // group by 'revenueTier'
-    ).map(([key, value]) => ({
-        group: key,
-        count: value
-    }));
+  $: targetAudienceData = d3.rollups(
+      $filteredData,
+      v => v.length,  // function to count occurrences
+      d => d['Target Audience Size']  // group by 'revenueTier'
+  ).map(([key, value]) => ({
+      group: key,
+      count: value
+  }));
+
+  function formatDataForBeeswarm(variable) {
+    return $filteredData.map(d => {
+      return {
+        color: d['Is PubMedia?'],
+        count: +d[variable]
+      };
+    });
+  }
+
+  $: formattedDataWeb = formatDataForBeeswarm('Web Traffic (AMUs)');
+  $: formattedDataEmail = formatDataForBeeswarm('Email Subscriber Size');
 </script>
 
 <div class="charts__wrapper charts__audience">
-  <Chart
+  <!-- <Chart
     type={'column'}
     title={'Target Audience Size'}
     x={'group'}
@@ -25,6 +37,29 @@
     xDomain={[...new Set(targetAudienceData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
     data={targetAudienceData}
+  /> -->
+  <Chart
+    type={'beeswarm'}
+    title={'Web Traffic (AMUs)'}
+    x={'count'}
+    z={'color'}
+    data={$filteredData.map(d => {
+      return {
+        color: d['Is PubMedia?'],
+        count: +d['Web Traffic (AMUs)']
+      };
+    })}
   />
-
+  <Chart
+    type={'beeswarm'}
+    title={'Email Subscriber Size'}
+    x={'count'}
+    z={'color'}
+    data={$filteredData.map(d => {
+      return {
+        color: d['Is PubMedia?'],
+        count: +d['Email Subscriber Size']
+      };
+    })}
+  />
 </div>

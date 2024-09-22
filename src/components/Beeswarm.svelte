@@ -59,9 +59,9 @@
 <g class="bee-group">
   {#each simulation.nodes() as node}
     <circle fill={$zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
-      {#if getTitle}
+      <!-- {#if getTitle}
         <title>{getTitle(node)}</title>
-      {/if}
+      {/if} -->
     </circle>
   {/each}
 </g>

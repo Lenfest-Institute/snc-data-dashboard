@@ -1,10 +1,11 @@
 <script>
 	import * as d3 from 'd3';
-	import { LayerCake, ScaledSvg, Html } from 'layercake';
+	import { LayerCake, ScaledSvg, Svg, Html } from 'layercake';
 
 	import Line from './Line.svelte';
 	import Area from './Area.svelte';
 	import Scatter from './Scatter.svelte';
+	import Beeswarm from './Beeswarm.svelte';
 	import Column from './Column.svelte';
 	import StackBar from './StackBar.svelte';
 	import AxisX from './AxisX.svelte';
@@ -36,7 +37,7 @@
 	const r = 4.5;
 	const fill = '#ed7014';
 	const stroke = '#d16002';
-	const strokeWidth = 1.5;
+	const strokeWidth = 0.25;
 </script>
 
 <div class="charts__chart-container">
@@ -61,7 +62,18 @@
 			{zRange}
 			{data}
 		>
-			{#if type === 'scatter'}
+			{#if type === 'beeswarm'}
+				<Html>
+					<AxisX gridlines={false} />
+					<ScaledSvg fixedAspectRatio={16/9}>
+						<Beeswarm
+							{r}
+							{strokeWidth}
+							getTitle={'test'}
+						/>
+					</ScaledSvg>
+				</Html>
+			{:else if type === 'scatter'}
 				<Html>
 					<AxisX />
 					<AxisY />
