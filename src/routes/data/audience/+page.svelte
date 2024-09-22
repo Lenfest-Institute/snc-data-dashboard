@@ -15,8 +15,9 @@
   }));
 
   function formatDataForBeeswarm(variable) {
-    return $filteredData.map(d => {
+    return $filteredData.map((d, i) => {
       return {
+        index: i,
         color: d['Is PubMedia?'],
         count: +d[variable]
       };
@@ -61,5 +62,29 @@
         count: +d['Email Subscriber Size']
       };
     })}
-  />
+  <!-- />
+  <!-- <Chart
+    type={'scatter'}
+    title={'Web Traffic (AMUs)'}
+    x={'count'}
+    y={'index'}
+    data={$filteredData.map(d => {
+      return {
+        color: d['Is PubMedia?'],
+        count: +d['Web Traffic (AMUs)']
+      };
+    })}
+  /> -->
+  <Chart
+    type={'scatter'}
+    title={'Email Subscriber Size'}
+    x={'count'}
+    y={'index'}
+    data={$filteredData.map(d => {
+      return {
+        color: d['Is PubMedia?'],
+        count: +d['Email Subscriber Size']
+      };
+    })}
+  /> -->
 </div>

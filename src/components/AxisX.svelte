@@ -57,6 +57,8 @@
         ? ticks($xScale.ticks())
         : $xScale.ticks(ticks);
 
+  $: tickVals.splice(0, 0, 0);
+
   $: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 
   // Function to split the formatted tick by lines

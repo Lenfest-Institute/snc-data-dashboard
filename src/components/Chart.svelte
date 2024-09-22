@@ -64,14 +64,8 @@
 		>
 			{#if type === 'beeswarm'}
 				<Html>
-					<AxisX gridlines={false} />
-					<ScaledSvg fixedAspectRatio={16/9}>
-						<Beeswarm
-							{r}
-							{strokeWidth}
-							getTitle={'test'}
-						/>
-					</ScaledSvg>
+					<AxisX snapLabels />
+					<Beeswarm {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'scatter'}
 				<Html>
