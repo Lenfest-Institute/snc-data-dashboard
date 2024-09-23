@@ -1,4 +1,6 @@
 <script>
+	export const prerender = true;
+
 	import '../app.css';
 	import '../styles/app.scss';
 </script>
