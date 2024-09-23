@@ -7,7 +7,7 @@
 	import Scatter from './Scatter.svelte';
 	import Beeswarm from './Beeswarm.svelte';
 	import Column from './Column.svelte';
-	import StackBar from './StackBar.svelte';
+	import ProportionBar from './ProportionBar.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
@@ -50,7 +50,7 @@
 			debug={false}
 			ssr
 			percentRange
-			padding={type === 'stackbar' ? { top: 0, right: 0, bottom: 20, left: 0 } : padding}
+			padding={type === 'proportionbar' ? { top: 0, right: 0, bottom: 20, left: 0 } : padding}
 			{x}
 			{y}
 			{z}
@@ -81,12 +81,12 @@
 				<ScaledSvg>
 					<Column />
 				</ScaledSvg>
-			{:else if type === 'stackbar'}
+			{:else if type === 'proportionbar'}
 				<Html>
 					<AxisX baseline snapLabels />
 				</Html>
 				<ScaledSvg fixedAspectRatio={16 / 9}>
-					<StackBar {width} {labels} />
+					<ProportionBar {width} {labels} />
 				</ScaledSvg>
 			{:else if type === 'linearea'}
 				<Html>

@@ -58,14 +58,14 @@
 
 <div class="charts__wrapper charts__diversity">
 	<Chart
-    type={'stackbar'}
+    type={'proportionbar'}
     title={'Proportion of POC leaders'}
     padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
 		labels={['POC-Led', 'Not POC-Led']}
     data={execBIPOCData}
 	/>
 	<Chart
-    type={'stackbar'}
+    type={'proportionbar'}
     title={'Proportion of Women leaders'}
     padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
 		labels={['Women-Led', 'Not Women-Led']}
