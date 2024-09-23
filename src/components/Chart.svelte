@@ -25,11 +25,12 @@
 
 	export let yScale;
 	export let yDomain = d3.extent(data, (d) => +d[y]);
+	export let paddingCustom;
 
-	$: padding = {
-		top: 8,
+	$: padding = paddingCustom || {
+		top: 0,
 		right: 10,
-		bottom: 20,
+		bottom: 10,
 		left: 5 + (yDomain && yDomain.length > 0 ? Math.round(yDomain[1]).toString().length * 7 : 0)
 	};
 	export let zScale;
@@ -39,8 +40,8 @@
 	export let labels;
 
 	const r = 4.5;
-	const fill = '#ed7014';
-	const stroke = '#d16002';
+	const fill = '#f95346';
+	const stroke = '#f95346';
 	const strokeWidth = 0.25;
 </script>
 

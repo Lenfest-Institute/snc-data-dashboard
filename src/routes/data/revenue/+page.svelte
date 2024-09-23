@@ -19,21 +19,12 @@
   <Chart
     type={'column'}
     title={'Annual Revenue'}
+    paddingCustom={{ top: 0, right: 10, bottom: 40, left: 10 }}
     x={'group'}
     y={'count'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
     xDomain={[...new Set(revenueTierData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
     data={revenueTierData}
-  />
-  <Chart
-    type={'scatter'}
-    title={'Foundation Revenue vs. Donor Revenue'}
-    x={'Foundation Revenue_VSQ2-1'}
-    y={'Web Traffic (AMUs)'}
-    data={$filteredData.filter(d => {
-      const processed = parseFloat(d["Foundation Revenue_VSQ2-1"].replace(/[^0-9.-]+/g, ""));
-      return !isNaN(processed) && processed > 0;
-    })}
   />
 </div>

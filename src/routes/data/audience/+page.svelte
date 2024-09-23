@@ -169,7 +169,7 @@
   <Chart
     type={'barstacked'}
     title={'Social Platforms Outlook'}
-    paddingCustom={{ top: 0, right: 35, bottom: 20, left: 60 }}
+    paddingCustom={{ top: 0, right: 10, bottom: 10, left: 60 }}
     y={d => d.data?.[xKey]}
     x={yKey}
     z={zKey}

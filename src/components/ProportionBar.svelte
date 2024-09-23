@@ -19,7 +19,7 @@
 
   const colorScale = d3.scaleOrdinal()
     .domain(['YES', 'NO'])
-    .range(['orange', 'grey']); // Define `width` based on your chart size
+    .range(['#f95346', '#ddd']); // Define `width` based on your chart size
 
   const labelScale = d3.scaleOrdinal()
     .domain(['YES', 'NO'])
