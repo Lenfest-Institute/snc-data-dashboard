@@ -6,6 +6,7 @@
 	import Area from './Area.svelte';
 	import Scatter from './Scatter.svelte';
 	import Beeswarm from './Beeswarm.svelte';
+	import BarStacked from './BarStacked.svelte';
 	import Column from './Column.svelte';
 	import ProportionBar from './ProportionBar.svelte';
 	import AxisX from './AxisX.svelte';
@@ -21,7 +22,10 @@
 
 	export let xScale;
 	export let xDomain;
+
+	export let yScale;
 	export let yDomain = d3.extent(data, (d) => +d[y]);
+
 	$: padding = {
 		top: 8,
 		right: 10,
@@ -55,11 +59,13 @@
 			{y}
 			{z}
 			{xScale}
+			{yScale}
 			{xDomain}
 			{yDomain}
 			{zScale}
 			{zDomain}
 			{zRange}
+			{flatData}
 			{data}
 		>
 			{#if type === 'beeswarm'}
@@ -88,6 +94,14 @@
 				<ScaledSvg fixedAspectRatio={16 / 9}>
 					<ProportionBar {width} {labels} />
 				</ScaledSvg>
+			{:else if type === 'barstacked'}
+    <Html>
+      <AxisX baseline snapLabels />
+      <AxisY gridlines={false} />
+    </Html>
+    <ScaledSvg>
+      <BarStacked />
+    </ScaledSvg>
 			{:else if type === 'linearea'}
 				<Html>
 					<AxisX />
