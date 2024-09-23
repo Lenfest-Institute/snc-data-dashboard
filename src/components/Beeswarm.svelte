@@ -25,9 +25,6 @@
   /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */
   export let xStrength = 0.99;
 
-  /** @type {Number} [yStrength=0.075] - The value passed into the `.strength` method on `forceY`. See [the documentation](https://github.com/d3/d3-force#y_strength). */
-  export let yStrength = 0.99;
-
   $: simulation = forceSimulation(nodes)
     .force(
       'x',
@@ -35,12 +32,6 @@
         .x(d => $xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0))
         .strength(xStrength)
     )
-    // .force(
-    //   'y',
-    //   forceY()
-    //     .y($height / 2)
-    //     .strength(yStrength)
-    // )
     .force('collide', forceCollide(r))
     .stop();
 
@@ -56,20 +47,13 @@
   }
 </script>
 
-<!-- <g class="bee-group">
-  {#each simulation.nodes() as node}
-    <circle fill={$zGet(node)} {stroke} stroke-width={strokeWidth} cx={node.x} cy={node.y} {r}>
-    </circle>
-  {/each}
-</g> -->
-
 <div class="bee-container">
   {#each simulation.nodes() as node}
     <div
       class="circle"
       style="
-        left: {node.x - r}%;
-        top: {node.y - r + ($height / 2)}px;
+        left: {node.x}%;
+        top: {node.y + ($height / 2)}px;
         width: {r * 2}px;
         height: {r * 2}px;
         background-color: {fill};

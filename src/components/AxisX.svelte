@@ -45,6 +45,9 @@
   /** @type {String} type - The type of chart. */
   export let type;
 
+  /** @type {Number} type - Optional manual start. */
+  export let setStartTick;
+
   $: tickLen = tickMarks === true ? tickMarkLength ?? 6 : 0;
 
   $: isBandwidth = typeof $xScale.bandwidth === 'function';
@@ -57,7 +60,9 @@
         ? ticks($xScale.ticks())
         : $xScale.ticks(ticks);
 
-  $: tickVals.splice(0, 0, 0);
+  $: if (tickVals.length && tickVals[0] !== 0) {
+    tickVals.splice(0, 0, 0);
+  }
 
   $: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 

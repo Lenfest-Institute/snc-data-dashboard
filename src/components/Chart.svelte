@@ -47,7 +47,7 @@
 	<div class="charts__chart">
 		<LayerCake
 			let:width
-			debug
+			debug={false}
 			ssr
 			percentRange
 			padding={type === 'stackbar' ? { top: 0, right: 0, bottom: 20, left: 0 } : padding}
@@ -64,7 +64,7 @@
 		>
 			{#if type === 'beeswarm'}
 				<Html>
-					<AxisX snapLabels />
+					<AxisX snapLabels ticks={5} />
 					<Beeswarm {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'scatter'}

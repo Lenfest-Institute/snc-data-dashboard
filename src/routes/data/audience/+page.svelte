@@ -13,23 +13,10 @@
       group: key,
       count: value
   }));
-
-  function formatDataForBeeswarm(variable) {
-    return $filteredData.map((d, i) => {
-      return {
-        index: i,
-        color: d['Is PubMedia?'],
-        count: +d[variable]
-      };
-    });
-  }
-
-  $: formattedDataWeb = formatDataForBeeswarm('Web Traffic (AMUs)');
-  $: formattedDataEmail = formatDataForBeeswarm('Email Subscriber Size');
 </script>
 
 <div class="charts__wrapper charts__audience">
-  <!-- <Chart
+  <Chart
     type={'column'}
     title={'Target Audience Size'}
     x={'group'}
@@ -38,7 +25,8 @@
     xDomain={[...new Set(targetAudienceData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
     data={targetAudienceData}
-  /> -->
+  />
+  <div></div>
   <Chart
     type={'beeswarm'}
     title={'Web Traffic (AMUs)'}
@@ -56,35 +44,50 @@
     title={'Email Subscriber Size'}
     x={'count'}
     z={'color'}
-    data={$filteredData.map(d => {
-      return {
-        color: d['Is PubMedia?'],
-        count: +d['Email Subscriber Size']
-      };
-    })}
-  <!-- />
-  <!-- <Chart
-    type={'scatter'}
-    title={'Web Traffic (AMUs)'}
-    x={'count'}
-    y={'index'}
-    data={$filteredData.map(d => {
-      return {
-        color: d['Is PubMedia?'],
-        count: +d['Web Traffic (AMUs)']
-      };
-    })}
-  /> -->
+    data={$filteredData
+      .filter(d => {
+        const value = d['Pct of Budget dedicated to Audience Development_VSQ2-5B'];
+        return value !== '';
+      }).map(d => {
+        return {
+          color: d['Is PubMedia?'],
+          count: +d['Email Subscriber Size']
+        }
+      })
+    }
+  />
   <Chart
-    type={'scatter'}
-    title={'Email Subscriber Size'}
+    type={'beeswarm'}
+    title={'% of Budget dedicated to Marketing to help grow Audience_V27A'}
     x={'count'}
-    y={'index'}
-    data={$filteredData.map(d => {
-      return {
-        color: d['Is PubMedia?'],
-        count: +d['Email Subscriber Size']
-      };
+    z={'color'}
+    data={$filteredData
+      .filter(d => {
+        const value = d['% of Budget dedicated to Marketing to help grow Audience_V27A'];
+        return value !== '';
+      })
+      .map(d => {
+        return {
+          color: d['Is PubMedia?'],
+          count: +d['% of Budget dedicated to Marketing to help grow Audience_V27A']
+        };
     })}
-  /> -->
+  />
+  <Chart
+    type={'beeswarm'}
+    title={'% of Budget dedicated to Audience Development_VSQ2-5B'}
+    x={'count'}
+    z={'color'}
+    data={$filteredData
+      .filter(d => {
+        const value = d['% of Budget dedicated to Audience Development_VSQ2-5B'];
+        return value !== '';
+      })
+      .map(d => {
+        return {
+          color: d['Is PubMedia?'],
+          count: +d['% of Budget dedicated to Audience Development_VSQ2-5B']
+        };
+    })}
+  />
 </div>
