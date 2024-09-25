@@ -3,7 +3,7 @@ import { resolve } from 'path';
 
 export const load = async () => {
   // Resolve the path to the JSON file
-  const filePath = resolve('static/data/filteredData.json');
+  const filePath = resolve('data/filteredData.json');
 
   // Check if the file exists
   if (!existsSync(filePath)) {
