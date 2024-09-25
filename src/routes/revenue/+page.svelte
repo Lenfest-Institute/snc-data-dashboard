@@ -1,7 +1,7 @@
 <script>
     import * as d3 from 'd3';
     import { getContext } from 'svelte';
-    import Chart from '../../../components/Chart.svelte';
+    import Chart from '../../components/Chart.svelte';
     import { convertToNumber } from '$lib/index';
     $: filteredData = getContext('filteredData');
 

@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from 'svelte';
-	import Chart from '../../../components/Chart.svelte';
+	import Chart from '../../components/Chart.svelte';
 
 	$: filteredData = getContext('filteredData');
 	const user = getContext('user');
