@@ -53,7 +53,7 @@ async function load() {
   });
 
   // Write the filtered data to a JSON file
-  const outputFilePath = join(process.cwd(), 'src/data', 'filteredData.json');
+  const outputFilePath = join(process.cwd(), 'static/data', 'filteredData.json');
   writeFileSync(outputFilePath, JSON.stringify(rawdata, null, 2));
 
   console.log('Filtered data has been written to filteredData.json');
