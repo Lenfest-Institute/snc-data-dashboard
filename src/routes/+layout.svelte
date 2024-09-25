@@ -20,16 +20,18 @@
 
   // Get the data from the parent layout and set up the filterable store.
   export let data;
-  export const rawdata = data.props.rawdata;
-  $: filteredData = rawdata.filter(d => {
-    return (filterRevenueTier ? d["Revenue Tier"] === filterRevenueTier : true) &&
-           (filterAge ? +d["Age"] >= filterAge.min : true) &&
-           (filterAge ? +d["Age"] < filterAge.max : true) &&
-           (filterStaff ? +d["Total Staff Size"] >= filterStaff.min : true) &&
-           (filterStaff ? +d["Total Staff Size"] < filterStaff.max : true) &&
-           (filterFocus ? d["Primary Editorial Focus"] === filterFocus : true) &&
-           (filterPriority ? d["Coverage Priority"] === filterPriority : true);
-  });
+  export const rawdata = data?.props?.rawdata || [];
+  $: filteredData = rawdata.length
+    ? rawdata.filter(d => {
+        return (filterRevenueTier ? d["Revenue Tier"] === filterRevenueTier : true) &&
+               (filterAge ? +d["Age"] >= filterAge.min : true) &&
+               (filterAge ? +d["Age"] < filterAge.max : true) &&
+               (filterStaff ? +d["Total Staff Size"] >= filterStaff.min : true) &&
+               (filterStaff ? +d["Total Staff Size"] < filterStaff.max : true) &&
+               (filterFocus ? d["Primary Editorial Focus"] === filterFocus : true) &&
+               (filterPriority ? d["Coverage Priority"] === filterPriority : true);
+      })
+    : [];
 
   const filteredDataStore = writable(filteredData);
   $: filteredDataStore.set(filteredData);
