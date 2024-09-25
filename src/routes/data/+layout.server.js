@@ -1,50 +1,12 @@
-// src/routes/data-revenue/+page.js
-
-import * as d3 from 'd3';
 import { readFileSync } from 'fs';
-import { join } from 'path';
+import { resolve } from 'path';
 
-const ignoreColumns = [
-  "NEON ID",
-  "Org Name",
-  "Primary Contact First name",
-  "Last name",
-  "Title",
-  "Email",
-  "Website",
-  "Explain how you used AI Technology?",
-  "Primary Focus Audience Group: Other/specify",
-  "Zip Code",
-  "V19B Desc_Audience",
-  "V32D Republication_Terms",
-  "VSQ2-2A Rev_OtherEarnText"
-];
+export const load = async () => {
+  // Resolve the path to the JSON file
+  const filePath = resolve('src/data/filteredData.json');
 
-export async function load() {
-  // Determine the path to the CSV file
-  const filePath = join(process.cwd(), 'src/static', 'data2023.csv');
-
-  // Read the CSV file content as a string
-  const fileContent = readFileSync(filePath, 'utf8');
-
-  // Parse the CSV content into an array of objects using D3
-  const rawdata = d3.csvParse(fileContent, d => {
-    // Filter out keys that are in the ignoreColumns array
-    const filteredData = {};
-    for (const key in d) {
-      if (!ignoreColumns.includes(key)) {
-        // Check if the value is a string
-        if (typeof d[key] === 'string') {
-          // Trim leading and trailing spaces
-          filteredData[key] = d[key].trim();
-        } else {
-          // If it's not a string, assign the value as is
-          filteredData[key] = d[key];
-        }
-      }
-    }
-    return filteredData;
-  });
+  // Read and parse the JSON file
+  const rawdata = JSON.parse(readFileSync(filePath, 'utf-8'));
 
   // Return the parsed data to the Svelte component
   return {

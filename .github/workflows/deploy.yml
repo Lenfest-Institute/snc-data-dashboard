@@ -1,10 +1,9 @@
-# Updated from SvelteKit docs. See https://kit.svelte.dev/docs/adapter-static#github-pages for more information
-
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'main'
+    branches:
+      - 'main'
 
 jobs:
   build_site:
@@ -28,7 +27,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: build
+      - name: Build
         env:
           BASE_PATH: '/${{ github.event.repository.name }}'
         run: |
@@ -43,15 +42,12 @@ jobs:
   deploy:
     needs: build_site
     runs-on: ubuntu-latest
-
     permissions:
       pages: write
       id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Deploy
         id: deployment
