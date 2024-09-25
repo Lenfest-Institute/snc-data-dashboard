@@ -1,7 +1,5 @@
 <script>
-	export const prerender = true;
-
-	import '../app.css';
+  import '../app.css';
 	import '../styles/app.scss';
   import { setContext, getContext } from 'svelte';
   import { writable } from 'svelte/store';
@@ -17,6 +15,8 @@
   // Get page URL.
   let currentPath;
   $: currentPath = $page.url.pathname;
+
+  const pathPrefix = process.env.NODE_ENV === 'production' ? '/snc-data-dashboard' : '';
 
   // Get the data from the parent layout and set up the filterable store.
   export let data;
@@ -195,8 +195,8 @@
 <nav class="data__nav">
   <ul>
     {#each pages as page}
-      <li class={currentPath === `/snc-data-dashboard/${page}` ? 'active' : ''}>
-        <a href={`/snc-data-dashboard/${page}`}>
+      <li class={currentPath === `${pathPrefix}/${page}` ? 'active' : ''}>
+        <a href={`${pathPrefix}/${page}`}>
           {page.charAt(0).toUpperCase() + page.slice(1)}
         </a>
       </li>

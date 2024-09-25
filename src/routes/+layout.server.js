@@ -1,7 +1,9 @@
-export const load = async () => {
+export const prerender = true;
+
+export const load = async (event) => {
   try {
     // Fetch the JSON file
-    const response = await fetch('/data/filteredData.json');
+    const response = await event.fetch('/data/filteredData.json');
 
     if (!response.ok) {
       throw new Error(`Failed to load file: ${response.statusText}`);
