@@ -49,7 +49,7 @@
 	<h2>
 		{title}
 	</h2>
-	<div class="charts__chart">
+	<div class={`charts__chart charts__type-${type}`}>
 		<LayerCake
 			let:width
 			debug={false}
@@ -92,7 +92,7 @@
 				<Html>
 					<AxisX baseline snapLabels />
 				</Html>
-				<ScaledSvg fixedAspectRatio={16 / 9}>
+				<ScaledSvg fixedAspectRatio={8/1}>
 					<ProportionBar {width} {labels} />
 				</ScaledSvg>
 			{:else if type === 'barstacked'}
