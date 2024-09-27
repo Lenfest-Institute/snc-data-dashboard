@@ -87,8 +87,6 @@
   $: stackData = d3.stack().keys(socialOptions);
 
   $: series = stackData(socialData);
-
-  $: console.log(series);
 </script>
 
 <div class="charts__wrapper charts__audience">
