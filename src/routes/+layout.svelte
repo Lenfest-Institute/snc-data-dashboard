@@ -9,6 +9,7 @@
     AccordionItem,
     SlideToggle,
   } from '@skeletonlabs/skeleton';
+	import { packEnclose } from 'd3';
 
   const pages = ['revenue', 'diversity', 'audience', 'staffing', 'coverage'];
 
@@ -205,7 +206,11 @@
 </nav>
 
 <div class="data__wrapper">
-  <slot />
+  {#if filteredData.length < 5}
+    <p>Not enough organizations available with the selected filters.</p>
+  {:else}
+    <slot />
+  {/if}
 </div>
 
 </main>
