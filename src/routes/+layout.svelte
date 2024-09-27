@@ -207,7 +207,7 @@
 
 <div class="data__wrapper">
   {#if filteredData.length < 5}
-    <p>Not enough organizations available with the selected filters.</p>
+    <p>Not enough organizations meet this combination of filters.</p>
   {:else}
     <slot />
   {/if}
