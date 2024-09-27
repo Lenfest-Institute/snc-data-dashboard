@@ -132,7 +132,7 @@
   />
   <Chart
     type={'beeswarm'}
-    title={'% of Budget dedicated to Marketing to help grow Audience_V27A'}
+    title={'% of Budget Dedicated to Marketing to Help Grow Audience'}
     x={'count'}
     z={'color'}
     data={$filteredData
@@ -149,7 +149,7 @@
   />
   <Chart
     type={'beeswarm'}
-    title={'% of Budget dedicated to Audience Development_VSQ2-5B'}
+    title={'% of Budget Dedicated to Audience Development'}
     x={'count'}
     z={'color'}
     data={$filteredData
