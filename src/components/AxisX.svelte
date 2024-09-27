@@ -112,7 +112,7 @@
       style:left="{tickValUnits + halfBand}{units}"
       style="top:calc(100% + {tickGutter}px);"
     >
-      {#if type === 'column'}
+      {#if type === 'column' && typeof tick === 'string'}
         <div
           class="text"
           style:top="{tickLen}px"

@@ -7,7 +7,7 @@
 </script>
 
 <div class="charts__wrapper charts__coverage">
-	<Chart
+	<!-- <Chart
 		type={'scatter'}
 		title={'Monthly Stories vs. Total AMUs'}
 		x={'Stories Produced per Month'}
@@ -30,5 +30,5 @@
 			.sort((a, b) => {
 				return a['Launch Year'] - b['Launch Year'];
 			})}
-	/>
+	/> -->
 </div>
