@@ -31,5 +31,5 @@
         count: +d['Non-editorial Staff (FTE)']
       };
     })}
-    />
+  />
 </div>

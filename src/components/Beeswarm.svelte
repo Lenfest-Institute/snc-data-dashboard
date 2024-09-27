@@ -8,7 +8,7 @@
 
   const { data, xGet, height, zGet, xScale, yScale } = getContext('LayerCake');
 
-  const nodes = $data.map(d => ({ ...d }));
+  $: nodes = $data.map(d => ({ ...d }));
 
   /** @type {Number} [r=4] - The circle radius size in pixels. */
   export let r = 4;
