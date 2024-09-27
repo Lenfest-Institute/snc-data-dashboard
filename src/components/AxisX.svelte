@@ -60,7 +60,7 @@
         ? ticks($xScale.ticks())
         : $xScale.ticks(ticks);
 
-  $: if (tickVals.length && tickVals[0] !== 0) {
+  $: if ((tickVals.length && tickVals[0] !== 0) && typeof tickVals[0] === 'number') {
     tickVals.splice(0, 0, 0);
   }
 
