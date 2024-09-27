@@ -9,6 +9,7 @@
     AccordionItem,
     SlideToggle,
   } from '@skeletonlabs/skeleton';
+  import { filterOptionsFocus, filterOptionsPriority } from '$lib/index';
 	import { packEnclose } from 'd3';
 
   const pages = ['revenue', 'diversity', 'audience', 'staffing', 'coverage'];
@@ -52,19 +53,6 @@
     "$500K to <$1 million",
     "$1 million to <$2 million",
     "$2 million and up",
-  ];
-
-  // Filter options.
-  const filterOptionsFocus = [
-    {label: "Single Topic", value: "Prime_Single"},
-    {label: "Related Topics", value: "Prime_Multi"},
-    {label: "General Coverage", value: "Prime_Gen"}
-  ];
-
-  const filterOptionsPriority = [
-    {label: "News", value: "Cover_News"},
-    {label: "Investigative", value: "Cover_Invest"},
-    {label: "Analysis", value: "Cover_Analysis"}
   ];
 
   // Filters placeholders.

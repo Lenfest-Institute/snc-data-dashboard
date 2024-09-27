@@ -14,3 +14,15 @@ export const convertToNumber = (str) => {
   if (str.includes('M')) value *= 1e6;
   return value;
 };
+
+ export const filterOptionsFocus = [
+    {label: "Single Topic", value: "Prime_Single"},
+    {label: "Related Topics", value: "Prime_Multi"},
+    {label: "General Coverage", value: "Prime_Gen"}
+  ];
+
+ export const filterOptionsPriority = [
+    {label: "News", value: "Cover_News"},
+    {label: "Investigative", value: "Cover_Invest"},
+    {label: "Analysis", value: "Cover_Analysis"}
+  ];

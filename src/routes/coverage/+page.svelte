@@ -1,34 +1,69 @@
 <script>
+	import * as d3 from 'd3';
 	import { getContext } from 'svelte';
 	import Chart from '../../components/Chart.svelte';
+	import { convertToNumber, filterOptionsFocus, filterOptionsPriority } from '$lib/index';
 
 	$: filteredData = getContext('filteredData');
-	const user = getContext('user');
+
+	const focusScale = d3
+		.scaleOrdinal()
+		.domain(filterOptionsFocus.map((d) => d.value))
+		.range(filterOptionsFocus.map((d) => d.label));
+
+	$: focusData = d3
+		.rollups(
+			$filteredData,
+			(v) => v.length,
+			(d) => d['Primary Editorial Focus']
+		)
+		.map(([key, value]) => ({
+			group: focusScale(key),
+			count: value
+		}));
+
+	const coveragePriorityScale = d3
+		.scaleOrdinal()
+		.domain(filterOptionsPriority.map((d) => d.value))
+		.range(filterOptionsPriority.map((d) => d.label));
+
+	$: coveragePriorityData = d3
+		.rollups(
+			$filteredData,
+			(v) => v.length,
+			(d) => d['Coverage Priority']
+		)
+		.map(([key, value]) => ({
+			group: coveragePriorityScale(key),
+			count: value
+		}));
 </script>
 
 <div class="charts__wrapper charts__coverage">
-	<!-- <Chart
-		type={'scatter'}
-		title={'Monthly Stories vs. Total AMUs'}
-		x={'Stories Produced per Month'}
-		y={'Web Traffic (AMUs)'}
-		data={$filteredData.filter((d) => {
-			const stories = parseInt(d['Stories Produced per Month'], 10);
-			return stories > 0;
-		})}
+	<Chart
+		type={'column'}
+		title={'Primary Editorial Focus'}
+		paddingCustom={{ top: 0, right: 10, bottom: 40, left: 10 }}
+		x={'group'}
+		y={'count'}
+		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
+		xDomain={[...new Set(focusData.map((d) => d.group))].sort(
+			(a, b) => convertToNumber(a) - convertToNumber(b)
+		)}
+		yDomain={[0, null]}
+		data={focusData}
 	/>
 	<Chart
-		type={'scatter'}
-		title={'Monthly Stories by Launch Year'}
-		x={'Launch Year'}
-		y={'Stories Produced per Month'}
-		data={$filteredData
-			.filter((d) => {
-				const stories = parseInt(d['Stories Produced per Month'], 10);
-				return stories > 0;
-			})
-			.sort((a, b) => {
-				return a['Launch Year'] - b['Launch Year'];
-			})}
-	/> -->
+		type={'column'}
+		title={'Coverage Priority'}
+		paddingCustom={{ top: 0, right: 10, bottom: 40, left: 10 }}
+		x={'group'}
+		y={'count'}
+		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
+		xDomain={[...new Set(coveragePriorityData.map((d) => d.group))].sort(
+			(a, b) => convertToNumber(a) - convertToNumber(b)
+		)}
+		yDomain={[0, null]}
+		data={coveragePriorityData}
+	/>
 </div>
