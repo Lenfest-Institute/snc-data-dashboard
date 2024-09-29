@@ -12,6 +12,8 @@
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
+	export let isWide = false;
+
 	export let data = [];
 	export let title;
 	export let type;
@@ -43,9 +45,11 @@
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
+
+	console.log(isWide);
 </script>
 
-<div class="charts__chart-container">
+<div class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}>
 	<h2>
 		{title}
 	</h2>

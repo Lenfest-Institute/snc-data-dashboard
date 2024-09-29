@@ -68,8 +68,8 @@
     xDomain={[...new Set(targetAudienceData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
     data={targetAudienceData}
+    isWide={true}
   />
-  <div></div>
   <Chart
     type={'beeswarm'}
     title={'Web Traffic (AMUs)'}
@@ -147,5 +147,6 @@
     zRange={seriesColors}
     flatData={flatten(series)}
     data={series}
+    isWide={true}
   />
 </div>
