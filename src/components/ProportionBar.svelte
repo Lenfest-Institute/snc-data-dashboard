@@ -5,7 +5,6 @@
   const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
   export let labels;
-    {console.log($data)}
 
   $: stackedData = $data.reduce((acc, item) => {
     const cumulativeCount = acc.length > 0 ? acc[acc.length - 1].offset + acc[acc.length - 1].count : 0;
@@ -38,7 +37,6 @@
 
 <g class="bar-group">
   {#each stackedData as d, i}
-    {console.log(d)}
     <rect
       class="group-rect"
       data-id={d.group}

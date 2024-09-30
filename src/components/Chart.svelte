@@ -30,10 +30,10 @@
 	export let paddingCustom;
 
 	$: padding = paddingCustom || {
-		top: 0,
-		right: 10,
-		bottom: 10,
-		left: 5 + (yDomain && yDomain.length > 0 ? Math.round(yDomain[1]).toString().length * 7 : 0)
+		top: 10,
+		right: 20,
+		bottom: 20,
+		left: 15 + (yDomain && yDomain.length > 0 ? Math.round(yDomain[1]).toString().length * 7 : 0)
 	};
 	export let zScale;
 	export let zDomain;
@@ -86,7 +86,7 @@
 				</Html>
 			{:else if type === 'column'}
 				<Html>
-					<AxisX type={type} />
+					<AxisX type={type} gridlines={false} />
 					<AxisY />
 				</Html>
 				<ScaledSvg>
