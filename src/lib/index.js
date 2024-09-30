@@ -5,6 +5,11 @@ export const convertToNumber = (str) => {
 
   if (str === 'NA' || str === "Don't know") return Infinity;
 
+  // Handle cases at the start of the sequence
+  if (str.includes('Less than')) {
+    return 1;
+  }
+
   // Handle cases like 'and up' or 'or more'
   if (str.includes('and up') || str.includes('or more')) {
     return parseFloat(str) * 1e6;
