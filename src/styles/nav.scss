@@ -3,6 +3,7 @@ nav.data__nav {
     justify-content: space-between;
     background-color: $gray-30;
     color: $color-white;
+    padding: 0 16px;
 
     ul {
         display: flex;
@@ -17,6 +18,10 @@ nav.data__nav {
             display: flex;
 
             &.active {
+                background-color: $gray-15;
+            }
+
+            &:hover {
                 background-color: $gray-15;
             }
 
