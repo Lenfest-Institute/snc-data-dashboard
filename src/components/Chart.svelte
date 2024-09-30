@@ -45,8 +45,6 @@
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
-
-	console.log(isWide);
 </script>
 
 <div class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}>
