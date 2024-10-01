@@ -20,20 +20,21 @@
 	export let x;
 	export let y;
 	export let z;
-	export let width;
 
 	export let xScale;
 	export let xDomain;
-
+	export let yDomain;
 	export let yScale;
-	export let yDomain = d3.extent(data, (d) => +d[y]);
 	export let paddingCustom;
+
+	$: yDomainCustom = yDomain || d3.extent(data, (d) => +d[y]);
+
 
 	$: padding = paddingCustom || {
 		top: 10,
 		right: 20,
 		bottom: 20,
-		left: 15 + (yDomain && yDomain.length > 0 ? Math.round(yDomain[1]).toString().length * 7 : 0)
+		left: 15 + (yDomainCustom && yDomainCustom.length > 0 ? Math.round(yDomainCustom[1]).toString().length * 7 : 0)
 	};
 	export let zScale;
 	export let zDomain;
@@ -64,7 +65,7 @@
 			{xScale}
 			{yScale}
 			{xDomain}
-			{yDomain}
+			yDomain={yDomainCustom}
 			{zScale}
 			{zDomain}
 			{zRange}

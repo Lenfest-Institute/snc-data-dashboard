@@ -27,4 +27,12 @@
     yDomain={[0, null]}
     data={revenueTierData}
   />
+
+  <Chart
+    type={'scatter'}
+    title={'Social Platforms Outlook'}
+    x={'Individual Giving Revenue'}
+    y={'Small Donations Revenue_VSQ2-1'}
+    data={$filteredData}
+  />
 </div>
