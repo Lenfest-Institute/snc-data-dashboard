@@ -35,7 +35,7 @@
   <Chart
     type={'column'}
     title={'Total Executive Staff'}
-    paddingCustom={{ top: 0, right: 10, bottom: 40, left: 10 }}
+    padding={{ top: 0, right: 10, bottom: 40, left: 10 }}
     x={'group'}
     y={'count'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}

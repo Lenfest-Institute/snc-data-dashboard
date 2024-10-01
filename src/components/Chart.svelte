@@ -25,12 +25,12 @@
 	export let xDomain;
 	export let yDomain;
 	export let yScale;
-	export let paddingCustom;
+	export let padding;
 
 	$: yDomainCustom = yDomain || d3.extent(data, (d) => +d[y]);
 
 
-	$: padding = paddingCustom || {
+	$: paddingCustom = padding || {
 		top: 10,
 		right: 20,
 		bottom: 20,
@@ -58,7 +58,7 @@
 			debug={false}
 			ssr
 			percentRange
-			padding={type === 'proportionbar' ? { top: 0, right: 0, bottom: 20, left: 0 } : padding}
+			padding={type === 'proportionbar' ? { top: 0, right: 0, bottom: 20, left: 0 } : paddingCustom}
 			{x}
 			{y}
 			{z}

@@ -60,21 +60,21 @@
 	<Chart
     type={'proportionbar'}
     title={'Proportion of POC leaders'}
-    paddingCustom={{ top: 0, right: 0, bottom: 20, left: 35 }}
+    padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
 		labels={['POC-Led', 'Not POC-Led']}
     data={execBIPOCData}
 	/>
 	<Chart
     type={'proportionbar'}
     title={'Proportion of Women leaders'}
-    paddingCustom={{ top: 0, right: 0, bottom: 20, left: 35 }}
+    padding={{ top: 0, right: 0, bottom: 20, left: 35 }}
 		labels={['Women-Led', 'Not Women-Led']}
     data={execWomenData}
 	/>
 	<Chart
 		type={'column'}
 		title={'Is serving communities of color...'}
-    paddingCustom={{ top: 0, right: 10, bottom: 40, left: 10 }}
+    padding={{ top: 0, right: 10, bottom: 40, left: 10 }}
 		x={'label'}
 		y={'value'}
 		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
