@@ -34,17 +34,22 @@ async function load() {
   const fileContent = readFileSync(filePath, 'utf8');
 
   // Parse the CSV content into an array of objects using D3
-  const rawdata = d3.csvParse(fileContent, d => {
+  const data = d3.csvParse(fileContent, d => {
     // Filter out keys that are in the ignoreColumns array
     const filteredData = {};
     for (const key in d) {
       if (!ignoreColumns.includes(key)) {
-        // Check if the value is a string
         if (typeof d[key] === 'string') {
-          // Trim leading and trailing spaces
-          filteredData[key] = d[key].trim();
+          if (d[key].trim().substring(0, 2) === '$ ') {
+            if (d[key].trim() === '$ -') {
+              filteredData[key] = "";
+            } else {
+              filteredData[key] = parseFloat(d[key].replace(/[$,]/g, ''));
+            }
+          } else {
+            filteredData[key] = d[key].trim();
+          }
         } else {
-          // If it's not a string, assign the value as is
           filteredData[key] = d[key];
         }
       }
@@ -54,9 +59,9 @@ async function load() {
 
   // Write the filtered data to a JSON file
   const outputFilePath = join(process.cwd(), 'static/data', 'filteredData.json');
-  writeFileSync(outputFilePath, JSON.stringify(rawdata, null, 2));
+  writeFileSync(outputFilePath, JSON.stringify(data, null, 2));
 
-  console.log('Filtered data has been written to filteredData.json');
+  console.log(`Filtered data has been written to ${outputFilePath}`);
 }
 
 // Execute the load function
