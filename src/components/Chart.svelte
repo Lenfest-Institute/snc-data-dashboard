@@ -29,7 +29,6 @@
 
 	$: yDomainCustom = yDomain || d3.extent(data, (d) => +d[y]);
 
-
 	$: paddingCustom = padding || {
 		top: 10,
 		right: 20,
@@ -46,6 +45,8 @@
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
+
+	console.log(padding);
 </script>
 
 <div class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}>
@@ -79,7 +80,7 @@
 				</Html>
 			{:else if type === 'scatter'}
 				<Html>
-					<AxisX />
+					<AxisX rotate={-45} />
 					<AxisY />
 					<Scatter {r} {fill} {stroke} {strokeWidth} />
 				</Html>

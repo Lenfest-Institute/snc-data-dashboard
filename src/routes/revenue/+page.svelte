@@ -31,6 +31,7 @@
   <Chart
     type={'scatter'}
     title={'Social Platforms Outlook'}
+    padding={{ top: 0, right: 10, bottom: 50, left: 50 }}
     x={'Individual Giving Revenue'}
     y={'Small Donations Revenue_VSQ2-1'}
     data={$filteredData}
