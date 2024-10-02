@@ -21,8 +21,8 @@
   <div
     class="label"
     style="
-      top:{$yGet(d)}px;
-      left:{$xGet(d)}px;
+      top:10px;
+      left:30px;
     "
   >
     {formatLabelName(getLabelName(d))}

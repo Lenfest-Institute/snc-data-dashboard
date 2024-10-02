@@ -115,6 +115,8 @@
 
 <main>
 
+  <p>Welcome to The Statewide News Collective + INN Index Dashboard. Created by  The Lenfest Institute for Journalism and the Institute for Nonprofit News (INN), this dashboard showcases anonymized revenue, audience, staffing and coverage data across [X] statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023. See INN's full Index for nonprofit news trends. The Statewide News Collective is a community for news organizations serving statewide audiences. Dashboard designed and built by Tyler Machado. </p>
+
 <Accordion>
   <AccordionItem open>
     <svelte:fragment slot="summary">Filters</svelte:fragment>

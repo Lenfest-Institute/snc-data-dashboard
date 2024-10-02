@@ -28,12 +28,12 @@
     data={revenueTierData}
   />
 
-  <Chart
+  <!-- <Chart
     type={'scatter'}
     title={'Small Donors vs. Revenue'}
     padding={{ top: 0, right: 10, bottom: 50, left: 50 }}
     x={'Individual Giving Revenue'}
     y={(d) => [d['Small Donations Revenue_VSQ2-1'], d['Mid-range Donations Revenue_VSQ2-1']]}
     data={$filteredData}
-  />
+  /> -->
 </div>

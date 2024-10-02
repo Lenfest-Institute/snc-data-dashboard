@@ -9,6 +9,7 @@
 	import BarStacked from './BarStacked.svelte';
 	import Column from './Column.svelte';
 	import ProportionBar from './ProportionBar.svelte';
+	import Labels from './Labels.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
@@ -94,10 +95,10 @@
 				</ScaledSvg>
 			{:else if type === 'proportionbar'}
 				<Html>
-					<AxisX baseline snapLabels />
+					<!-- <Labels labels={['yes', 'no']} /> -->
 				</Html>
 				<ScaledSvg fixedAspectRatio={8/1}>
-					<ProportionBar {width} {labels} />
+					<ProportionBar {width} />
 				</ScaledSvg>
 			{:else if type === 'barstacked'}
     <Html>
