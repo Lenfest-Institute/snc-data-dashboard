@@ -50,6 +50,10 @@
   /** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
   export let units = $percentRange === true ? '%' : 'px';
 
+  /** @type {String} axisLabel - The type of chart. */
+  export let axisLabel;
+
+
   $: isBandwidth = typeof $yScale.bandwidth === 'function';
 
   $: tickVals = Array.isArray(ticks)
@@ -84,6 +88,14 @@
 </script>
 
 <div class="axis y-axis">
+
+   {#if axisLabel}
+    <div class="axis-label-container">
+      <div class="axis-label">
+        {axisLabel}
+      </div>
+    </div>
+  {/if}
   {#each tickVals as tick, i (tick)}
     {@const tickValUnits = $yScale(tick)}
 
@@ -147,4 +159,21 @@
   .tick .text {
     color: #666;
   }
+
+  .axis-label-container {
+  position: absolute;
+  top: 0%;
+  left: calc(-50% - 30px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  /* transform: translateX(-50%); */
+}
+
+.axis-label {
+  transform: rotate(-90deg);
+  font-size: 12px;
+}
 </style>

@@ -72,9 +72,9 @@
 	<Chart
 		type={'column'}
 		title={'Is serving communities of color...'}
-    padding={{ top: 0, right: 10, bottom: 40, left: 10 }}
 		x={'label'}
 		y={'value'}
+    yLabel={'Count of organizations'}
 		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
 		xDomain={[...new Set(focusData.map((d) => d.label))]}
 		yDomain={[0, null]}

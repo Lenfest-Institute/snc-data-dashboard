@@ -12,6 +12,7 @@
     type={'beeswarm'}
     title={'Total Editorial Staff'}
     x={'count'}
+    xLabel={'Number of staffers'}
     z={'color'}
     data={$filteredData.map(d => {
       return {
@@ -24,6 +25,7 @@
     type={'beeswarm'}
     title={'Total Non-Editorial Staff'}
     x={'count'}
+    xLabel={'Number of staffers'}
     z={'color'}
     data={$filteredData.map(d => {
       return {
@@ -35,11 +37,12 @@
   <Chart
     type={'column'}
     title={'Total Executive Staff'}
-    padding={{ top: 0, right: 10, bottom: 40, left: 10 }}
     x={'group'}
     y={'count'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
+    xLabel={'Total number of executives'}
     yDomain={[0, null]}
+    yLabel={'Count of organizations'}
     data={d3.rollups(
         $filteredData,
         v => v.length,

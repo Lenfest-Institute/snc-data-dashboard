@@ -43,7 +43,7 @@
 	<Chart
 		type={'column'}
 		title={'Primary Editorial Focus'}
-		padding={{ top: 0, right: 10, bottom: 40, left: 10 }}
+		padding={{ top: 0, right: 10, bottom: 40, left: 40 }}
 		x={'group'}
 		y={'count'}
 		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
@@ -51,12 +51,13 @@
 			(a, b) => convertToNumber(a) - convertToNumber(b)
 		)}
 		yDomain={[0, null]}
+		yLabel={'Count of organizations'}
 		data={focusData}
 	/>
 	<Chart
 		type={'column'}
 		title={'Coverage Priority'}
-		padding={{ top: 0, right: 10, bottom: 40, left: 10 }}
+		padding={{ top: 0, right: 10, bottom: 40, left: 40 }}
 		x={'group'}
 		y={'count'}
 		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
@@ -64,6 +65,7 @@
 			(a, b) => convertToNumber(a) - convertToNumber(b)
 		)}
 		yDomain={[0, null]}
+		yLabel={'Count of organizations'}
 		data={coveragePriorityData}
 	/>
 </div>

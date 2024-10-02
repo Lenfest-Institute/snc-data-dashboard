@@ -23,8 +23,7 @@
     display: flex;
     flex-direction: row;
     position:absolute;
-    bottom: 0;
-    margin-bottom: -50px;
+    bottom: -4rem;
   }
   .legend-item {
     display: flex;

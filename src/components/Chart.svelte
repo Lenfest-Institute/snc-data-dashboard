@@ -28,14 +28,16 @@
 	export let yDomain;
 	export let yScale;
 	export let padding;
+	export let xLabel;
+	export let yLabel;
 
 	$: yDomainCustom = yDomain || d3.extent(data, (d) => +d[y]);
 
 	$: paddingCustom = padding || {
 		top: 10,
 		right: 20,
-		bottom: 20,
-		left: 15 + (yDomainCustom && yDomainCustom.length > 0 ? Math.round(yDomainCustom[1]).toString().length * 7 : 0)
+		bottom: 40,
+		left: (type === 'beeswarm' ? 0 : 45) + (yDomainCustom && yDomainCustom.length > 0 ? Math.round(yDomainCustom[1]).toString().length * 7 : 0)
 	};
 	export let zScale;
 	export let zDomain;
@@ -64,9 +66,11 @@
 			{y}
 			{z}
 			{xScale}
+			{xLabel}
 			{yScale}
 			{xDomain}
 			yDomain={yDomainCustom}
+			{yLabel}
 			{zScale}
 			{zDomain}
 			{zRange}
@@ -75,23 +79,23 @@
 		>
 			{#if type === 'beeswarm'}
 				<Html>
-					<AxisX snapLabels ticks={5} />
+					<AxisX snapLabels ticks={5} axisLabel={xLabel} />
 					<Beeswarm {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'scatter'}
 				<Html>
-					<AxisX rotate={-45} />
-					<AxisY />
+					<AxisX rotate={-45} axisLabel={xLabel}  />
+					<AxisY axisLabel={yLabel} />
 					<Scatter {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'column'}
-				<Html>
-					<AxisX type={type} gridlines={false} />
-					<AxisY />
-				</Html>
 				<ScaledSvg>
 					<Column />
 				</ScaledSvg>
+				<Html>
+					<AxisX type={type} gridlines={false} axisLabel={xLabel}  />
+					<AxisY axisLabel={yLabel} {width} />
+				</Html>
 			{:else if type === 'proportionbar'}
 				<Html>
 					<!-- <Labels labels={['yes', 'no']} /> -->
@@ -101,8 +105,8 @@
 				</ScaledSvg>
 			{:else if type === 'barstacked'}
     <Html>
-      <AxisX baseline snapLabels />
-      <AxisY gridlines={false} />
+      <AxisX baseline snapLabels axisLabel={xLabel}  />
+      <AxisY gridlines={false} axisLabel={yLabel} />
 			<Legend labels={zDomain} colors={zRange} />
     </Html>
     <ScaledSvg>
@@ -110,8 +114,8 @@
     </ScaledSvg>
 			{:else if type === 'linearea'}
 				<Html>
-					<AxisX />
-					<AxisY />
+					<AxisX axisLabel={xLabel}  />
+					<AxisY axisLabel={yLabel}  />
 				</Html>
 				<ScaledSvg>
 					<Line />

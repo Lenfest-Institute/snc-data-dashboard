@@ -56,6 +56,9 @@
   /** @type {String} type - The type of chart. */
   export let type;
 
+  /** @type {String} axisLabel - The type of chart. */
+  export let axisLabel;
+
   /** @type {Number} type - Optional manual start. */
   export let setStartTick;
 
@@ -106,6 +109,11 @@
 </script>
 
 <div class="axis x-axis" class:snapLabels>
+   {#if axisLabel}
+    <div class="axis-label">
+      {axisLabel}
+    </div>
+  {/if}
   {#each tickVals as tick, i (tick)}
     {@const tickValUnits = $xScale(tick)}
 
@@ -196,5 +204,13 @@
   }
   .axis.snapLabels .tick.tick-0 {
     transform: translateX(40%);
+  }
+
+  .axis-label {
+    position: absolute;
+    bottom: -3em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
   }
 </style>

@@ -64,6 +64,8 @@
     title={'Target Audience Size'}
     x={'group'}
     y={'count'}
+    xLabel={'Size of target audience'}
+    yLabel={'Count of organizations'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
     xDomain={[...new Set(targetAudienceData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
@@ -72,9 +74,10 @@
   />
   <Chart
     type={'beeswarm'}
-    title={'Web Traffic (AMUs)'}
+    title={'Web Traffic'}
     x={'count'}
     z={'color'}
+    xLabel={'Average monthly users'}
     data={$filteredData.map(d => {
       return {
         color: d['Is PubMedia?'],
@@ -87,6 +90,7 @@
     title={'Email Subscriber Size'}
     x={'count'}
     z={'color'}
+    xLabel={'Number of subscribers'}
     data={$filteredData
       .filter(d => {
         const value = d['Pct of Budget dedicated to Audience Development_VSQ2-5B'];
@@ -104,6 +108,7 @@
     title={'% of Budget Dedicated to Marketing to Help Grow Audience'}
     x={'count'}
     z={'color'}
+    xLabel={'% of budget'}
     data={$filteredData
       .filter(d => {
         const value = d['% of Budget dedicated to Marketing to help grow Audience_V27A'];
@@ -121,6 +126,7 @@
     title={'% of Budget Dedicated to Audience Development'}
     x={'count'}
     z={'color'}
+    xLabel={'% of budget'}
     data={$filteredData
       .filter(d => {
         const value = d['% of Budget dedicated to Audience Development_VSQ2-5B'];
@@ -135,11 +141,12 @@
   />
   <Chart
     type={'barstacked'}
-    title={'Social Platforms Outlook'}
-    padding={{ top: 0, right: 10, bottom: 50, left: 60 }}
+    title={'How Often Organizations Publish to Social Platforms'}
+    padding={{ top: 0, right: 10, bottom: 70, left: 60 }}
     y={d => d.data?.[xKey]}
     x={yKey}
     z={zKey}
+    xLabel={'Posts per day'}
     yScale={d3.scaleBand().paddingInner(0.05).round(true)}
     yDomain={socialPlatforms}
     zScale={d3.scaleOrdinal()}
