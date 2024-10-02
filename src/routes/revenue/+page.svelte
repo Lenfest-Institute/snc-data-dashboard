@@ -30,10 +30,10 @@
 
   <Chart
     type={'scatter'}
-    title={'Social Platforms Outlook'}
+    title={'Small Donors vs. Revenue'}
     padding={{ top: 0, right: 10, bottom: 50, left: 50 }}
     x={'Individual Giving Revenue'}
-    y={'Small Donations Revenue_VSQ2-1'}
+    y={(d) => [d['Small Donations Revenue_VSQ2-1'], d['Mid-range Donations Revenue_VSQ2-1']]}
     data={$filteredData}
   />
 </div>

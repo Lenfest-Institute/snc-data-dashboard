@@ -17,7 +17,11 @@
   export let stroke = '#000';
 
   /** @type {Number} [strokeWidth=1] - The circle's stroke width. */
-  export let strokeWidth = 1;
+  export let strokeWidth = 1; 
+
+  /** @type {String} [yVal=''] - Optional Y-val override. */
+  export let yVal;
+  console.log(yVal);
 </script>
 
 <div class="scatter-group">
@@ -26,7 +30,7 @@
       class="circle"
       style="
         left: {$xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;
-        top: {$yGet(d) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}%;
+        top: {(yVal ? $yScale(d[yVal]) : $yGet(d)) + ($yScale.bandwidth ? $yScale.bandwidth() / 2 : 0)}%;
         width: {r * 2}px;
         height: {r * 2}px;
         background-color: {fill};

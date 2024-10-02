@@ -46,7 +46,7 @@
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
 
-	console.log(padding);
+	console.log(typeof y === 'object');
 </script>
 
 <div class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}>
