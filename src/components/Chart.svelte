@@ -10,6 +10,7 @@
 	import Column from './Column.svelte';
 	import ProportionBar from './ProportionBar.svelte';
 	import Labels from './Labels.svelte';
+	import Legend from './Legend.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
 
@@ -46,8 +47,6 @@
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
-
-	console.log(typeof y === 'object');
 </script>
 
 <div class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}>
@@ -104,6 +103,7 @@
     <Html>
       <AxisX baseline snapLabels />
       <AxisY gridlines={false} />
+			<Legend labels={zDomain} colors={zRange} />
     </Html>
     <ScaledSvg>
       <BarStacked />
