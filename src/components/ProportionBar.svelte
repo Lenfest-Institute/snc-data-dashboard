@@ -21,15 +21,6 @@
   const colorScale = d3.scaleOrdinal()
     .domain(zDomain)
     .range(zRange); // Define `width` based on your chart size
-
-  // // Create a scale for the y-axis based on the counts
-  // const yScale = d3.scaleLinear()
-  //   .domain([0, d3.max($data, d => d.count)]) // Maximum count for the y-axis
-  //   .range([50, 0]); // Define `height` based on your chart size
-
-  // $: columnWidth = d => {
-  //   return xScale.bandwidth();
-  // };
 </script>
 
 <g class="bar-group">

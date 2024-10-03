@@ -62,6 +62,8 @@
   /** @type {Number} type - Optional manual start. */
   export let setStartTick;
 
+  let labelBottomPadding = 3;
+
   if (rotate == -45) {
     dx = -15;
     dy = 15;
@@ -96,6 +98,7 @@
       if (end < formattedTick.length) {
         const spaceIndex = formattedTick.indexOf(' ', end);
         if (spaceIndex !== -1) {
+          labelBottomPadding = 4.5; // increase axis label spacing to account for a 2-line data label
           end = spaceIndex;
         } else {
           end = formattedTick.length;
@@ -110,7 +113,7 @@
 
 <div class="axis x-axis" class:snapLabels>
    {#if axisLabel}
-    <div class="axis-label">
+    <div class="axis-label" style="bottom: -{labelBottomPadding}em;">
       {axisLabel}
     </div>
   {/if}
@@ -208,7 +211,6 @@
 
   .axis-label {
     position: absolute;
-    bottom: -3em;
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
