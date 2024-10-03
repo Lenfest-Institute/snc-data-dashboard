@@ -12,7 +12,7 @@
   import { filterOptionsFocus, filterOptionsPriority } from '$lib/index';
 	import { packEnclose } from 'd3';
 
-  const pages = ['revenue', 'diversity', 'audience', 'staffing', 'coverage'];
+  const pages = ['audience', 'revenue', 'diversity', 'staffing', 'coverage'];
 
   // Get page URL.
   let currentPath;

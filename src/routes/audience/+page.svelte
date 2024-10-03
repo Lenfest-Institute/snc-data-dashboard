@@ -65,7 +65,7 @@
     x={'group'}
     y={'count'}
     xLabel={'Size of target audience'}
-    yLabel={'Count of organizations'}
+    yLabel={'Number of outlets'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
     xDomain={[...new Set(targetAudienceData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}

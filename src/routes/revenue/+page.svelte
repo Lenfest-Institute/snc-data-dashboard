@@ -22,8 +22,8 @@
     padding={{ top: 0, right: 10, bottom: 60, left: 40 }}
     x={'group'}
     y={'count'}
-    xLabel={'Revenue tier'}
-    yLabel={'Count of organizations'}
+    xLabel={'Total revenue for CY2023'}
+    yLabel={'Number of outlets'}
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
     xDomain={[...new Set(revenueTierData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}

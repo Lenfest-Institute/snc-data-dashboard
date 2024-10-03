@@ -17,6 +17,17 @@ main > * {
     margin-bottom: 20px;
 }
 
+a {
+    border-bottom: 1px solid #f95346;
+    color: #161a26;
+
+    transition: all .3s ease-in-out;
+
+    &:hover {
+      border-bottom-color: #161a26;
+    }
+}
+
 .accordion-summary {
   font-size: 1.5rem;
 }

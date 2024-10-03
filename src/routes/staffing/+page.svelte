@@ -42,7 +42,7 @@
     xScale={d3.scaleBand().paddingInner(0.1).round(true)}
     xLabel={'Total number of executives'}
     yDomain={[0, null]}
-    yLabel={'Count of organizations'}
+    yLabel={'Number of outlets'}
     data={d3.rollups(
         $filteredData,
         v => v.length,

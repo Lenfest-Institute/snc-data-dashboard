@@ -76,7 +76,7 @@
 		title={'Is serving communities of color...'}
 		x={'label'}
 		y={'value'}
-    yLabel={'Count of organizations'}
+    yLabel={'Number of outlets'}
 		xScale={d3.scaleBand().paddingInner(0.1).round(true)}
 		xDomain={[...new Set(focusData.map((d) => d.label))]}
 		yDomain={[0, null]}

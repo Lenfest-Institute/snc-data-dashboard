@@ -51,7 +51,7 @@
 			(a, b) => convertToNumber(a) - convertToNumber(b)
 		)}
 		yDomain={[0, null]}
-		yLabel={'Count of organizations'}
+		yLabel={'Number of outlets'}
 		data={focusData}
 	/>
 	<Chart
@@ -65,7 +65,7 @@
 			(a, b) => convertToNumber(a) - convertToNumber(b)
 		)}
 		yDomain={[0, null]}
-		yLabel={'Count of organizations'}
+		yLabel={'Number of outlets'}
 		data={coveragePriorityData}
 	/>
 </div>
