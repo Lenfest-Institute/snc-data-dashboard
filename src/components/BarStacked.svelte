@@ -11,8 +11,6 @@
     const xVals = $xGet(d);
     return xVals[1] - xVals[0];
   };
-
-  console.log($data);
 </script>
 
 <g class="bar-group">

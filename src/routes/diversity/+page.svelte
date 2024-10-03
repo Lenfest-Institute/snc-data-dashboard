@@ -60,13 +60,15 @@
 	<Chart
     type={'proportionbar'}
     title={'Proportion of POC leaders'}
-		labels={['POC-Led', 'Not POC-Led']}
+		zDomain={['POC-Led', 'Not POC-Led']}
+		zRange={['#f95346', '#cccccc']}
     data={execBIPOCData}
 	/>
 	<Chart
     type={'proportionbar'}
     title={'Proportion of Women leaders'}
-		labels={['Women-Led', 'Not Women-Led']}
+		zDomain={['Women-Led', 'Not Women-Led']}
+		zRange={['#f95346', '#cccccc']}
     data={execWomenData}
 	/>
 	<Chart

@@ -21,7 +21,6 @@
 
   /** @type {String} [yVal=''] - Optional Y-val override. */
   export let yVal;
-  console.log(yVal);
 </script>
 
 <div class="scatter-group">

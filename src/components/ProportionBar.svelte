@@ -4,6 +4,9 @@
 
   const { data, xGet, yGet, zGet } = getContext('LayerCake');
 
+  export let zDomain;
+  export let zRange;
+
   $: stackedData = $data.reduce((acc, item) => {
     const cumulativeCount = acc.length > 0 ? acc[acc.length - 1].offset + acc[acc.length - 1].count : 0;
     acc.push({ ...item, offset: cumulativeCount });
@@ -16,8 +19,8 @@
     .range([0, 100]); // Define `width` based on your chart size
 
   const colorScale = d3.scaleOrdinal()
-    .domain(['YES', 'NO'])
-    .range(['#f95346', '#ddd']); // Define `width` based on your chart size
+    .domain(zDomain)
+    .range(zRange); // Define `width` based on your chart size
 
   // // Create a scale for the y-axis based on the counts
   // const yScale = d3.scaleLinear()

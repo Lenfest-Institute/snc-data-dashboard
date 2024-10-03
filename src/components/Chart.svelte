@@ -89,19 +89,19 @@
 					<Scatter {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'column'}
-				<ScaledSvg>
-					<Column />
-				</ScaledSvg>
 				<Html>
 					<AxisX type={type} gridlines={false} axisLabel={xLabel}  />
 					<AxisY axisLabel={yLabel} {width} />
 				</Html>
+				<ScaledSvg>
+					<Column />
+				</ScaledSvg>
 			{:else if type === 'proportionbar'}
 				<Html>
-					<!-- <Labels labels={['yes', 'no']} /> -->
+					<Legend labels={zDomain} colors={zRange} chartType={type} />
 				</Html>
 				<ScaledSvg fixedAspectRatio={8/1}>
-					<ProportionBar {width} />
+					<ProportionBar {width} {zDomain} {zRange} />
 				</ScaledSvg>
 			{:else if type === 'barstacked'}
     <Html>

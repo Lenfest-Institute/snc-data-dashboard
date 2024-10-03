@@ -6,6 +6,12 @@
 
   export let labels; // Array of labels for the chart segments
   export let colors;
+  export let chartType;
+
+  let bottomPadding = 4;
+  if (chartType === 'proportionbar') {
+    bottomPadding = 1;
+  }
 
   $: colorScale = d3.scaleOrdinal().range(colors); // D3 color scale
 
@@ -23,8 +29,8 @@
     display: flex;
     flex-direction: row;
     position:absolute;
-    bottom: -4rem;
   }
+
   .legend-item {
     display: flex;
     align-items: center;
@@ -39,7 +45,7 @@
   }
 </style>
 
-<div class="legend-container">
+<div class="legend-container" style="bottom: -{bottomPadding}rem;">
   {#each legendItems as item}
     <div class="legend-item">
       <div
