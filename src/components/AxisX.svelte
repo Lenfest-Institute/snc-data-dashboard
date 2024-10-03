@@ -214,5 +214,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-size: 12px;
+    text-align: center;
+    width: 100%;
   }
 </style>
