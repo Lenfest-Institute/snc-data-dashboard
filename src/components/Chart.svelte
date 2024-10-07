@@ -13,6 +13,7 @@
 	import Legend from './Legend.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
+	import { default as ClevelandDotPlot } from './ClevelandDotPlot.svelte';
 
 	export let isWide = false;
 
@@ -45,7 +46,7 @@
 	export let flatData;
 	export let labels;
 
-	const r = 4.5;
+	const r = 6;	
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
@@ -84,8 +85,9 @@
 				</Html>
 			{:else if type === 'scatter'}
 				<Html>
-					<AxisX rotate={-45} axisLabel={xLabel}  />
-					<AxisY axisLabel={yLabel} />
+					<AxisX rotate={-45} axisLabel={xLabel} />
+					<AxisY axisLabel={yLabel} gridlines={false}  />
+					<Legend labels={x} colors={zRange} />
 					<Scatter {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'column'}
@@ -96,6 +98,12 @@
 				<ScaledSvg>
 					<Column />
 				</ScaledSvg>
+			{:else if type === 'dotplot'}
+				<Html>
+					<AxisX />
+					<AxisY gridlines={false} />
+					<ClevelandDotPlot />
+				</Html>
 			{:else if type === 'proportionbar'}
 				<Html>
 					<Legend labels={zDomain} colors={zRange} chartType={type} />

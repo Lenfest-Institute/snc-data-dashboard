@@ -53,7 +53,6 @@
   /** @type {String} axisLabel - The type of chart. */
   export let axisLabel;
 
-
   $: isBandwidth = typeof $yScale.bandwidth === 'function';
 
   $: tickVals = Array.isArray(ticks)
@@ -78,7 +77,7 @@
 
   $: widestTickLen = Math.max(
     10,
-    Math.max(...tickVals.map(d => format(d).toString().split('').reduce(calcStringLength, 0)))
+    Math.max(...tickVals.map(d => format(d)?.toString().split('').reduce(calcStringLength, 0)))
   );
 
   $: x1 = -tickGutter - (labelPosition === 'above' ? widestTickLen : tickLen);
