@@ -3,7 +3,7 @@
 	import { getContext } from 'svelte';
   import { flatten } from 'layercake';
 	import Chart from '../../components/Chart.svelte';
-    import { convertToNumber } from '$lib/index';
+    import { convertToNumber, colorsCategorical } from '$lib/index';
 	$: filteredData = getContext('filteredData');
 
   $: targetAudienceData = d3.rollups(
@@ -47,15 +47,12 @@
 
     return platformData;
   });
+  $: series = d3.stack().keys(socialOptions)(socialData);
 
-  const xKey = 'platform';
-  const yKey = [0, 1];
-  const zKey = 'key';
-  const seriesColors = ["#F95346", "#F99186", "#F9D1C6", "#58b2af", "#C6EFED"];
+  $: console.log(socialOptions);
+  $: console.log(socialData);
+  $: console.log(series);
 
-  $: stackData = d3.stack().keys(socialOptions);
-
-  $: series = stackData(socialData);
 </script>
 
 <div class="charts__wrapper charts__audience">
@@ -143,15 +140,15 @@
     type={'barstacked'}
     title={'How Often Organizations Publish to Social Platforms'}
     padding={{ top: 0, right: 10, bottom: 70, left: 60 }}
-    y={d => d.data?.[xKey]}
-    x={yKey}
-    z={zKey}
+    x={[0,1]}
     xLabel={'Posts per day'}
+    y={d => d.data?.platform}
     yScale={d3.scaleBand().paddingInner(0.05).round(true)}
     yDomain={socialPlatforms}
+    z={'key'}
     zScale={d3.scaleOrdinal()}
     zDomain={socialOptions}
-    zRange={seriesColors}
+    zRange={colorsCategorical}
     flatData={flatten(series)}
     data={series}
     isWide={true}
