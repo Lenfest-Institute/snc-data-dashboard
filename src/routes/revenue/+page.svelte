@@ -31,6 +31,24 @@
       ...averages
     }));
 
+    $: earnedRevData = d3.rollups(
+      $filteredData.filter(d => d['Revenue Tier'] !== 'NA').filter(d => d['Earned Revenue'] !== ''),
+      v => ({
+        'Advertising': d3.mean(v, d => d['Advertising Revenue_VSQ2-2A']),
+        'Sponsorship': d3.mean(v, d => d['Sponsorship Revenue_VSQ2-2A']),
+        'Events': d3.mean(v, d => d['Events Revenue_VSQ2-2A']),
+        'Subscriptions': d3.mean(v, d => d['Subscriptions Revenue_VSQ2-2A']),
+        'Syndication': d3.mean(v, d => d['Syndication Revenue_VSQ2-2A']),
+        'Other Earned': d3.mean(v, d => d['Other Earned Revenue_VSQ2-2A']),
+      }),
+      d => d['Revenue Tier']
+    ).map(([tier, averages]) => ({
+      tier,
+      ...averages
+    }));
+
+    $: earnedRevDataKeys = [...new Set(earnedRevData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
+
     $: donorSizeDataRevenue = donorSizeData.map(d => ({
       tier: d.tier,
       'Rev. from Small Donors': d['Rev. from Small Donors'],
@@ -46,11 +64,6 @@
     }));
 
     $: donorSizeDataKeys = [...new Set(donorSizeData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
-
-
-    $: console.log(donorSizeDataKeys);
-    $: console.log(['Rev. from Small Donors', 'Rev. from Mid-range Donors', 'Rev. from Major Donors']);
-    $: console.log(d3.stack().keys(['Rev. from Small Donors', 'Rev. from Mid-range Donors', 'Rev. from Major Donors'])(donorSizeDataRevenue));
 </script>
 
 <div class="charts__wrapper charts__revenue">
@@ -68,18 +81,6 @@
     yDomain={[0, null]}
     data={revenueTierData}
   />
-
-  <!-- <Chart
-    type={'scatter'}
-    title={'Average Revenue By Donor Group'}
-    padding={{ top: 0, right: 10, bottom: 50, left: 120 }}
-    x={['Rev. from Small Donors', 'Rev. from Mid-range Donors', 'Rev. from Major Donors']}
-    y={'tier'}
-    yDomain={donorSizeDataKeys}
-    yScale={d3.scaleBand().paddingInner(0.1).round(true)}
-    zRange={["#F95346", "#58B2AF", "#757083"]}
-    data={donorSizeData}
-  />   -->
   <Chart
     type={'barstacked'}
     title={'Average Revenue By Donor Group'}
@@ -112,6 +113,23 @@
     zRange={colorsCategorical}
     flatData={flatten(d3.stack().keys(['Small Donors', 'Mid-range Donors', 'Major Donors'])(donorSizeDataCount))}
     data={d3.stack().keys(['Small Donors', 'Mid-range Donors', 'Major Donors'])(donorSizeDataCount)}
+    isWide={true}
+  />
+  <Chart
+    type={'barstacked'}
+    title={'Average Amount of Earned Revenue'}
+    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    x={[0,1]}
+    xLabel={'Average'}
+    y={d => d.data?.tier}
+    yScale={d3.scaleBand().paddingInner(0.05).round(true)}
+    yDomain={earnedRevDataKeys}
+    z={'key'}
+    zScale={d3.scaleOrdinal()}
+    zDomain={['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned']}
+    zRange={colorsCategorical}
+    flatData={flatten(d3.stack().keys(['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned'])(earnedRevData))}
+    data={d3.stack().keys(['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned'])(earnedRevData)}
     isWide={true}
   />
 </div>
