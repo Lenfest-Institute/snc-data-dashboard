@@ -3,7 +3,7 @@
     import { getContext } from 'svelte';
   import { flatten } from 'layercake';
     import Chart from '../../components/Chart.svelte';
-    import { convertToNumber, colorsCategorical } from '$lib/index';
+    import { convertToNumber, colorsCategorical, colorsCategoricalExtra } from '$lib/index';
     $: filteredData = getContext('filteredData');
 
     $: revenueTierData = d3.rollups(
@@ -15,21 +15,23 @@
         count: value
     }));
 
-    $: donorSizeData = d3.rollups(
-      $filteredData.filter(d => d['Revenue Tier'] !== 'NA'),
+    $: totalRevData = d3.rollups(
+      $filteredData.filter(d => d['Revenue Tier'] !== 'NA').filter(d => d['Total Revenue'] !== ''),
       v => ({
-        'Rev. from Small Donors': d3.mean(v, d => d['Small Donations Revenue_VSQ2-1']),
-        'Rev. from Mid-range Donors': d3.mean(v, d => d['Mid-range Donations Revenue_VSQ2-1']),
-        'Rev. from Major Donors': d3.mean(v, d => d['Major Donations Revenue_VSQ2-1']),
-        'Small Donors': d3.mean(v, d => d['Number of Small Donors_VSQ2-4']),
-        'Mid-range Donors': d3.mean(v, d => d['Number of Mid-range Donors_VSQ2-4']),
-        'Major Donors': d3.mean(v, d => d['Number of Major Donors_VSQ2-4']),
+        'Foundation': d3.mean(v, d => d['Foundation Revenue_VSQ2-1']),
+        'Other Charitable': d3.mean(v, d => d['Other Charitable Revenue_VSQ2-1']),
+        'Earned': d3.mean(v, d => d['Earned Revenue']),
+        'Individual Giving': d3.mean(v, d => d['Individual Giving Revenue']),
       }),
       d => d['Revenue Tier']
     ).map(([tier, averages]) => ({
       tier,
       ...averages
     }));
+
+    $: totalRevDataKeys = [...new Set(totalRevData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
+
+    $: console.log('totalRevData', totalRevData);
 
     $: earnedRevData = d3.rollups(
       $filteredData.filter(d => d['Revenue Tier'] !== 'NA').filter(d => d['Earned Revenue'] !== ''),
@@ -48,6 +50,22 @@
     }));
 
     $: earnedRevDataKeys = [...new Set(earnedRevData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
+
+    $: donorSizeData = d3.rollups(
+      $filteredData.filter(d => d['Revenue Tier'] !== 'NA'),
+      v => ({
+        'Rev. from Small Donors': d3.mean(v, d => d['Small Donations Revenue_VSQ2-1']),
+        'Rev. from Mid-range Donors': d3.mean(v, d => d['Mid-range Donations Revenue_VSQ2-1']),
+        'Rev. from Major Donors': d3.mean(v, d => d['Major Donations Revenue_VSQ2-1']),
+        'Small Donors': d3.mean(v, d => d['Number of Small Donors_VSQ2-4']),
+        'Mid-range Donors': d3.mean(v, d => d['Number of Mid-range Donors_VSQ2-4']),
+        'Major Donors': d3.mean(v, d => d['Number of Major Donors_VSQ2-4']),
+      }),
+      d => d['Revenue Tier']
+    ).map(([tier, averages]) => ({
+      tier,
+      ...averages
+    }));
 
     $: donorSizeDataRevenue = donorSizeData.map(d => ({
       tier: d.tier,
@@ -80,6 +98,23 @@
     xDomain={[...new Set(revenueTierData.map(d => d.group))].sort((a, b) => convertToNumber(a) - convertToNumber(b))}
     yDomain={[0, null]}
     data={revenueTierData}
+  />
+  <Chart
+    type={'barstacked'}
+    title={'Average Revenue By Type'}
+    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    x={[0,1]}
+    xLabel={'Average'}
+    y={d => d.data?.tier}
+    yScale={d3.scaleBand().paddingInner(0.05).round(true)}
+    yDomain={totalRevDataKeys}
+    z={'key'}
+    zScale={d3.scaleOrdinal()}
+    zDomain={['Foundation', 'Other Charitable', 'Earned', 'Individual Giving']}
+    zRange={colorsCategorical}
+    flatData={flatten(d3.stack().keys(['Foundation', 'Other Charitable', 'Earned', 'Individual Giving'])(totalRevData))}
+    data={d3.stack().keys(['Foundation', 'Other Charitable', 'Earned', 'Individual Giving'])(totalRevData)}
+    isWide={true}
   />
   <Chart
     type={'barstacked'}
@@ -117,7 +152,7 @@
   />
   <Chart
     type={'barstacked'}
-    title={'Average Amount of Earned Revenue'}
+    title={'Average Total of Earned Revenue'}
     padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
     x={[0,1]}
     xLabel={'Average'}
@@ -127,7 +162,7 @@
     z={'key'}
     zScale={d3.scaleOrdinal()}
     zDomain={['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned']}
-    zRange={colorsCategorical}
+    zRange={colorsCategoricalExtra}
     flatData={flatten(d3.stack().keys(['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned'])(earnedRevData))}
     data={d3.stack().keys(['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned'])(earnedRevData)}
     isWide={true}

@@ -43,4 +43,6 @@ export const convertToNumber = (str) => {
     {label: "Analysis", value: "Cover_Analysis"}
   ];
 
-export const colorsCategorical = ['#f95346', '#58b2af', '#ffe1b3', '#243d82', '#8480b0'];
+export const colorsCategorical = ['#f95346', '#58b2af', '#243d82', '#d6b686', '#8480b0'];
+
+export const colorsCategoricalExtra = ['#f95346', '#fab3a7', '#58b2af', '#a3d3d1', '#243d82', '#7987b0', '#d6b686', '#ead9c2', '#8480b0', '#c1bfd3'];
