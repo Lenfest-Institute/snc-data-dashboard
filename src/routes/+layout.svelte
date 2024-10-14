@@ -129,7 +129,10 @@
 
 <main>
 
-  <p>Welcome to the <a href="https://www.lenfestinstitute.org/our-work/communities-of-practice/statewide-news-collective/">Statewide News Collective</a> + INN Index Dashboard. Created by  The Lenfest Institute for Journalism and the Institute for Nonprofit News (INN), this dashboard showcases anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023. See <a href="https://inn.org/research/inn-index/the-inn-index/about-the-index/">INN's full Index</a> for nonprofit news trends. The Statewide News Collective is a community for news organizations serving statewide audiences. Dashboard designed and built by <a href="//tylermachado.com">Tyler Machado</a>. </p>
+  <p>Welcome to the <a href="https://www.lenfestinstitute.org/our-work/communities-of-practice/statewide-news-collective/">Statewide News Collective</a> + INN Index Dashboard. Created by  The Lenfest Institute for Journalism and the Institute for Nonprofit News (INN), this dashboard showcases anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023. See <a href="https://inn.org/research/inn-index/the-inn-index/about-the-index/">INN's full Index</a> for nonprofit news trends. The Statewide News Collective is a community for news organizations serving statewide audiences.</p>
+
+  <p>Dashboard designed and built by <a href="//tylermachado.com">Tyler Machado</a>; please send suggestions and feedback to <a href="mailto:tyler.machado@gmail.com?subject=SNC Data Dashboard Feedback" aria-label="Send suggestions and feedback to Tyler via email">tyler.machado@gmail.com</a>.
+.</p>
 
 <div id="dashboard-controls"  class:controls-fixed={isFixed}>
   <Accordion>
