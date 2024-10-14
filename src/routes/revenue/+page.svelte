@@ -15,6 +15,10 @@
         count: value
     }));
 
+    $: revenueTierKeys = [...new Set(revenueTierData.map(d => d.group))]
+        .filter(g => g !== 'NA')
+        .sort((a, b) => convertToNumber(a) - convertToNumber(b));
+
     $: totalRevData = d3.rollups(
       $filteredData.filter(d => d['Revenue Tier'] !== 'NA').filter(d => d['Total Revenue'] !== ''),
       v => ({
@@ -28,10 +32,6 @@
       tier,
       ...averages
     }));
-
-    $: totalRevDataKeys = [...new Set(totalRevData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
-
-    $: console.log('totalRevData', totalRevData);
 
     $: earnedRevData = d3.rollups(
       $filteredData.filter(d => d['Revenue Tier'] !== 'NA').filter(d => d['Earned Revenue'] !== ''),
@@ -48,8 +48,6 @@
       tier,
       ...averages
     }));
-
-    $: earnedRevDataKeys = [...new Set(earnedRevData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
 
     $: donorSizeData = d3.rollups(
       $filteredData.filter(d => d['Revenue Tier'] !== 'NA'),
@@ -81,7 +79,22 @@
       'Major Donors': d['Major Donors'],
     }));
 
-    $: donorSizeDataKeys = [...new Set(donorSizeData.map(d => d.tier))].sort((a, b) => convertToNumber(a) - convertToNumber(b));
+    $: totalExpensesData = d3.rollups(
+      $filteredData.filter(d => d['Expenses Tier'] !== 'NA').filter(d => d['Total Expenses'] !== ''),
+      v => ({
+        'Editorial': d3.mean(v, d => d['Editorial Expenses_VSQ2-5A']),
+        'Revenue Generation': d3.mean(v, d => d['Revenue Generation Expenses_VSQ2-5A']),
+        'Technology': d3.mean(v, d => d['Technology Expenses_VSQ2-5A']),
+        'Administration': d3.mean(v, d => d['Administration Expenses_VSQ2-5A']),
+      }),
+      d => d['Expenses Tier']
+    ).map(([tier, averages]) => ({
+      tier,
+      ...averages
+    }));
+
+    $: console.log(donorSizeData);
+    $: console.log(totalExpensesData);
 </script>
 
 <div class="charts__wrapper charts__revenue">
@@ -107,7 +120,7 @@
     xLabel={'Average'}
     y={d => d.data?.tier}
     yScale={d3.scaleBand().paddingInner(0.05).round(true)}
-    yDomain={totalRevDataKeys}
+    yDomain={revenueTierKeys}
     z={'key'}
     zScale={d3.scaleOrdinal()}
     zDomain={['Foundation', 'Other Charitable', 'Earned', 'Individual Giving']}
@@ -124,7 +137,7 @@
     xLabel={'Average'}
     y={d => d.data?.tier}
     yScale={d3.scaleBand().paddingInner(0.05).round(true)}
-    yDomain={donorSizeDataKeys}
+    yDomain={revenueTierKeys}
     z={'key'}
     zScale={d3.scaleOrdinal()}
     zDomain={['Rev. from Small Donors', 'Rev. from Mid-range Donors', 'Rev. from Major Donors']}
@@ -141,7 +154,7 @@
     xLabel={'Average'}
     y={d => d.data?.tier}
     yScale={d3.scaleBand().paddingInner(0.05).round(true)}
-    yDomain={donorSizeDataKeys}
+    yDomain={revenueTierKeys}
     z={'key'}
     zScale={d3.scaleOrdinal()}
     zDomain={['Small Donors', 'Mid-range Donors', 'Major Donors']}
@@ -158,13 +171,30 @@
     xLabel={'Average'}
     y={d => d.data?.tier}
     yScale={d3.scaleBand().paddingInner(0.05).round(true)}
-    yDomain={earnedRevDataKeys}
+    yDomain={revenueTierKeys}
     z={'key'}
     zScale={d3.scaleOrdinal()}
     zDomain={['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned']}
     zRange={colorsCategoricalExtra}
     flatData={flatten(d3.stack().keys(['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned'])(earnedRevData))}
     data={d3.stack().keys(['Advertising', 'Sponsorship', 'Events', 'Subscriptions', 'Syndication', 'Other Earned'])(earnedRevData)}
+    isWide={true}
+  />
+  <Chart
+    type={'barstacked'}
+    title={'Average Total Expenses'}
+    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    x={[0,1]}
+    xLabel={'Average'}
+    y={d => d.data?.tier}
+    yScale={d3.scaleBand().paddingInner(0.05).round(true)}
+    yDomain={revenueTierKeys}
+    z={'key'}
+    zScale={d3.scaleOrdinal()}
+    zDomain={['Editorial', 'Revenue Generation', 'Technology', 'Administration']}
+    zRange={colorsCategorical}
+    flatData={flatten(d3.stack().keys(['Editorial', 'Revenue Generation', 'Technology', 'Administration'])(totalExpensesData))}
+    data={d3.stack().keys(['Editorial', 'Revenue Generation', 'Technology', 'Administration'])(totalExpensesData)}
     isWide={true}
   />
 </div>
