@@ -1,7 +1,7 @@
 <script>
   import '../app.css';
 	import '../styles/app.scss';
-  import { setContext, getContext } from 'svelte';
+  import { setContext, getContext, onMount, onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
   import { page } from '$app/stores';
   import {
@@ -13,6 +13,20 @@
 	import { packEnclose } from 'd3';
 
   const pages = ['audience', 'revenue', 'diversity', 'staffing', 'coverage'];
+
+  // Handle fixing the controls to the top of the browser.
+  let isFixed = false;
+
+  const handleScroll = () => {
+    const accordion = document.querySelector('#dashboard-controls');
+    const offsetTop = accordion.offsetTop;
+
+    isFixed = window.scrollY > offsetTop;
+  };
+
+  onMount(() => {
+    window.addEventListener('scroll', handleScroll);
+  });
 
   // Get page URL.
   let currentPath;
@@ -117,83 +131,85 @@
 
   <p>Welcome to the <a href="https://www.lenfestinstitute.org/our-work/communities-of-practice/statewide-news-collective/">Statewide News Collective</a> + INN Index Dashboard. Created by  The Lenfest Institute for Journalism and the Institute for Nonprofit News (INN), this dashboard showcases anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023. See <a href="https://inn.org/research/inn-index/the-inn-index/about-the-index/">INN's full Index</a> for nonprofit news trends. The Statewide News Collective is a community for news organizations serving statewide audiences. Dashboard designed and built by <a href="//tylermachado.com">Tyler Machado</a>. </p>
 
-<Accordion>
-  <AccordionItem open>
-    <svelte:fragment slot="summary">Filters</svelte:fragment>
-    <svelte:fragment slot="content">
-      <div class="data__filters">
-        <div class="data__filter-revenue">
-          <h3>Revenue</h3>
-          <select on:change={handleFilterRevenue} class="select">
-            <option value="1" data-tier="All">All</option>
-            {#each filterOptionsRevenue as tier}
-              <option value="2" data-tier={tier}>{tier}</option>
-            {/each}
-          </select>
-        </div>
+<div id="dashboard-controls"  class:controls-fixed={isFixed}>
+  <Accordion>
+    <AccordionItem open>
+      <svelte:fragment slot="summary">Filters</svelte:fragment>
+      <svelte:fragment slot="content">
+        <div class="data__filters">
+          <div class="data__filter-revenue">
+            <h3>Revenue</h3>
+            <select on:change={handleFilterRevenue} class="select">
+              <option value="1" data-tier="All">All</option>
+              {#each filterOptionsRevenue as tier}
+                <option value="2" data-tier={tier}>{tier}</option>
+              {/each}
+            </select>
+          </div>
 
-        <div class="data__filter-age">
-          <h3>Organization Age</h3>
-          <select on:change={handleFilterAge} class="select">
-            <option value="1" data-minage="0" data-maxage="200">All</option>
-            <option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
-            <option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
-            <option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
-          </select>
-        </div>
+          <div class="data__filter-age">
+            <h3>Organization Age</h3>
+            <select on:change={handleFilterAge} class="select">
+              <option value="1" data-minage="0" data-maxage="200">All</option>
+              <option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
+              <option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
+              <option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
+            </select>
+          </div>
 
-        <div class="data__filter-staff">
-          <h3>Staff</h3>
-          <select on:change={handleFilterStaff} class="select">
-            <option value="1" data-min="0" data-max="200">All</option>
-            <option value="3" data-min="0" data-max="3">Fewer than 3 employees</option>
-            <option value="4" data-min="3" data-max="10">3-10 employees</option>
-            <option value="4" data-min="10" data-max="25">10-25 employees</option>
-            <option value="5" data-min="25" data-max="200">25 or more employees</option>
-          </select>
-        </div>
+          <div class="data__filter-staff">
+            <h3>Staff</h3>
+            <select on:change={handleFilterStaff} class="select">
+              <option value="1" data-min="0" data-max="200">All</option>
+              <option value="3" data-min="0" data-max="3">Fewer than 3 employees</option>
+              <option value="4" data-min="3" data-max="10">3-10 employees</option>
+              <option value="4" data-min="10" data-max="25">10-25 employees</option>
+              <option value="5" data-min="25" data-max="200">25 or more employees</option>
+            </select>
+          </div>
 
-        <div class="data__filter-focus">
-          <h3>Coverage Focus</h3>
-          <select on:change={handleFilterFocus} class="select">
-            <option value="all">All</option>
-            {#each filterOptionsFocus as option}
-              <option value={option.value}>{option.label}</option>
-            {/each}
-          </select>
-        </div>
+          <div class="data__filter-focus">
+            <h3>Coverage Focus</h3>
+            <select on:change={handleFilterFocus} class="select">
+              <option value="all">All</option>
+              {#each filterOptionsFocus as option}
+                <option value={option.value}>{option.label}</option>
+              {/each}
+            </select>
+          </div>
 
-        <div class="data__filter-priority">
-          <h3>Coverage Priority</h3>
-          <select on:change={handleFilterPriority} class="select">
-            <option value="all">All</option>
-            {#each filterOptionsPriority as option}
-              <option value={option.value}>{option.label}</option>
-            {/each}
-          </select>
+          <div class="data__filter-priority">
+            <h3>Coverage Priority</h3>
+            <select on:change={handleFilterPriority} class="select">
+              <option value="all">All</option>
+              {#each filterOptionsPriority as option}
+                <option value={option.value}>{option.label}</option>
+              {/each}
+            </select>
+          </div>
         </div>
+      </svelte:fragment>
+    </AccordionItem>
+  </Accordion>
+
+  <aside class="alert variant-ringed">
+      <div class="alert-message">
+          <p>Showing data from {filteredData.length} organizations</p>
       </div>
-    </svelte:fragment>
-  </AccordionItem>
-</Accordion>
+  </aside>
 
-<aside class="alert variant-ringed">
-    <div class="alert-message">
-        <p>Showing data from {filteredData.length} organizations</p>
-    </div>
-</aside>
-
-<nav class="data__nav">
-  <ul>
-    {#each pages as page}
-      <li class={currentPath === `${pathPrefix}/${page}` ? 'active' : ''}>
-        <a href={`${pathPrefix}/${page}`}>
-          {page.charAt(0).toUpperCase() + page.slice(1)}
-        </a>
-      </li>
-    {/each}
-  </ul>
-</nav>
+  <nav class="data__nav">
+    <ul>
+      {#each pages as page}
+        <li class={currentPath === `${pathPrefix}/${page}` ? 'active' : ''}>
+          <a href={`${pathPrefix}/${page}`}>
+            {page.charAt(0).toUpperCase() + page.slice(1)}
+          </a>
+        </li>
+      {/each}
+    </ul>
+  </nav>
+</div>
 
 <div class="data__wrapper">
   {#if filteredData.length < 5}
@@ -204,3 +220,17 @@
 </div>
 
 </main>
+
+<style>
+  .controls-fixed {
+    background-color: white;
+    padding: 0 10px 15px;
+    position: fixed;
+    top: 0;
+    width: 100%; 
+    z-index: 1000; 
+    margin-left: -16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+</style>
