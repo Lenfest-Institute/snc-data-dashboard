@@ -92,9 +92,6 @@
       tier,
       ...averages
     }));
-
-    $: console.log(donorSizeData);
-    $: console.log(totalExpensesData);
 </script>
 
 <div class="charts__wrapper charts__revenue">
