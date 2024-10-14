@@ -10,21 +10,21 @@
     SlideToggle,
   } from '@skeletonlabs/skeleton';
   import { filterOptionsFocus, filterOptionsPriority } from '$lib/index';
-	import { packEnclose } from 'd3';
 
   const pages = ['audience', 'revenue', 'diversity', 'staffing', 'coverage'];
 
   // Handle fixing the controls to the top of the browser.
   let isFixed = false;
+  let controlsHeight = 0;
+  let controlsElement;
 
   const handleScroll = () => {
-    const accordion = document.querySelector('#dashboard-controls');
-    const offsetTop = accordion.offsetTop;
-
+    const offsetTop = controlsElement.offsetTop;
     isFixed = window.scrollY > offsetTop;
   };
 
   onMount(() => {
+    controlsHeight = controlsElement.offsetHeight;
     window.addEventListener('scroll', handleScroll);
   });
 
@@ -128,13 +128,17 @@
 </header>
 
 <main>
-
   <p>Welcome to the <a href="https://www.lenfestinstitute.org/our-work/communities-of-practice/statewide-news-collective/">Statewide News Collective</a> + INN Index Dashboard. Created by  The Lenfest Institute for Journalism and the Institute for Nonprofit News (INN), this dashboard showcases anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023. See <a href="https://inn.org/research/inn-index/the-inn-index/about-the-index/">INN's full Index</a> for nonprofit news trends. The Statewide News Collective is a community for news organizations serving statewide audiences.</p>
 
-  <p>Dashboard designed and built by <a href="//tylermachado.com">Tyler Machado</a>; please send suggestions and feedback <a href="mailto:tyler.machado@gmail.com?subject=SNC Data Dashboard Feedback" aria-label="Send suggestions and feedback to Tyler via email">via email</a>.
-.</p>
+  <p>Dashboard designed and built by <a href="//tylermachado.com">Tyler Machado</a>; please send suggestions and feedback <a href="mailto:tyler.machado@gmail.com?subject=SNC Data Dashboard Feedback" aria-label="Send suggestions and feedback to Tyler via email">via email</a>.</p>
 
-<div id="dashboard-controls"  class:controls-fixed={isFixed}>
+  <div style="height: {isFixed ? `${controlsHeight}px` : '0'};"></div>
+
+<div
+bind:this={controlsElement}
+class="controls"
+class:controls-fixed={isFixed}
+>
   <Accordion>
     <AccordionItem open>
       <svelte:fragment slot="summary">Filters</svelte:fragment>
