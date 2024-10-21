@@ -49,10 +49,6 @@
   });
   $: series = d3.stack().keys(socialOptions)(socialData);
 
-  $: console.log(socialOptions);
-  $: console.log(socialData);
-  $: console.log(series);
-
 </script>
 
 <div class="charts__wrapper charts__audience">

@@ -4,6 +4,7 @@
  -->
 <script>
   import { getContext } from 'svelte';
+  import HoverCard from './HoverCard.svelte';
   import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
 
   const { data, xGet, height, zGet, xScale, yScale } = getContext('LayerCake');
@@ -45,12 +46,24 @@
       simulation.tick();
     }
   }
+
+  $: hoverCardInfo = {
+    data: {},
+    x: 0,
+    y: 0,
+    active: false,
+  }
 </script>
 
 <div class="bee-container">
+  <HoverCard 
+    data={hoverCardInfo}
+  />
   {#each simulation.nodes() as node}
     <div
       class="circle"
+      role="button"
+      tabindex="0"
       style="
         left: {node.x}%;
         top: {node.y + ($height / 2)}px;
@@ -59,6 +72,30 @@
         background-color: {fill};
         border: {strokeWidth}px solid {stroke};
       "
+      on:mouseover={() => {
+        hoverCardInfo = {
+          data: $data[node.index],
+          x: node.x,
+          y: node.y + ($height / 2),
+          active: true,
+        };
+      }}
+      on:focus={() => {
+        hoverCardInfo = {
+          data: $data[node.index],
+          x: node.x,
+          y: node.y + ($height / 2),
+          active: true,
+        };
+      }}
+      on:mouseleave={() => {
+        hoverCardInfo = {
+          data: {},
+          x: 0,
+          y: 0,
+          active: false,
+        };
+      }}
     ></div>
   {/each}
 </div>
