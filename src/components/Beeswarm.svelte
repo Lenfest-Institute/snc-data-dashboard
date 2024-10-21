@@ -9,6 +9,8 @@
 
   const { data, xGet, height, zGet, xScale, yScale } = getContext('LayerCake');
 
+  console.log($data);
+
   $: nodes = $data.map(d => ({ ...d }));
 
   /** @type {Number} [r=4] - The circle radius size in pixels. */
@@ -24,7 +26,7 @@
   export let strokeWidth = 1;
 
   /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */
-  export let xStrength = 0.99;
+  export let xStrength = 1;
 
   $: simulation = forceSimulation(nodes)
     .force(
@@ -33,7 +35,7 @@
         .x(d => $xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0))
         .strength(xStrength)
     )
-    .force('collide', forceCollide(r))
+    .force('collide', forceCollide(r * .75))
     .stop();
 
   $: {

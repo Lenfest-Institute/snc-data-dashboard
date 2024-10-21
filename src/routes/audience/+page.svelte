@@ -68,68 +68,57 @@
   <Chart
     type={'beeswarm'}
     title={'Web Traffic'}
-    x={'count'}
-    z={'color'}
+    x={'Web Traffic (AMUs)'}
     xLabel={'Average monthly users'}
-    data={$filteredData.map(d => {
-      return {
-        color: d['Is PubMedia?'],
-        count: +d['Web Traffic (AMUs)']
-      };
+    data={$filteredData.map(obj => {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => {
+          const intValue = parseInt(value, 10);
+          return [key, isNaN(intValue) ? value : intValue];
+        })
+      );
     })}
   />
   <Chart
     type={'beeswarm'}
     title={'Email Subscriber Size'}
-    x={'count'}
-    z={'color'}
+    x={'Email Subscriber Size'}
     xLabel={'Number of subscribers'}
-    data={$filteredData
-      .filter(d => {
-        const value = d['Pct of Budget dedicated to Audience Development_VSQ2-5B'];
-        return value !== '';
-      }).map(d => {
-        return {
-          color: d['Is PubMedia?'],
-          count: +d['Email Subscriber Size']
-        }
-      })
-    }
+    data={$filteredData.map(obj => {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => {
+          const intValue = parseInt(value, 10);
+          return [key, isNaN(intValue) ? value : intValue];
+        })
+      );
+    })}
   />
   <Chart
     type={'beeswarm'}
     title={'% of Budget Dedicated to Marketing to Help Grow Audience'}
-    x={'count'}
-    z={'color'}
+    x={'% of Budget dedicated to Marketing to help grow Audience_V27A'}
     xLabel={'% of budget'}
-    data={$filteredData
-      .filter(d => {
-        const value = d['% of Budget dedicated to Marketing to help grow Audience_V27A'];
-        return value !== '';
-      })
-      .map(d => {
-        return {
-          color: d['Is PubMedia?'],
-          count: +d['% of Budget dedicated to Marketing to help grow Audience_V27A']
-        };
+    data={$filteredData.map(obj => {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => {
+          const intValue = parseInt(value, 10);
+          return [key, isNaN(intValue) ? value : intValue];
+        })
+      );
     })}
   />
   <Chart
     type={'beeswarm'}
     title={'% of Budget Dedicated to Audience Development'}
-    x={'count'}
-    z={'color'}
+    x={'% of Budget dedicated to Audience Development_VSQ2-5B'}
     xLabel={'% of budget'}
-    data={$filteredData
-      .filter(d => {
-        const value = d['% of Budget dedicated to Audience Development_VSQ2-5B'];
-        return value !== '';
-      })
-      .map(d => {
-        return {
-          color: d['Is PubMedia?'],
-          count: +d['% of Budget dedicated to Audience Development_VSQ2-5B']
-        };
+    data={$filteredData.map(obj => {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => {
+          const intValue = parseInt(value, 10);
+          return [key, isNaN(intValue) ? value : intValue];
+        })
+      );
     })}
   />
   <Chart

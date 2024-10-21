@@ -5,6 +5,8 @@
   import { getContext } from 'svelte';
   
   export let data;
+
+  $: console.log(Object.entries(data.data));
 </script>
 
 <div
@@ -17,7 +19,14 @@
 >
   <ul>
   {#each Object.entries(data.data) as [key, value]}
-    <li><span class="hover-card_key">{key}:</span> {value}</li>
+    {#if [
+      'Web Traffic (AMUs)',
+      'Email Subscriber Size',
+      'Revenue Tier',
+      'Expenses Tier',
+    ].includes(key)}
+      <li><span class="hover-card_key">{key}:</span> {value}</li>
+    {/if}
   {/each}
   </ul>
 </div>
@@ -25,7 +34,7 @@
 <style>
   .hover-card {
     position: absolute;
-    transform: translate(-50%, 30%);
+    transform: translate(-50%, -10%);
     background-color: white;
     border: 1px solid black;
     padding: 10px;
