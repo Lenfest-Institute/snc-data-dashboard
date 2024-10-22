@@ -29,6 +29,8 @@
     display: flex;
     flex-direction: row;
     position:absolute;
+    border: 1px solid #ccc;
+    padding: 5px 5px 0;
   }
 
   .legend-item {
@@ -52,7 +54,7 @@
         class="color-box"
         style="background-color: {item.color};"
       ></div>
-      <div>{item.label}</div>
+      <div class="color-label-text">{item.label}</div>
     </div>
   {/each}
 </div>
