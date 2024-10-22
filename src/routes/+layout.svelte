@@ -9,21 +9,30 @@
 
 	const pages = ['audience', 'revenue', 'diversity', 'staffing', 'coverage'];
 
-	// Handle fixing the controls to the top of the browser.
-	let isFixed = false;
+	let clientWidth;
+	let controlsBarFixed = false;
+	let accordionOpen = true;
 	let controlsHeight = 0;
 	let controlsElement;
 
+	$: console.log(clientWidth);
+
 	const handleScroll = () => {
-		const offsetTop = controlsElement.offsetTop;
-		isFixed = window.scrollY > offsetTop;
-	};
+        if (controlsElement) {
+            const offsetTop = controlsElement.offsetTop;
+            controlsBarFixed = window.scrollY > offsetTop;
+            if (clientWidth < 757 && controlsBarFixed) {
+                accordionOpen = false;
+            }
+        }
+    };
 
 	onMount(() => {
+		clientWidth = document.body.clientWidth;
 		controlsHeight = controlsElement.offsetHeight;
 		window.addEventListener('scroll', handleScroll);
 	});
-
+	
 	// Get page URL.
 	let currentPath;
 	$: currentPath = $page.url.pathname;
@@ -136,11 +145,11 @@
 	</p>
 </section>
 
-	<section style="height: {isFixed ? `${controlsHeight}px` : '0'};"></section>
+	<section style="height: {controlsBarFixed ? `${controlsHeight}px` : '0'};"></section>
 
-	<section bind:this={controlsElement} class="controls" class:controls-fixed={isFixed}>
+	<section bind:this={controlsElement} class="controls" class:controls-fixed={controlsBarFixed}>
 		<Accordion>
-			<AccordionItem open>
+			<AccordionItem open={accordionOpen}>
 				<svelte:fragment slot="summary">Filters</svelte:fragment>
 				<svelte:fragment slot="content">
 					<div class="data__filters">
@@ -218,7 +227,7 @@
 		</nav>
 	</section>
 
-	<main class="data__wrapper">
+	<main class="data__wrapper" bind:clientWidth={clientWidth}>
 		{#if filteredData.length < 5}
 			<p>Not enough organizations meet this combination of filters.</p>
 		{:else}
