@@ -11,15 +11,18 @@
 
 	let clientWidth;
 	let controlsBarFixed = false;
-	let accordionOpen = true;
-	let controlsHeight = 0;
-	let controlsElement;
+	let accordionOpen = true;  
+	let isMenuOpen = false;
 
-	$: console.log(clientWidth);
+
+	let controlsElement;
+	let controlsHeight = 0;
+	let filtersElement;
+	let filtersHeight = 0;
 
 	const handleScroll = () => {
         if (controlsElement) {
-            const offsetTop = controlsElement.offsetTop;
+            const offsetTop = controlsElement.offsetTop + filtersHeight;
             controlsBarFixed = window.scrollY > offsetTop;
             if (clientWidth < 757 && controlsBarFixed) {
                 accordionOpen = false;
@@ -30,9 +33,10 @@
 	onMount(() => {
 		clientWidth = document.body.clientWidth;
 		controlsHeight = controlsElement.offsetHeight;
+		filtersHeight = filtersElement.offsetHeight;
 		window.addEventListener('scroll', handleScroll);
 	});
-	
+
 	// Get page URL.
 	let currentPath;
 	$: currentPath = $page.url.pathname;
@@ -129,6 +133,11 @@
 			filterPriority = null;
 		}
 	}
+
+
+  function toggleMenu() {
+    isMenuOpen = !isMenuOpen;
+  }
 </script>
 
 <header>
@@ -152,7 +161,7 @@
 			<AccordionItem open={accordionOpen}>
 				<svelte:fragment slot="summary">Filters</svelte:fragment>
 				<svelte:fragment slot="content">
-					<div class="data__filters">
+					<div class="data__filters" bind:this={filtersElement}>
 						<div class="data__filter-revenue">
 							<h3>Revenue</h3>
 							<select on:change={handleFilterRevenue} class="select">
@@ -214,7 +223,12 @@
 			</div>
 		</aside>
 
-		<nav class="data__nav">
+<div>
+  <div class="hamburger" on:click={toggleMenu}>
+    &#9776; <!-- Unicode character for hamburger menu -->
+  </div>
+
+  <nav class="data__nav {isMenuOpen ? 'open' : ''}">
 			<ul>
 				{#each pages as page}
 					<li class={currentPath === `${pathPrefix}/${page}` ? 'active' : ''}>
@@ -225,6 +239,7 @@
 				{/each}
 			</ul>
 		</nav>
+		</div>
 	</section>
 
 	<main class="data__wrapper" bind:clientWidth={clientWidth}>
@@ -235,7 +250,7 @@
 		{/if}
 	</main>
 
-<style>
+<style lang="scss">
 	.controls-fixed {
 		background-color: white;
 		padding: 0;
@@ -244,4 +259,69 @@
 		width: 100%;
 		z-index: 1000;
 	}
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 24px;
+  }
+
+	nav.data__nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--gray-30);
+    color: var(color-white);
+    padding: 0 16px;
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--gray-30);
+        width: 50%;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+
+        li {
+            list-style: none;
+            align-items: center;
+            display: flex;
+
+            &.active {
+                background-color: var(--gray-15);
+            }
+
+            &:hover {
+                background-color: var(--gray-15);
+            }
+
+            a {
+                text-decoration: none;
+                color: #000;
+                padding: 1rem;
+                border-bottom: unset;
+            }
+        }
+    }
+}
+
+  @media (max-width: 768px) {
+    .data__nav {
+      display: none;
+    }
+
+    .data__nav.open {
+      display: flex;
+			ul {
+      display: flex;
+    	flex-direction: column;
+			}
+    }
+
+    .hamburger {
+      display: block;
+    }
+  }
 </style>
