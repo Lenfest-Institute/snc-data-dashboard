@@ -26,6 +26,7 @@
             controlsBarFixed = window.scrollY > offsetTop;
             if (clientWidth < 757 && controlsBarFixed) {
                 accordionOpen = false;
+								isMenuOpen = false;
             }
         }
     };
@@ -64,11 +65,9 @@
 	$: filteredDataStore.set(filteredData);
 	setContext('filteredData', filteredDataStore);
 
-	// Create a store and update it when necessary...
+	// Create a store and update it when necessary, then add it to the context for child components to access
 	const user = writable('not set');
 	$: user.set(data.user);
-
-	// ...and add it to the context for child components to access
 	setContext('user', user);
 
 	// Filter options.
@@ -157,7 +156,7 @@
 	<section style="height: {controlsBarFixed ? `${controlsHeight}px` : '0'};"></section>
 
 	<section bind:this={controlsElement} class="controls" class:controls-fixed={controlsBarFixed}>
-		<Accordion>
+		<Accordion class="menu-filters_wrapper">
 			<AccordionItem open={accordionOpen}>
 				<svelte:fragment slot="summary">Filters</svelte:fragment>
 				<svelte:fragment slot="content">
@@ -217,12 +216,6 @@
 			</AccordionItem>
 		</Accordion>
 
-		<aside class="alert variant-ringed">
-			<div class="alert-message">
-				<p>Showing data from {filteredData.length} organizations</p>
-			</div>
-		</aside>
-
 <div>
   <div class="hamburger" on:click={toggleMenu}>
     &#9776; <!-- Unicode character for hamburger menu -->
@@ -244,13 +237,28 @@
 
 	<main class="data__wrapper" bind:clientWidth={clientWidth}>
 		{#if filteredData.length < 5}
+			<aside class="alert variant-ringed">
+				<div class="alert-message">
 			<p>Not enough organizations meet this combination of filters.</p>
+				</div>
+			</aside>
 		{:else}
+
+
+			<aside class="alert variant-ringed">
+				<div class="alert-message">
+					<p>Showing data from {filteredData.length} organizations</p>
+				</div>
+			</aside>
 			<slot />
 		{/if}
 	</main>
 
 <style lang="scss">
+	:global(.menu-filters_wrapper) {
+		background-color: var(--gray-45);
+	}
+
 	.controls-fixed {
 		background-color: white;
 		padding: 0;
@@ -277,20 +285,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--gray-30);
         width: 50%;
-
-        @media screen and (max-width: 768px) {
-            width: 100%;
-        }
-
         li {
             list-style: none;
             align-items: center;
             display: flex;
 
             &.active {
-                background-color: var(--gray-15);
+							color: var(--brand-primary);
+    					background-color: var(--gray-15);
             }
 
             &:hover {
@@ -307,21 +310,46 @@
     }
 }
 
-  @media (max-width: 768px) {
-    .data__nav {
-      display: none;
+  @media screen and (max-width: 768px) {
+    nav.data__nav {
+				border-bottom: 1px solid black;
+    		background-color: var(--gray-15);
+
+			ul {
+				display: flex;
+				height: 3rem;
+				transition: height 0.5s;
+
+				li {
+					display: none;
+					font-size: 1.25rem;
+					padding: 0.5rem;
+
+					&.active {
+						display: block;
+					}
+				}
+			}
     }
 
-    .data__nav.open {
+    nav.data__nav.open {
       display: flex;
+
 			ul {
-      display: flex;
-    	flex-direction: column;
+				display: flex;
+				flex-direction: column;
+				height: 15rem;
+
+				li {
+					display: block;
+				}
 			}
     }
 
     .hamburger {
       display: block;
+			position: absolute;
+			right: 0.75rem;
     }
   }
 </style>
