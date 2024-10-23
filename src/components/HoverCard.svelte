@@ -5,8 +5,6 @@
   import { getContext } from 'svelte';
   
   export let data;
-
-  $: console.log(Object.entries(data.data));
 </script>
 
 <div
