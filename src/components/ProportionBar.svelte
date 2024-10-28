@@ -42,7 +42,9 @@
         left: calc({xScale(d.offset)}px);
       "
     >
-      {d.count}
+      <div class="group-label-text">
+        {d.count}
+       </div>
     </div>
   {/each}
 </div>
@@ -61,8 +63,14 @@
 .group-label {
   position: absolute;
   height: 40px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: right;
+}
+
+.group-label-text{
+  background-color: rgba(255, 255, 255, 0.33);
+  padding: 2px 5px;
 }
 </style>

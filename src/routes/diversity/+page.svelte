@@ -59,14 +59,14 @@
 <div class="charts__wrapper charts__diversity">
 	<Chart
     type={'proportionbar'}
-    title={'Proportion of POC leaders'}
+    title={'Organizations with POC leaders'}
 		zDomain={['POC-Led', 'Not POC-Led']}
 		zRange={['#f95346', '#cccccc']}
     data={execBIPOCData}
 	/>
 	<Chart
     type={'proportionbar'}
-    title={'Proportion of Women leaders'}
+    title={'Organizations with Women leaders'}
 		zDomain={['Women-Led', 'Not Women-Led']}
 		zRange={['#f95346', '#cccccc']}
     data={execWomenData}
