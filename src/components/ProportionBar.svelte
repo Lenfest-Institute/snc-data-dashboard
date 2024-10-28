@@ -6,6 +6,7 @@
 
   export let zDomain;
   export let zRange;
+  export let width;
 
   $: stackedData = $data.reduce((acc, item) => {
     const cumulativeCount = acc.length > 0 ? acc[acc.length - 1].offset + acc[acc.length - 1].count : 0;
@@ -16,29 +17,52 @@
   // // Create a scale for the x-axis based on the groups
   $: xScale = d3.scaleLinear()
     .domain([0, d3.sum($data, d => d.count)])
-    .range([0, 100]); // Define `width` based on your chart size
+    .range([0, width]); // Define `width` based on your chart size
 
   const colorScale = d3.scaleOrdinal()
     .domain(zDomain)
     .range(zRange); // Define `width` based on your chart size
 </script>
 
-<g class="bar-group">
+<div class="bar-group">
   {#each stackedData as d, i}
-    <rect
+    <div
       class="group-rect"
       data-id={d.group}
-      x={xScale(d.offset)}
-      y={0}
-      height={10}
-      width={xScale(d.count)}
-      fill={colorScale(d.group)}
-    ></rect>
+      style="
+        width: {xScale(d.count)}px;
+        background-color: {colorScale(d.group)};
+        left: {xScale(d.offset)}px;
+      ">
+    </div>
+    <div
+      class="group-label"
+      style="
+        width: calc({xScale(d.count)}px - 5px);
+        left: calc({xScale(d.offset)}px);
+      "
+    >
+      {d.count}
+    </div>
   {/each}
-</g>
+</div>
 
 <style>
-  text {
-    font-size: 20%;
-  }
+  .bar-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.group-rect {
+  position: absolute;
+  height: 40px;
+}
+
+.group-label {
+  position: absolute;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
+}
 </style>

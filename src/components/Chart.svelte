@@ -107,10 +107,8 @@
 			{:else if type === 'proportionbar'}
 				<Html>
 					<Legend labels={zDomain} colors={zRange} chartType={type} />
-				</Html>
-				<ScaledSvg fixedAspectRatio={8/1}>
 					<ProportionBar {width} {zDomain} {zRange} />
-				</ScaledSvg>
+				</Html>
 			{:else if type === 'barstacked'}
     <Html>
       <AxisX baseline snapLabels axisLabel={xLabel}  />

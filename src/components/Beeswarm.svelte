@@ -33,7 +33,7 @@
         .x(d => $xGet(d) + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0))
         .strength(xStrength)
     )
-    .force('collide', forceCollide(r * .75))
+    .force('collide', forceCollide(r * .8))
     .stop();
 
   $: {

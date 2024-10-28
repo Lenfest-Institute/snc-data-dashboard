@@ -3,6 +3,18 @@
  -->
 <script>
   import { getContext } from 'svelte';
+
+  function formatCoveragePriority(value) {
+    if (value === 'Cover_News') {
+      return 'News of the Day';
+    } else if (value === 'Cover_Analysis') {
+      return 'Explanatory/Analysis';
+    } else if (value === 'Cover_Invest') {
+      return 'Investigative';
+    } else {
+      return value;
+    }
+  }
   
   export let data;
 </script>
@@ -18,12 +30,12 @@
   <ul>
   {#each Object.entries(data.data) as [key, value]}
     {#if [
-      'Web Traffic (AMUs)',
-      'Email Subscriber Size',
+      'Geographic scope',
+      'Coverage Priority',
       'Revenue Tier',
       'Expenses Tier',
     ].includes(key)}
-      <li><span class="hover-card_key">{key}:</span> {value}</li>
+      <li><span class="hover-card_key">{key}:</span> {formatCoveragePriority(value)}</li>
     {/if}
   {/each}
   </ul>
