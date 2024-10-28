@@ -11,27 +11,29 @@
   <Chart
     type={'beeswarm'}
     title={'Total Editorial Staff'}
-    x={'count'}
+    x={'Editorial Staff (FTE)'}
     xLabel={'Number of staffers'}
-    z={'color'}
-    data={$filteredData.map(d => {
-      return {
-        color: d['Is PubMedia?'],
-        count: +d['Editorial Staff (FTE)']
-      };
+    data={$filteredData.map(obj => {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => {
+          const intValue = parseInt(value, 10);
+          return [key, isNaN(intValue) ? value : intValue];
+        })
+      );
     })}
   />
   <Chart
     type={'beeswarm'}
     title={'Total Non-Editorial Staff'}
-    x={'count'}
+    x={'Non-editorial Staff (FTE)'}
     xLabel={'Number of staffers'}
-    z={'color'}
-    data={$filteredData.map(d => {
-      return {
-        color: d['Is PubMedia?'],
-        count: +d['Non-editorial Staff (FTE)']
-      };
+    data={$filteredData.map(obj => {
+    return Object.fromEntries(
+        Object.entries(obj).map(([key, value]) => {
+          const intValue = parseInt(value, 10);
+          return [key, isNaN(intValue) ? value : intValue];
+        })
+      );
     })}
   />
   <Chart
