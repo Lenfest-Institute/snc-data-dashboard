@@ -8,7 +8,7 @@
   export let colors;
   export let chartType;
 
-  let bottomPadding = 4;
+  let bottomPadding = 5;
   if (chartType === 'proportionbar') {
     bottomPadding = 1;
   }
@@ -23,6 +23,18 @@
     color: colorScale(label)
   }));
 </script>
+
+<div class="legend-container" style="bottom: -{bottomPadding}rem;">
+  {#each legendItems as item}
+    <div class="legend-item">
+      <div
+        class="color-box"
+        style="background-color: {item.color};"
+      ></div>
+      <div class="color-label-text">{item.label}</div>
+    </div>
+  {/each}
+</div>
 
 <style>
   .legend-container {
@@ -46,15 +58,3 @@
     margin-right: 8px;
   }
 </style>
-
-<div class="legend-container" style="bottom: -{bottomPadding}rem;">
-  {#each legendItems as item}
-    <div class="legend-item">
-      <div
-        class="color-box"
-        style="background-color: {item.color};"
-      ></div>
-      <div class="color-label-text">{item.label}</div>
-    </div>
-  {/each}
-</div>
