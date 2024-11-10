@@ -60,7 +60,7 @@
       "
     >
       <div class="group-label-text">
-        {d.count}
+        {yValue}
        </div>
     </div>
   {/each}
