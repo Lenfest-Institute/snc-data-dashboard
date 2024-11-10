@@ -54,8 +54,8 @@
     <div
       class="group-label"
       style="
-        width: calc(calc({colWidth}% / 2));
-        left: calc({xPos}% + calc({colWidth}% / {$data.length}));
+        width: calc(calc({colWidth}%));
+        left: calc({xPos}%);
         top: calc({$yGet(d)}% - 30px);
       "
     >
@@ -82,7 +82,7 @@
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: right;
+  justify-content: center;
 }
 
 .group-label-text{
