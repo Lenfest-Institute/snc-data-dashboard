@@ -27,8 +27,6 @@
   $: columnHeight = d => {
     return $yRange[0] - $yGet(d);
   };
-
-  $: console.log($yRange);
 </script>
 
 <div class="column-group">
@@ -57,7 +55,7 @@
       class="group-label"
       style="
         width: calc(calc({colWidth}% / 2));
-        left: calc({xPos}% + calc({colWidth}% / 4));
+        left: calc({xPos}% + calc({colWidth}% / {$data.length}));
         top: calc({$yGet(d)}% - 30px);
       "
     >
