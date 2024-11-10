@@ -94,10 +94,10 @@
 				<Html>
 					<AxisX type={type} gridlines={false} axisLabel={xLabel}  />
 					<AxisY axisLabel={yLabel} {width} />
+					<Column
+						xRange={[0, 100]}
+					/>
 				</Html>
-				<ScaledSvg>
-					<Column />
-				</ScaledSvg>
 			{:else if type === 'dotplot'}
 				<Html>
 					<AxisX />
