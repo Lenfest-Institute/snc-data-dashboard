@@ -7,7 +7,7 @@
 <script>
   import { getContext } from 'svelte';
 
-  const { xScale, percentRange } = getContext('LayerCake');
+  const { xScale, percentRange, padding } = getContext('LayerCake');
 
   /** @type {Boolean} [tickMarks=false] - Show a vertical mark for each tick. */
   export let tickMarks = false;
@@ -47,8 +47,11 @@
   /** @type {Number} [dy=0] - Any optional value passed to the `dy` attribute on the text label. */
   export let dy = 0;
 
+  /** @type {Number} - Chart width attribute passed down from parent. */
+  export let width;
+
   /** @type {Number} [rotate=0] - Any optional value passed to the `rotate` attribute on the text label. */
-  export let rotate = 0;
+  export let rotate;
 
   /** @type {String} units - Whether this component should use percentage or pixel values. If `percentRange={true}` it defaults to `'%'`. Options: `'%'` or `'px'`. */
   export let units = $percentRange === true ? '%' : 'px';
@@ -62,12 +65,14 @@
   /** @type {Number} type - Optional manual start. */
   export let setStartTick;
 
-  let labelBottomPadding = 3;
+  let labelBottomPadding = 6.5;
 
-  if (rotate == -45) {
-    dx = -15;
-    dy = 15;
-    textAlign = 'right';
+  $: rotate = width < 500 ? 60 : 0;
+
+  $: if (rotate >= 45) {
+    dx = 15;
+    dy = 20;
+    textAlign = 'left';
   }
 
   $: tickLen = tickMarks === true ? tickMarkLength ?? 6 : 0;
@@ -121,7 +126,7 @@
     {@const tickValUnits = $xScale(tick)}
 
     {#if baseline === true}
-      <div class="baseline" style="top:100%; width:100%;"></div>
+      <div class="baseline" style="top:100%; width:{halfBand}px"></div>
     {/if}
 
     {#if gridlines === true}
@@ -138,7 +143,10 @@
     <div
       class="tick tick-{i}"
       style:left="{tickValUnits + halfBand}{units}"
-      style="top:calc(100% + {tickGutter}px);"
+      style="
+        top:calc(100% + {tickGutter}px);
+        width:{isBandwidth ? $xScale.bandwidth() : 0}%;
+      "
     >
       {#if type === 'column' && typeof tick === 'string'}
         <div

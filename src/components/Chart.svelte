@@ -37,7 +37,7 @@
 	$: paddingCustom = padding || {
 		top: 10,
 		right: 20,
-		bottom: 40,
+		bottom: 75,
 		left: (type === 'beeswarm' ? 0 : 45) + (yDomainCustom && yDomainCustom.length > 0 ? Math.round(yDomainCustom[1]).toString().length * 7 : 0)
 	};
 	export let zScale;
@@ -92,7 +92,7 @@
 				</Html>
 			{:else if type === 'column'}
 				<Html>
-					<AxisX type={type} gridlines={false} axisLabel={xLabel}  />
+					<AxisX type={type} gridlines={false} axisLabel={xLabel} {width} />
 					<AxisY axisLabel={yLabel} {width} />
 					<Column
 						xRange={[0, 100]}
