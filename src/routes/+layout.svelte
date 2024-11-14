@@ -138,10 +138,12 @@
 
 	function toggleMenu() {
 		isMenuOpen = !isMenuOpen;
+		accordionOpen = false;
 	}
 	
 	function toggleFilterContainer() {
 		accordionOpen = !accordionOpen;
+		isMenuOpen = false;
 	}
 </script>
 
@@ -237,9 +239,9 @@
 		</AccordionItem>
 	</Accordion>
 
-	<div class="controls_category-bar">
-		<div class="controls_filters-button hamburger" on:click={toggleFilterContainer}>
+		<div class="controls_button controls_button-filters" on:click={toggleFilterContainer}>
 			<SlidersIcon  />
+			Filters
 		</div>
 
 		<nav class="controls__category-nav data__nav {isMenuOpen ? 'open' : ''}">
@@ -254,10 +256,10 @@
 			</ul>
 		</nav>
 
-		<div class="controls_category-button hamburger" on:click={toggleMenu}>
+		<div class="controls_button controls_button-categories" on:click={toggleMenu}>
 			<MenuIcon  />
+			Categories
 		</div>
-	</div>
 </section>
 
 <main class="data__wrapper" bind:clientWidth>
@@ -279,17 +281,47 @@
 
 <style lang="scss">
 	:global(.menu-filters_wrapper) {
-		background-color: var(--gray-45);
+		background-color: var(--mint);
 	}
+
+	:global(.data__filters .select) {
+		background-color: var(--gray-15);
+	}
+
 
 	section.controls {
-		display: flex;
-		flex-direction: column-reverse;
-	}
-
-	.controls_category-bar {
 		display: grid;
-		grid-template-columns: 60px 1fr 60px;
+		grid-auto-rows: 1fr; 
+		grid-template-columns: 60px auto 60px; 
+		grid-template-rows: 1fr auto;
+
+		:global(.menu-filters_wrapper) { 
+			grid-area: 2 / 1 / 3 / 4;
+		}
+
+		.controls__category-nav { 
+			grid-area: 1 / 2 / 2 / 3;
+		}
+
+		.controls_button-filters { 
+			background-color: var(--mint);
+			grid-area: 1 / 1 / 2 / 2; 
+		}
+
+		.controls_button-categories {
+			background-color: var(--gray-30);
+			grid-area:  1 / 3 / 2 / 4;
+		}
+
+		.controls_button {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			font-size: 0.6rem;
+			text-transform: uppercase;
+		}
 	}
 
 	.controls-fixed {
@@ -301,11 +333,8 @@
 		z-index: 1000;
 	}
 
-	.hamburger {
-		cursor: pointer;
-		font-size: 24px;
-		display: flex;
-		justify-content: center;
+	:global(.accordion-control) {
+		display: none;
 	}
 
 	nav.data__nav {
@@ -327,11 +356,15 @@
 
 				&.active {
 					color: var(--brand-primary);
-					background-color: var(--gray-15);
+					background-color: var(--gray-30);
+
+					@media screen and (min-width: 768px) {
+						background-color: var(--gray-15);
+					}
 				}
 
 				&:hover {
-					background-color: var(--gray-15);
+					background-color: var(--gray-30);
 				}
 
 				a {
@@ -346,8 +379,7 @@
 
 	@media screen and (max-width: 768px) {
 		nav.data__nav {
-			border-bottom: 1px solid black;
-			background-color: var(--gray-15);
+			background-color: var(--gray-30);
 
 			ul {
 				display: flex;
