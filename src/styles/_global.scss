@@ -18,14 +18,12 @@ section.controls aside,
 section.controls nav ul {
   margin: 0 auto;
   padding: 0 16px;
-  max-width: 1024px;
 
   &.controls {
     max-width: unset;
     padding: 0;
 
     div.accordion, aside, nav ul {
-      max-width: 1024px;
       margin: 0 auto;
       padding: 0;
     }

@@ -179,6 +179,13 @@
 <section style="height: {controlsBarFixed ? `${controlsHeight}px` : '0'};"></section>
 
 <section bind:this={controlsElement} class="controls" class:controls-fixed={controlsBarFixed}>
+
+
+		<div class="controls_button controls_button-filters" on:click={toggleFilterContainer}>
+			<SlidersIcon  />
+			Filters
+		</div>
+
 	<Accordion class="menu-filters_wrapper">
 		<AccordionItem open={accordionOpen}>
 			<svelte:fragment slot="summary">Filters</svelte:fragment>
@@ -239,9 +246,9 @@
 		</AccordionItem>
 	</Accordion>
 
-		<div class="controls_button controls_button-filters" on:click={toggleFilterContainer}>
-			<SlidersIcon  />
-			Filters
+		<div class="controls_button controls_button-categories" on:click={toggleMenu}>
+			<MenuIcon  />
+			Categories
 		</div>
 
 		<nav class="controls__category-nav data__nav {isMenuOpen ? 'open' : ''}">
@@ -255,11 +262,6 @@
 				{/each}
 			</ul>
 		</nav>
-
-		<div class="controls_button controls_button-categories" on:click={toggleMenu}>
-			<MenuIcon  />
-			Categories
-		</div>
 </section>
 
 <main class="data__wrapper" bind:clientWidth>
@@ -292,11 +294,20 @@
 	section.controls {
 		display: grid;
 		grid-auto-rows: 1fr; 
-		grid-template-columns: 60px auto 60px; 
+		grid-template-columns: 75px auto 75px; 
 		grid-template-rows: 1fr auto;
+
+		@media screen and (min-width: 768px) {
+			display: flex;
+			flex-direction: column;
+		}
 
 		:global(.menu-filters_wrapper) { 
 			grid-area: 2 / 1 / 3 / 4;
+
+			@media screen and (max-width: 768px) {
+				grid-area: 2 / 1 / 3 / 4;
+			}
 		}
 
 		.controls__category-nav { 
@@ -304,23 +315,39 @@
 		}
 
 		.controls_button-filters { 
+			display: flex;
 			background-color: var(--mint);
 			grid-area: 1 / 1 / 2 / 2; 
 		}
 
 		.controls_button-categories {
+			display: flex;
 			background-color: var(--gray-30);
 			grid-area:  1 / 3 / 2 / 4;
+
+			@media screen and (min-width: 768px) {
+				display: none;
+			}
 		}
 
 		.controls_button {
-			display: flex;
 			flex-direction: column;
 			align-items: center;
-			justify-content: center;
+			justify-content: flex-start;
 			cursor: pointer;
 			font-size: 0.6rem;
+			font-weight: 900;
 			text-transform: uppercase;
+			padding-top: 0.5rem;
+
+			@media screen and (min-width: 768px) {
+				flex-direction: row;
+				font-size: 0.75rem;
+				padding: 0.5rem 1rem;
+				align-items: center;
+				justify-content: flex-start;
+				gap: 0.5rem;
+			}
 		}
 	}
 
@@ -349,6 +376,11 @@
 			justify-content: space-between;
 			align-items: center;
 			width: 50%;
+
+			@media screen and (min-width: 768px) {
+				width: 550px;
+			}
+
 			li {
 				list-style: none;
 				align-items: center;
@@ -364,7 +396,9 @@
 				}
 
 				&:hover {
-					background-color: var(--gray-30);
+					a {
+						border-bottom: 1px solid black;
+					}
 				}
 
 				a {
