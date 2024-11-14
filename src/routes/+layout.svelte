@@ -288,6 +288,9 @@
 
 	:global(.data__filters .select) {
 		background-color: var(--gray-15);
+		border-radius: 0;
+		border: unset;
+		font-family: var(--brand-font-headline);
 	}
 
 
@@ -322,7 +325,7 @@
 
 		.controls_button-categories {
 			display: flex;
-			background-color: var(--gray-30);
+			background-color: var(--coral-faded);
 			grid-area:  1 / 3 / 2 / 4;
 
 			@media screen and (min-width: 768px) {
@@ -338,7 +341,7 @@
 			font-size: 0.6rem;
 			font-weight: 900;
 			text-transform: uppercase;
-			padding-top: 0.5rem;
+			padding-top: 0.33rem;
 
 			@media screen and (min-width: 768px) {
 				flex-direction: row;
@@ -367,7 +370,7 @@
 	nav.data__nav {
 		display: flex;
 		justify-content: space-between;
-		background-color: var(--gray-30);
+		background-color: var(--coral-faded);
 		color: var(color-white);
 		padding: 0 16px;
 
@@ -375,6 +378,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+			font-weight: 600;
 			width: 50%;
 
 			@media screen and (min-width: 768px) {
@@ -388,7 +392,7 @@
 
 				&.active {
 					color: var(--brand-primary);
-					background-color: var(--gray-30);
+					background-color: var(--coral-faded);
 
 					@media screen and (min-width: 768px) {
 						background-color: var(--gray-15);
@@ -413,10 +417,11 @@
 
 	@media screen and (max-width: 768px) {
 		nav.data__nav {
-			background-color: var(--gray-30);
+			background-color: var(--coral-faded);
 
 			ul {
 				display: flex;
+				flex-direction: column;
 				height: 3rem;
 				transition: height 0.5s;
 
@@ -437,7 +442,6 @@
 
 			ul {
 				display: flex;
-				flex-direction: column;
 				height: 15rem;
 
 				li {
