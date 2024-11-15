@@ -87,7 +87,7 @@
 				<Html>
 					<AxisX rotate={-45} axisLabel={xLabel} />
 					<AxisY axisLabel={yLabel} gridlines={false}  />
-					<Legend labels={x} colors={zRange} />
+					<!-- <Legend labels={x} colors={zRange} /> -->
 					<Scatter {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'column'}
@@ -106,14 +106,14 @@
 				</Html>
 			{:else if type === 'proportionbar'}
 				<Html>
-					<Legend labels={zDomain} colors={zRange} chartType={type} />
+					<!-- <Legend labels={zDomain} colors={zRange} chartType={type} /> -->
 					<ProportionBar {width} {zDomain} {zRange} />
 				</Html>
 			{:else if type === 'barstacked'}
     <Html>
       <AxisX baseline snapLabels axisLabel={xLabel}  />
       <AxisY gridlines={false} axisLabel={yLabel} />
-			<Legend labels={zDomain} colors={zRange} />
+			<!-- <Legend labels={zDomain} colors={zRange} /> -->
     </Html>
     <ScaledSvg>
       <BarStacked />
@@ -131,3 +131,10 @@
 		</LayerCake>
 	</div>
 </div>
+
+<style lang="scss">
+	h2 {
+		font-weight: 600;
+		font-size: 1.1rem;
+	}
+</style>
