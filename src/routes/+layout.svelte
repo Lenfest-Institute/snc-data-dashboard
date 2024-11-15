@@ -265,20 +265,19 @@
 </section>
 
 <main class="data__wrapper" bind:clientWidth>
-	{#if filteredData.length < 5}
-		<aside class="alert variant-ringed">
+	
+		<aside class="alert">
 			<div class="alert-message">
-				<p>Not enough organizations meet this combination of filters.</p>
+				{#if filteredData.length < 5}
+					<p>Not enough organizations meet this combination of filters.</p>
+				{:else}
+					<p>Showing data from {filteredData.length} organizations</p>
+				{/if}
 			</div>
 		</aside>
-	{:else}
-		<aside class="alert variant-ringed">
-			<div class="alert-message">
-				<p>Showing data from {filteredData.length} organizations</p>
-			</div>
-		</aside>
-		<slot />
-	{/if}
+		{#if filteredData.length >= 5}
+			<slot />
+		{/if}
 </main>
 
 <style lang="scss">
@@ -325,7 +324,7 @@
 
 		.controls_button-categories {
 			display: flex;
-			background-color: var(--coral-faded);
+			background-color: var(--gray-30);
 			grid-area:  1 / 3 / 2 / 4;
 
 			@media screen and (min-width: 768px) {
@@ -370,7 +369,7 @@
 	nav.data__nav {
 		display: flex;
 		justify-content: space-between;
-		background-color: var(--coral-faded);
+		background-color: var(--gray-30);
 		color: var(color-white);
 		padding: 0 16px;
 
@@ -392,7 +391,7 @@
 
 				&.active {
 					color: var(--brand-primary);
-					background-color: var(--coral-faded);
+					background-color: var(--gray-30);
 
 					@media screen and (min-width: 768px) {
 						background-color: var(--gray-15);
@@ -415,9 +414,18 @@
 		}
 	}
 
+	.alert {
+		font-size: 0.8rem;
+		font-weight: 600;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: var(--gray-75);
+	}
+
 	@media screen and (max-width: 768px) {
 		nav.data__nav {
-			background-color: var(--coral-faded);
+			background-color: var(--gray-30);
 
 			ul {
 				display: flex;
