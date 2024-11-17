@@ -48,7 +48,7 @@
     font-size: 13px;
   }
   .color-box {
-    width: 16px;
+    width: 10px;
     height: 16px;
     margin-right: 2px;
   }
