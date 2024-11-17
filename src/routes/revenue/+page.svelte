@@ -99,7 +99,7 @@
     isWide
     type={'column'}
     title={'Annual Revenue'}
-    padding={{ top: 0, right: 10, bottom: 60, left: 40 }}
+    padding={{ top: 0, right: 10, bottom: 80, left: 40 }}
     x={'group'}
     y={'count'}
     xLabel={'Total revenue for CY2023'}

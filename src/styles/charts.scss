@@ -18,12 +18,6 @@
         &.charts__chart-container-wide {
             grid-column: span 2;
         }
-
-        h2 {
-            font-family: $brand-font-body;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
     }
 
     &__chart {

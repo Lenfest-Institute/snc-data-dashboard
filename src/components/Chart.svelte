@@ -37,8 +37,12 @@
 	$: paddingCustom = padding || {
 		top: 10,
 		right: 20,
-		bottom: 75,
-		left: (type === 'beeswarm' ? 0 : 45) + (yDomainCustom && yDomainCustom.length > 0 ? Math.round(yDomainCustom[1]).toString().length * 7 : 0)
+		bottom: 70,
+		left:
+			(type === 'beeswarm' ? 0 : 45) +
+			(yDomainCustom && yDomainCustom.length > 0
+				? Math.round(yDomainCustom[1]).toString().length * 7
+				: 0)
 	};
 	export let zScale;
 	export let zDomain;
@@ -46,7 +50,7 @@
 	export let flatData;
 	export let labels;
 
-	const r = 6;	
+	const r = 6;
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;
@@ -80,27 +84,18 @@
 		>
 			{#if type === 'beeswarm'}
 				<Html>
-					<AxisX snapLabels ticks={5} axisLabel={xLabel} />
+					<AxisX snapLabels {width} ticks={5} axisLabel={xLabel} />
 					<Beeswarm {r} {fill} {stroke} {strokeWidth} />
-				</Html>
-			{:else if type === 'scatter'}
-				<Html>
-					<AxisX rotate={-45} axisLabel={xLabel} />
-					<AxisY axisLabel={yLabel} gridlines={false}  />
-					<!-- <Legend labels={x} colors={zRange} /> -->
-					<Scatter {r} {fill} {stroke} {strokeWidth} />
 				</Html>
 			{:else if type === 'column'}
 				<Html>
-					<AxisX type={type} gridlines={false} axisLabel={xLabel} {width} />
+					<AxisX  {width} {type} gridlines={false} axisLabel={xLabel} />
 					<AxisY axisLabel={yLabel} {width} />
-					<Column
-						xRange={[0, 100]}
-					/>
+					<Column xRange={[0, 100]} />
 				</Html>
 			{:else if type === 'dotplot'}
 				<Html>
-					<AxisX />
+					<AxisX {width} />
 					<AxisY gridlines={false} />
 					<ClevelandDotPlot />
 				</Html>
@@ -110,18 +105,18 @@
 					<ProportionBar {width} {zDomain} {zRange} />
 				</Html>
 			{:else if type === 'barstacked'}
-    <Html>
-      <AxisX baseline snapLabels axisLabel={xLabel}  />
-      <AxisY gridlines={false} axisLabel={yLabel} />
-			<!-- <Legend labels={zDomain} colors={zRange} /> -->
-    </Html>
-    <ScaledSvg>
-      <BarStacked />
-    </ScaledSvg>
+				<Html>
+					<AxisX {width} baseline snapLabels axisLabel={xLabel} />
+					<AxisY gridlines={false} axisLabel={yLabel} />
+					<!-- <Legend labels={zDomain} colors={zRange} /> -->
+				</Html>
+				<ScaledSvg>
+					<BarStacked />
+				</ScaledSvg>
 			{:else if type === 'linearea'}
 				<Html>
-					<AxisX axisLabel={xLabel}  />
-					<AxisY axisLabel={yLabel}  />
+					<AxisX {width} axisLabel={xLabel} />
+					<AxisY axisLabel={yLabel} />
 				</Html>
 				<ScaledSvg>
 					<Line />
@@ -136,5 +131,8 @@
 	h2 {
 		font-weight: 600;
 		font-size: 1.1rem;
+		line-height: 1.1rem;
+		font-family: var(--brand-font-body);
+		margin-bottom: 1.5rem;
 	}
 </style>
