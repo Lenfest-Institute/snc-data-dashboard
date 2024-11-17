@@ -68,8 +68,6 @@
   /** @type {Bool} rotateLabels - Optional manual override to rotate the labels. */
   export let rotateLabels = true;
 
-	let labelBottomPadding = $padding.bottom;
-
   // If xScale.domain is 4 or fewer items, or if width is greater than 500, set rotateLabels to false.
   $: rotateLabels = width < 500 || ($xScale.domain() && $xScale.domain().length <= 4);
 
@@ -91,14 +89,13 @@
 
 	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 
-  if (['proportionbar', 'barstacked'].includes(type)) {
-    labelBottomPadding = $padding.bottom - 40;
-  }
-  if (rotateLabels === false) {
-    labelBottomPadding = $padding.bottom - 0;
-  }
+  
 
-  $: console.log(labelBottomPadding);
+$: labelBottomPadding = ['proportionbar', 'barstacked'].includes(type)
+? $padding.bottom - 40
+: !rotateLabels
+? $padding.bottom - 20
+: $padding.bottom;
 
 	// Function to split the formatted tick by lines
 	function splitFormat(tick) {
@@ -110,7 +107,6 @@
 			if (end < formattedTick.length) {
 				const spaceIndex = formattedTick.indexOf(' ', end);
 				if (spaceIndex !== -1) {
-					labelBottomPadding = $padding.bottom; // increase axis label spacing to account for a 2-line data label
 					end = spaceIndex;
 				} else {
 					end = formattedTick.length;

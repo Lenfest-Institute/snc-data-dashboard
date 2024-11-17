@@ -124,7 +124,7 @@
   <Chart
     type={'barstacked'}
     title={'How Often Organizations Publish to Social Platforms'}
-    padding={{ top: 0, right: 10, bottom: 70, left: 60 }}
+    padding={{ top: 0, right: 10, bottom: 100, left: 60 }}
     x={[0,1]}
     xLabel={'Posts per day'}
     y={d => d.data?.platform}

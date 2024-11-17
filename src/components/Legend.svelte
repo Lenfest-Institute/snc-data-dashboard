@@ -8,8 +8,6 @@
   export let colors;
   export let chartType;
 
-  let bottomPadding = $padding.bottom;
-
   $: colorScale = d3.scaleOrdinal().range(colors); // D3 color scale
 
   let legendItems = [];
@@ -21,7 +19,7 @@
   }));
 </script>
 
-<div class="legend-container" style="bottom: -{bottomPadding}px;">
+<div class="legend-container" style="left: -{$padding.left}px; bottom: -{$padding.bottom}px;">
   {#each legendItems as item}
     <div class="legend-item">
       <div
@@ -37,7 +35,7 @@
   .legend-container {
     display: flex;
     flex-direction: row;
-    position:absolute;
+    position: absolute;
     border: 1px solid #ccc;
     padding: 5px 5px 0;
   }
@@ -52,6 +50,10 @@
   .color-box {
     width: 16px;
     height: 16px;
-    margin-right: 8px;
+    margin-right: 2px;
+  }
+  .color-label-text {
+    font-size: 11px;
+    line-height: 11px;
   }
 </style>
