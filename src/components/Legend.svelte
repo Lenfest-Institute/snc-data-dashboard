@@ -2,16 +2,13 @@
   import { getContext } from 'svelte';
   import * as d3 from 'd3';
 
-  const { xScale, percentRange } = getContext('LayerCake');
+  const { xScale, percentRange, padding } = getContext('LayerCake');
 
   export let labels; // Array of labels for the chart segments
   export let colors;
   export let chartType;
 
-  let bottomPadding = 5;
-  if (chartType === 'proportionbar') {
-    bottomPadding = 1;
-  }
+  let bottomPadding = $padding.bottom;
 
   $: colorScale = d3.scaleOrdinal().range(colors); // D3 color scale
 
@@ -24,7 +21,7 @@
   }));
 </script>
 
-<div class="legend-container" style="bottom: -{bottomPadding}rem;">
+<div class="legend-container" style="bottom: -{bottomPadding}px;">
   {#each legendItems as item}
     <div class="legend-item">
       <div

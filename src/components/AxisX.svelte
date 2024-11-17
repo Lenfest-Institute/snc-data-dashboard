@@ -64,20 +64,11 @@
 
 	/** @type {Number} type - Optional manual start. */
 	export let setStartTick;
+  
+  /** @type {Bool} rotateLabels - Optional manual override to rotate the labels. */
+  export let rotateLabels = true;
 
 	let labelBottomPadding = $padding.bottom;
-
-	$: console.log($padding.bottom);
-
-	// $: rotate = width < 500 ? 60 : 0;
-
-	// $: if (rotate >= 45) {
-	//   dx = 15;
-	//   dy = 20;
-	//   textAlign = 'left';
-	// }
-
-	export let rotateLabels = true;
 
   // If xScale.domain is 4 or fewer items, or if width is greater than 500, set rotateLabels to false.
   $: rotateLabels = width < 500 || ($xScale.domain() && $xScale.domain().length <= 4);
@@ -99,6 +90,15 @@
 	}
 
 	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
+
+  if (['proportionbar', 'barstacked'].includes(type)) {
+    labelBottomPadding = $padding.bottom - 40;
+  }
+  if (rotateLabels === false) {
+    labelBottomPadding = $padding.bottom - 0;
+  }
+
+  $: console.log(labelBottomPadding);
 
 	// Function to split the formatted tick by lines
 	function splitFormat(tick) {

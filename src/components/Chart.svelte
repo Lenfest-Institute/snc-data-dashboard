@@ -101,14 +101,14 @@
 				</Html>
 			{:else if type === 'proportionbar'}
 				<Html>
-					<!-- <Legend labels={zDomain} colors={zRange} chartType={type} /> -->
+					<Legend labels={zDomain} colors={zRange} chartType={type} />
 					<ProportionBar {width} {zDomain} {zRange} />
 				</Html>
 			{:else if type === 'barstacked'}
 				<Html>
-					<AxisX {width} baseline snapLabels axisLabel={xLabel} />
+					<AxisX {width} {type} baseline snapLabels axisLabel={xLabel} />
 					<AxisY gridlines={false} axisLabel={yLabel} />
-					<!-- <Legend labels={zDomain} colors={zRange} /> -->
+					<Legend labels={zDomain} colors={zRange} />
 				</Html>
 				<ScaledSvg>
 					<BarStacked />

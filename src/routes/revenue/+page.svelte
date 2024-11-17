@@ -112,7 +112,7 @@
   <Chart
     type={'barstacked'}
     title={'Average Revenue By Type'}
-    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    padding={{ top: 0, right: 10, bottom: 100, left: 120 }}
     x={[0,1]}
     xLabel={'Average'}
     y={d => d.data?.tier}
@@ -129,7 +129,7 @@
   <Chart
     type={'barstacked'}
     title={'Average Revenue By Donor Group'}
-    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    padding={{ top: 0, right: 10, bottom: 100, left: 120 }}
     x={[0,1]}
     xLabel={'Average'}
     y={d => d.data?.tier}
@@ -146,7 +146,7 @@
   <Chart
     type={'barstacked'}
     title={'Average Number of Donors By Donor Group'}
-    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    padding={{ top: 0, right: 10, bottom: 100, left: 120 }}
     x={[0,1]}
     xLabel={'Average'}
     y={d => d.data?.tier}
@@ -163,7 +163,7 @@
   <Chart
     type={'barstacked'}
     title={'Average Total of Earned Revenue'}
-    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    padding={{ top: 0, right: 10, bottom: 100, left: 120 }}
     x={[0,1]}
     xLabel={'Average'}
     y={d => d.data?.tier}
@@ -180,7 +180,7 @@
   <Chart
     type={'barstacked'}
     title={'Average Total Expenses'}
-    padding={{ top: 0, right: 10, bottom: 70, left: 120 }}
+    padding={{ top: 0, right: 10, bottom: 100, left: 120 }}
     x={[0,1]}
     xLabel={'Average'}
     y={d => d.data?.tier}
