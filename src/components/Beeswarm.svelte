@@ -38,8 +38,6 @@
     .domain(zDomain)
     .range(colorsCategorical);
 
-  $: console.log(colorScale.range());
-
   $: simulation = forceSimulation(nodes)
     .force(
       'x',
