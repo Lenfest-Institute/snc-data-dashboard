@@ -393,6 +393,10 @@
 					color: var(--brand-primary);
 					background-color: var(--gray-30);
 
+					a {
+							border-bottom: 1px solid var(--gray-15);
+						}
+
 					@media screen and (min-width: 768px) {
 						background-color: var(--gray-15);
 					}
@@ -408,7 +412,7 @@
 					text-decoration: none;
 					color: #000;
 					padding: 1rem;
-					border-bottom: unset;
+					border-bottom: 1px solid var(--gray-30);
 				}
 			}
 		}
