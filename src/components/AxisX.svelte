@@ -66,10 +66,10 @@
 	export let setStartTick;
   
   /** @type {Bool} rotateLabels - Optional manual override to rotate the labels. */
-  export let rotateLabels = true;
+  export let rotateLabels = false;
 
-  // If xScale.domain is 4 or fewer items, or if width is greater than 500, set rotateLabels to false.
-  $: rotateLabels = width < 500 || ($xScale.domain() && $xScale.domain().length <= 4);
+  // If xScale.domain is more than 4 items, or if width is less than 500, set rotateLabels to true.
+  $: rotateLabels = (($xScale.domain() && $xScale.domain().length > 4) && width < 500) || (type === 'barstacked' && width < 500);
 
 	$: tickLen = tickMarks === true ? (tickMarkLength ?? 6) : 0;
 

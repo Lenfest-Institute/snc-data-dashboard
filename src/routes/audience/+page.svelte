@@ -16,8 +16,8 @@
   }));
 
   // Testing Stack Bar 
-  const socialPlatforms = ['Facebook', 'X', 'LinkedIn', 'TikTok', 'Instagram', 'YouTube'];
-  const socialOptions = ['Always (every day)', 'Frequently (weekly)', 'Sometimes (monthly)', 'Infrequently (less than once a month)', 'Never'];
+  const socialPlatforms = ['Facebook', 'X', 'Instagram', 'LinkedIn', 'YouTube','TikTok'];
+  const socialOptions = ['Always (every day)', 'Frequently (weekly)', 'Sometimes (monthly)', 'Infrequently (less than once a month)'];
 
   // Transform data using d3.rollups
   $: socialData = socialPlatforms.map(platform => {
