@@ -91,7 +91,7 @@
 
   
 
-$: labelBottomPadding = ['proportionbar', 'barstacked'].includes(type)
+$: labelBottomPadding = ['proportionbar', 'barstacked', 'beeswarm'].includes(type)
 ? $padding.bottom - 40
 : !rotateLabels
 ? $padding.bottom - 20

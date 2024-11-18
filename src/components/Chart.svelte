@@ -84,8 +84,9 @@
 		>
 			{#if type === 'beeswarm'}
 				<Html>
-					<AxisX snapLabels {width} ticks={5} axisLabel={xLabel} />
+					<AxisX {width} {type} snapLabels ticks={5} axisLabel={xLabel} />
 					<Beeswarm {r} {fill} {stroke} {strokeWidth} />
+					<Legend labels={zDomain} colors={zRange} />
 				</Html>
 			{:else if type === 'column'}
 				<Html>

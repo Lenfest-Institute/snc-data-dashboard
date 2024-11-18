@@ -3,9 +3,12 @@
   Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
+  import { scaleOrdinal } from 'd3-scale';
   import { getContext } from 'svelte';
   import HoverCard from './HoverCard.svelte';
   import { forceSimulation, forceX, forceY, forceCollide } from 'd3-force';
+    import { convertToNumber, colorsCategorical, colorsCategoricalExtra } from '$lib/index';
+	import { color } from 'd3';
 
   const { data, xGet, height, zGet, xScale, yScale } = getContext('LayerCake');
 
@@ -25,6 +28,17 @@
 
   /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */
   export let xStrength = 1;
+
+  // define zDomain as the range of possible values for "Revenue Tier" of node
+  $: zDomain = Array
+    .from(new Set($data.map(d => d["Revenue Tier"])))
+    .sort((a, b) => convertToNumber(a) - convertToNumber(b));
+
+  $: colorScale = scaleOrdinal()
+    .domain(zDomain)
+    .range(colorsCategorical);
+
+  $: console.log(colorScale.range());
 
   $: simulation = forceSimulation(nodes)
     .force(
@@ -69,8 +83,8 @@
         top: {node.y + ($height / 2)}px;
         width: {r * 2}px;
         height: {r * 2}px;
-        background-color: {fill};
-        border: {strokeWidth}px solid {stroke};
+        background-color: {colorScale(node["Revenue Tier"])};
+        border: {strokeWidth}px solid {colorScale(node["Revenue Tier"])};
       "
       on:mouseover={() => {
         hoverCardInfo = {

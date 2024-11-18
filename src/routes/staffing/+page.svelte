@@ -3,8 +3,14 @@
 
     import { getContext } from 'svelte';
     import Chart from '../../components/Chart.svelte';
+    import { convertToNumber, colorsCategorical } from '$lib/index';
 
     $: filteredData = getContext('filteredData');
+
+    // Return an array of all the possible "Revenue Tier" values
+    $: revenueTierKeys = [...new Set($filteredData.map(d => d['Revenue Tier']))]
+        .filter(g => g !== 'NA')
+        .sort((a, b) => convertToNumber(a) - convertToNumber(b));
 </script>
 
 <div class="charts__wrapper charts__staffing">
@@ -13,6 +19,8 @@
     title={'Total Editorial Staff'}
     x={'Editorial Staff (FTE)'}
     xLabel={'Number of staffers'}
+    zDomain={revenueTierKeys}
+    zRange={colorsCategorical}
     data={$filteredData.map(obj => {
     return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => {
@@ -27,6 +35,8 @@
     title={'Total Non-Editorial Staff'}
     x={'Non-editorial Staff (FTE)'}
     xLabel={'Number of staffers'}
+    zDomain={revenueTierKeys}
+    zRange={colorsCategorical}
     data={$filteredData.map(obj => {
     return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => {

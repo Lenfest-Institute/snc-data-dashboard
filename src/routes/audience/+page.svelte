@@ -19,6 +19,13 @@
   const socialPlatforms = ['Facebook', 'X', 'Instagram', 'LinkedIn', 'YouTube','TikTok'];
   const socialOptions = ['Always (every day)', 'Frequently (weekly)', 'Sometimes (monthly)', 'Infrequently (less than once a month)'];
 
+
+
+  // Return an array of all the possible "Revenue Tier" values
+  $: revenueTierKeys = [...new Set($filteredData.map(d => d['Revenue Tier']))]
+    .filter(g => g !== 'NA')
+    .sort((a, b) => convertToNumber(a) - convertToNumber(b));
+
   // Transform data using d3.rollups
   $: socialData = socialPlatforms.map(platform => {
     // Use d3.rollups to group and count occurrences of each response option for this platform
@@ -70,6 +77,8 @@
     title={'Web Traffic'}
     x={'Web Traffic (AMUs)'}
     xLabel={'Average monthly users'}
+    zDomain={revenueTierKeys}
+    zRange={colorsCategorical}
     data={$filteredData.map(obj => {
     return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => {
@@ -84,6 +93,8 @@
     title={'Email Subscriber Size'}
     x={'Email Subscriber Size'}
     xLabel={'Number of subscribers'}
+    zDomain={revenueTierKeys}
+    zRange={colorsCategorical}
     data={$filteredData.map(obj => {
     return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => {
@@ -98,6 +109,8 @@
     title={'% of Budget Dedicated to Marketing to Help Grow Audience'}
     x={'% of Budget dedicated to Marketing to help grow Audience_V27A'}
     xLabel={'% of budget'}
+    zDomain={revenueTierKeys}
+    zRange={colorsCategorical}
     data={$filteredData.map(obj => {
     return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => {
@@ -112,6 +125,8 @@
     title={'% of Budget Dedicated to Audience Development'}
     x={'% of Budget dedicated to Audience Development_VSQ2-5B'}
     xLabel={'% of budget'}
+    zDomain={revenueTierKeys}
+    zRange={colorsCategorical}
     data={$filteredData.map(obj => {
     return Object.fromEntries(
         Object.entries(obj).map(([key, value]) => {
