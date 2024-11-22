@@ -3,6 +3,7 @@
   Generates an SVG Beeswarm chart using a [d3-force simulation](https://github.com/d3/d3-force).
  -->
 <script>
+  import { median } from 'd3-array';
   import { scaleOrdinal } from 'd3-scale';
   import { getContext } from 'svelte';
   import HoverCard from './HoverCard.svelte';
@@ -11,8 +12,9 @@
 	import { color } from 'd3';
 
   const { data, xGet, height, zGet, xScale, yScale } = getContext('LayerCake');
-
-  $: nodes = $data.map(d => ({ ...d }));
+  
+  /** @type {String} x - The key in the data object to use for the x-axis. */
+  export let x;
 
   /** @type {Number} [r=4] - The circle radius size in pixels. */
   export let r = 4;
@@ -28,6 +30,10 @@
 
   /** @type {Number} [xStrength=0.95] - The value passed into the `.strength` method on `forceX`. See [the documentation](https://github.com/d3/d3-force#x_strength). */
   export let xStrength = 1;
+
+  $: nodes = $data.map(d => ({ ...d }));
+
+  $: medianValue = median($data, d => d[x]);
 
   // define zDomain as the range of possible values for "Revenue Tier" of node
   $: zDomain = Array
@@ -71,7 +77,8 @@
   <HoverCard 
     data={hoverCardInfo}
   />
-  {#each simulation.nodes() as node}
+
+   {#each simulation.nodes() as node}
     <div
       class="circle"
       role="button"
@@ -110,16 +117,50 @@
       }}
     ></div>
   {/each}
+
+  <div
+    class="median-container"
+    style="left: {$xScale(medianValue)  + ($xScale.bandwidth ? $xScale.bandwidth() / 2 : 0)}%;"
+  >
+    <div class="median-line"></div>
+    <div class="median-label">MEDIAN</div>
+  </div>
 </div>
 
 <style>
   .bee-container {
     position: relative;
+    height: 100%;
   }
 
   .circle {
     position: absolute;
     transform: translate(-50%, -50%);
     border-radius: 50%;
+  }
+
+  .median-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+  }
+
+  .median-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1.5px;
+    height: 100%;
+    background-color: #000;
+  }
+
+  .median-label {
+    position: relative;
+    transform: translate(-50%, -100%);
+    background-color: black;
+    color: white;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 11px;
   }
 </style>
