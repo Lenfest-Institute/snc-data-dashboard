@@ -1,17 +1,16 @@
 <script>
-	import * as d3 from 'd3';
+	import { extent } from 'd3-array';
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
-	import Beeswarm from './Beeswarm.svelte';
-	import BarStacked from './BarStacked.svelte';
-	import Column from './Column.svelte';
-	import ProportionBar from './ProportionBar.svelte';
 	import Legend from './Legend.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
-	import { default as ClevelandDotPlot } from './ClevelandDotPlot.svelte';
 
-	export let isWide = false;
+	import BarStacked from './BarStacked.svelte';
+	import Beeswarm from './Beeswarm.svelte';
+	import ClevelandDotPlot from './ClevelandDotPlot.svelte';
+	import Column from './Column.svelte';
+	import ProportionBar from './ProportionBar.svelte';
 
 	export let data = [];
 	export let title;
@@ -22,13 +21,20 @@
 
 	export let xScale;
 	export let xDomain;
-	export let yDomain;
-	export let yScale;
-	export let padding;
 	export let xLabel;
+	export let yScale;
+	export let yDomain;
 	export let yLabel;
+	export let zScale;
+	export let zDomain;
+	export let zRange;
 
-	$: yDomainCustom = yDomain || d3.extent(data, (d) => +d[y]);
+	export let padding;
+	export let flatData;
+
+	export let isWide = false;
+
+	$: yDomainCustom = yDomain || extent(data, (d) => +d[y]);
 
 	$: paddingCustom = padding || {
 		top: 10,
@@ -40,11 +46,6 @@
 				? Math.round(yDomainCustom[1]).toString().length * 7
 				: 0)
 	};
-	export let zScale;
-	export let zDomain;
-	export let zRange;
-	export let flatData;
-	export let labels;
 
 	const r = 6;
 	const fill = '#f95346';
