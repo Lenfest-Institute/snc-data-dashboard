@@ -1,15 +1,11 @@
 <script>
 	import * as d3 from 'd3';
-	import { LayerCake, ScaledSvg, Svg, Html } from 'layercake';
+	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
-	import Line from './Line.svelte';
-	import Area from './Area.svelte';
-	import Scatter from './Scatter.svelte';
 	import Beeswarm from './Beeswarm.svelte';
 	import BarStacked from './BarStacked.svelte';
 	import Column from './Column.svelte';
 	import ProportionBar from './ProportionBar.svelte';
-	import Labels from './Labels.svelte';
 	import Legend from './Legend.svelte';
 	import AxisX from './AxisX.svelte';
 	import AxisY from './AxisY.svelte';
@@ -113,15 +109,6 @@
 				</Html>
 				<ScaledSvg>
 					<BarStacked />
-				</ScaledSvg>
-			{:else if type === 'linearea'}
-				<Html>
-					<AxisX {width} axisLabel={xLabel} />
-					<AxisY axisLabel={yLabel} />
-				</Html>
-				<ScaledSvg>
-					<Line />
-					<Area />
 				</ScaledSvg>
 			{/if}
 		</LayerCake>
