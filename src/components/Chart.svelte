@@ -1,4 +1,10 @@
 <script>
+	/**
+	 * @component Chart
+	 * @description A parent chart component that supports multiple visualization types as children
+	 * @prop {Array} data - The data to visualize
+	 * @prop {('beeswarm'|'column'|'dotplot'|'proportionbar'|'barstacked')} type - Chart type
+	 */
 	import { extent } from 'd3-array';
 	import { LayerCake, ScaledSvg, Html } from 'layercake';
 
@@ -53,8 +59,12 @@
 	const strokeWidth = 0.25;
 </script>
 
-<div class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}>
-	<h2>
+<div
+	class={`charts__chart-container ${isWide ? 'charts__chart-container-wide' : ''}`}
+	role="figure"
+	aria-labelledby="chart-title"
+>
+	<h2 id="chart-title">
 		{title}
 	</h2>
 	<div class={`charts__chart charts__type-${type}`}>
@@ -87,7 +97,7 @@
 				</Html>
 			{:else if type === 'column'}
 				<Html>
-					<AxisX  {width} {type} gridlines={false} axisLabel={xLabel} />
+					<AxisX {width} {type} gridlines={false} axisLabel={xLabel} />
 					<AxisY axisLabel={yLabel} {width} />
 					<Column xRange={[0, 100]} />
 				</Html>
