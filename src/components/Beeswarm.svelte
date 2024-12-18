@@ -85,7 +85,7 @@
 		<div
 			class="circle"
 			role="button"
-			tabindex="0"
+			tabindex="-1"
 			aria-label="Data point with value {node['Revenue Tier']}"
 			aria-expanded={hoverCardInfo.active}
 			style="
