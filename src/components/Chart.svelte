@@ -64,7 +64,7 @@
 	role="figure"
 	aria-labelledby={`chart-${title.replace(/[^a-zA-Z0-9]/g, '')}`}
 >
-	<h2 id="chart-" class={`chart-${title.replace(/[^a-zA-Z0-9]/g, '')}`}>
+	<h2 id={`chart-${title.replace(/[^a-zA-Z0-9]/g, '')}`} class="chart-title">
 		{title}
 	</h2>
 	<div class={`charts__chart charts__type-${type}`}>
