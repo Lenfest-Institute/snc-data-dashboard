@@ -61,18 +61,3 @@ p {
 .accordion-summary {
   font-size: 1rem;
 }
-
-.data__filters {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 20px;
-  
-  h3 {
-    font-size: 0.8rem;
-    font-weight: 600;
-  }
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(5, 1fr);
-  }
-}

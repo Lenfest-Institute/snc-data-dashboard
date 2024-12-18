@@ -1,15 +1,12 @@
 <script>
 	import '../app.css';
 	import '../styles/app.scss';
-	import { setContext, getContext, onMount, onDestroy } from 'svelte';
+	import { setContext, onMount } from 'svelte';
 	import { writable } from 'svelte/store';
 	import { page } from '$app/stores';
-	import { Accordion, AccordionItem, SlideToggle } from '@skeletonlabs/skeleton';
+	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import { filterOptionsFocus, filterOptionsPriority } from '$lib/index';
-    import { SlidersIcon, MenuIcon } from 'svelte-feather-icons'
-
-
-
+	import { SlidersIcon, MenuIcon } from 'svelte-feather-icons';
 
 	const pages = ['audience', 'revenue', 'diversity', 'staffing', 'coverage'];
 
@@ -140,7 +137,7 @@
 		isMenuOpen = !isMenuOpen;
 		accordionOpen = false;
 	}
-	
+
 	function toggleFilterContainer() {
 		accordionOpen = !accordionOpen;
 		isMenuOpen = false;
@@ -148,8 +145,11 @@
 </script>
 
 <svelte:head>
-  <title>Statewide News Collective Data Dashboard | The Lenfest Institute for Journalism</title>
-  <meta name="description" content="Dashboard showcasing anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023." />
+	<title>Statewide News Collective Data Dashboard | The Lenfest Institute for Journalism</title>
+	<meta
+		name="description"
+		content="Dashboard showcasing anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023."
+	/>
 </svelte:head>
 
 <header>
@@ -162,10 +162,10 @@
 			href="https://www.lenfestinstitute.org/our-work/communities-of-practice/statewide-news-collective/"
 			>Statewide News Collective</a
 		>
-		+ INN Index Dashboard. Created by The Lenfest Institute for Journalism and the Institute for
-		Nonprofit News (INN), this dashboard showcases anonymized revenue, audience, staffing
-		and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual
-		Index survey and represent performance in 2023. See
+		+ INN Index Dashboard. Created by The Lenfest Institute for Journalism and the Institute for Nonprofit
+		News (INN), this dashboard showcases anonymized revenue, audience, staffing and coverage data across
+		48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent
+		performance in 2023. See
 		<a href="https://inn.org/research/inn-index/the-inn-index/about-the-index/">INN's full Index</a>
 		for nonprofit news trends. The Statewide News Collective is a community for news organizations serving
 		statewide audiences.
@@ -179,105 +179,141 @@
 <section style="height: {controlsBarFixed ? `${controlsHeight}px` : '0'};"></section>
 
 <section bind:this={controlsElement} class="controls" class:controls-fixed={controlsBarFixed}>
-
-
-		<div class="controls_button controls_button-filters" on:click={toggleFilterContainer}>
-			<SlidersIcon  />
-			Filters
-		</div>
+	<button class="controls_button controls_button-filters" on:click={toggleFilterContainer}>
+		<SlidersIcon />
+		Filters
+	</button>
 
 	<Accordion class="menu-filters_wrapper">
 		<AccordionItem open={accordionOpen}>
 			<svelte:fragment slot="summary">Filters</svelte:fragment>
 			<svelte:fragment slot="content">
 				<div class="data__filters" bind:this={filtersElement}>
-					<div class="data__filter-revenue">
-						<h3>Revenue</h3>
-						<select on:change={handleFilterRevenue} class="select">
-							<option value="1" data-tier="All">All</option>
-							{#each filterOptionsRevenue as tier}
-								<option value="2" data-tier={tier}>{tier}</option>
-							{/each}
-						</select>
-					</div>
+					<form>
+						<div class="data__filter-revenue" role="group" aria-labelledby="revenue-label">
+							<label id="revenue-label" for="revenue-select">Revenue</label>
+							<select
+								id="revenue-select"
+								name="revenue"
+								on:change={handleFilterRevenue}
+								class="select"
+								aria-describedby="revenue-help"
+							>
+								<option value="1" data-tier="All">All</option>
+								{#each filterOptionsRevenue as tier}
+									<option value="2" data-tier={tier}>{tier}</option>
+								{/each}
+							</select>
+							<span id="revenue-help" class="sr-only">Filter organizations by revenue tier</span>
+						</div>
 
-					<div class="data__filter-age">
-						<h3>Organization Age</h3>
-						<select on:change={handleFilterAge} class="select">
-							<option value="1" data-minage="0" data-maxage="200">All</option>
-							<option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
-							<option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
-							<option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
-						</select>
-					</div>
+						<div class="data__filter-age" role="group" aria-labelledby="age-label">
+							<label id="age-label" for="age-select">Organization Age</label>
+							<select
+								id="age-select"
+								name="age"
+								on:change={handleFilterAge}
+								class="select"
+								aria-describedby="age-help"
+							>
+								<optgroup label="Age ranges">
+									<option value="1" data-minage="0" data-maxage="200">All</option>
+									<option value="3" data-minage="0" data-maxage="5">Less than 5 years old</option>
+									<option value="4" data-minage="5" data-maxage="10">5-10 years old</option>
+									<option value="5" data-minage="10" data-maxage="200">10 or more years old</option>
+								</optgroup>
+							</select>
+							<span id="age-help" class="sr-only">Filter organizations by their age</span>
+						</div>
 
-					<div class="data__filter-staff">
-						<h3>Staff</h3>
-						<select on:change={handleFilterStaff} class="select">
-							<option value="1" data-min="0" data-max="200">All</option>
-							<option value="3" data-min="0" data-max="3">Fewer than 3 employees</option>
-							<option value="4" data-min="3" data-max="10">3-10 employees</option>
-							<option value="4" data-min="10" data-max="25">10-25 employees</option>
-							<option value="5" data-min="25" data-max="200">25 or more employees</option>
-						</select>
-					</div>
+						<div class="data__filter-staff" role="group" aria-labelledby="staff-label">
+							<label id="staff-label" for="staff-select">Staff</label>
+							<select
+								id="staff-select"
+								name="staff"
+								on:change={handleFilterStaff}
+								class="select"
+								aria-describedby="staff-help"
+							>
+								<optgroup label="Staff size ranges">
+									<option value="1" data-min="0" data-max="200">All</option>
+									<option value="3" data-min="0" data-max="3">Fewer than 3 employees</option>
+									<option value="4" data-min="3" data-max="10">3-10 employees</option>
+									<option value="4" data-min="10" data-max="25">10-25 employees</option>
+									<option value="5" data-min="25" data-max="200">25 or more employees</option>
+								</optgroup>
+							</select>
+							<span id="staff-help" class="sr-only">Filter organizations by staff size</span>
+						</div>
 
-					<div class="data__filter-focus">
-						<h3>Coverage Focus</h3>
-						<select on:change={handleFilterFocus} class="select">
-							<option value="all">All</option>
-							{#each filterOptionsFocus as option}
-								<option value={option.value}>{option.label}</option>
-							{/each}
-						</select>
-					</div>
+						<div class="data__filter-focus" role="group" aria-labelledby="focus-label">
+							<label id="focus-label" for="focus-select">Editorial Focus</label>
+							<select
+								id="focus-select"
+								name="focus"
+								on:change={handleFilterFocus}
+								class="select"
+								aria-describedby="focus-help"
+							>
+								<option value="all">All</option>
+								{#each filterOptionsFocus as option}
+									<option value={option.value}>{option.label}</option>
+								{/each}
+							</select>
+						</div>
 
-					<div class="data__filter-priority">
-						<h3>Coverage Priority</h3>
-						<select on:change={handleFilterPriority} class="select">
-							<option value="all">All</option>
-							{#each filterOptionsPriority as option}
-								<option value={option.value}>{option.label}</option>
-							{/each}
-						</select>
-					</div>
+						<div class="data__filter-priority" role="group" aria-labelledby="priority-label">
+							<label id="priority-label" for="priority-select">Coverage Priority</label>
+							<select
+								id="priority-select"
+								name="priority"
+								on:change={handleFilterPriority}
+								class="select"
+								aria-describedby="priority-help"
+							>
+								<option value="all">All</option>
+								{#each filterOptionsPriority as option}
+									<option value={option.value}>{option.label}</option>
+								{/each}
+							</select>
+						</div>
+					</form>
 				</div>
 			</svelte:fragment>
 		</AccordionItem>
 	</Accordion>
 
-		<div class="controls_button controls_button-categories" on:click={toggleMenu}>
-			<MenuIcon  />
-			Categories
-		</div>
+	<button class="controls_button controls_button-categories" on:click={toggleMenu}>
+		<MenuIcon />
+		Categories
+	</button>
 
-		<nav class="controls__category-nav data__nav {isMenuOpen ? 'open' : ''}">
-			<ul>
-				{#each pages as page}
-					<li class={currentPath === `${pathPrefix}/${page}` ? 'active' : ''}>
-						<a href={`${pathPrefix}/${page}`}>
-							{page.charAt(0).toUpperCase() + page.slice(1)}
-						</a>
-					</li>
-				{/each}
-			</ul>
-		</nav>
+	<nav class="controls__category-nav data__nav {isMenuOpen ? 'open' : ''}">
+		<ul>
+			{#each pages as page}
+				<li class={currentPath === `${pathPrefix}/${page}` ? 'active' : ''}>
+					<a href={`${pathPrefix}/${page}`}>
+						{page.charAt(0).toUpperCase() + page.slice(1)}
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</nav>
 </section>
 
 <main class="data__wrapper" bind:clientWidth>
-	
-		<aside class="alert">
-			<div class="alert-message">
-				{#if filteredData.length < 5}
-					<p>Not enough organizations meet this combination of filters.</p>
-				{:else}
-					<p>Showing data from {filteredData.length} organizations</p>
-				{/if}
-			</div>
-		</aside>
-		{#if filteredData.length >= 5}
-			<slot />
-		{/if}
+	<aside class="alert">
+		<div class="alert-message">
+			{#if filteredData.length < 5}
+				<p>Not enough organizations meet this combination of filters.</p>
+			{:else}
+				<p>Showing data from {filteredData.length} organizations</p>
+			{/if}
+		</div>
+	</aside>
+	{#if filteredData.length >= 5}
+		<slot />
+	{/if}
 </main>
 
 <style lang="scss">
@@ -292,11 +328,20 @@
 		font-family: var(--brand-font-headline);
 	}
 
+	.data__filters form {
+		display: grid;
+		grid-template-columns: repeat(1, 1fr);
+		gap: 20px;
+
+		@media (min-width: 768px) {
+			grid-template-columns: repeat(5, 1fr);
+		}
+	}
 
 	section.controls {
 		display: grid;
-		grid-auto-rows: 1fr; 
-		grid-template-columns: 75px auto 75px; 
+		grid-auto-rows: 1fr;
+		grid-template-columns: 75px auto 75px;
 		grid-template-rows: 1fr auto;
 
 		@media screen and (min-width: 768px) {
@@ -304,7 +349,7 @@
 			flex-direction: column;
 		}
 
-		:global(.menu-filters_wrapper) { 
+		:global(.menu-filters_wrapper) {
 			grid-area: 2 / 1 / 3 / 4;
 
 			@media screen and (max-width: 768px) {
@@ -312,20 +357,20 @@
 			}
 		}
 
-		.controls__category-nav { 
+		.controls__category-nav {
 			grid-area: 1 / 2 / 2 / 3;
 		}
 
-		.controls_button-filters { 
+		.controls_button-filters {
 			display: flex;
 			background-color: var(--mint);
-			grid-area: 1 / 1 / 2 / 2; 
+			grid-area: 1 / 1 / 2 / 2;
 		}
 
 		.controls_button-categories {
 			display: flex;
 			background-color: var(--gray-30);
-			grid-area:  1 / 3 / 2 / 4;
+			grid-area: 1 / 3 / 2 / 4;
 
 			@media screen and (min-width: 768px) {
 				display: none;
@@ -394,8 +439,8 @@
 					background-color: var(--gray-30);
 
 					a {
-							border-bottom: 1px solid var(--gray-15);
-						}
+						border-bottom: 1px solid var(--gray-15);
+					}
 
 					@media screen and (min-width: 768px) {
 						background-color: var(--gray-15);
@@ -461,5 +506,25 @@
 				}
 			}
 		}
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	select {
+		margin-top: 0.5rem;
+	}
+
+	label {
+		font-weight: 600;
 	}
 </style>
