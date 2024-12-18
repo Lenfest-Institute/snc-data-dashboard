@@ -64,12 +64,14 @@
 
 	/** @type {Number} type - Optional manual start. */
 	export let setStartTick;
-  
-  /** @type {Bool} rotateLabels - Optional manual override to rotate the labels. */
-  export let rotateLabels = false;
 
-  // If xScale.domain is more than 4 items, or if width is less than 500, set rotateLabels to true.
-  $: rotateLabels = (($xScale.domain() && $xScale.domain().length > 4) && width < 500) || (type === 'barstacked' && width < 500);
+	/** @type {Bool} rotateLabels - Optional manual override to rotate the labels. */
+	export let rotateLabels = false;
+
+	// If xScale.domain is more than 4 items, or if width is less than 500, set rotateLabels to true.
+	$: rotateLabels =
+		($xScale.domain() && $xScale.domain().length > 4 && width < 500) ||
+		(type === 'barstacked' && width < 500);
 
 	$: tickLen = tickMarks === true ? (tickMarkLength ?? 6) : 0;
 
@@ -89,13 +91,11 @@
 
 	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 
-  
-
-$: labelBottomPadding = ['proportionbar', 'barstacked', 'beeswarm'].includes(type)
-? $padding.bottom - 40
-: !rotateLabels
-? $padding.bottom - 20
-: $padding.bottom;
+	$: labelBottomPadding = ['proportionbar', 'barstacked', 'beeswarm'].includes(type)
+		? $padding.bottom - 40
+		: !rotateLabels
+			? $padding.bottom - 20
+			: $padding.bottom;
 
 	// Function to split the formatted tick by lines
 	function splitFormat(tick) {
@@ -158,7 +158,7 @@ $: labelBottomPadding = ['proportionbar', 'barstacked', 'beeswarm'].includes(typ
 				style:transform-origin="25% 0"
 				style:text-align={rotateLabels ? 'left' : 'center'}
 				style:height="{splitFormat(tick).length}px}"
-        style:line-height="12px"
+				style:line-height="12px"
 			>
 				{#if typeof tick === 'string'}
 					{#each splitFormat(tick) as part, index}

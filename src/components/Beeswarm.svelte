@@ -127,8 +127,8 @@
 		position: absolute;
 		transform: translate(-50%, -50%);
 		border-radius: 50%;
-    background-color: black;
-    border: 1px solid black;
+		background-color: black;
+		border: 1px solid black;
 	}
 
 	.median-container {

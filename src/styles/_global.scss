@@ -1,13 +1,13 @@
 body {
-  font-family: $brand-font-body;
-  background-color: $gray-15;
-  color: #333;
+	font-family: $brand-font-body;
+	background-color: $gray-15;
+	color: #333;
 }
 
 h1 {
-    font-family: $brand-font-headline;
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+	font-family: $brand-font-headline;
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
 }
 
 header,
@@ -16,48 +16,50 @@ main,
 section.controls div.accordion,
 section.controls aside,
 section.controls nav ul {
-  margin: 0 auto;
-  padding: 0 16px;
+	margin: 0 auto;
+	padding: 0 16px;
 
-  &.controls {
-    max-width: unset;
-    padding: 0;
+	&.controls {
+		max-width: unset;
+		padding: 0;
 
-    div.accordion, aside, nav ul {
-      margin: 0 auto;
-      padding: 0;
-    }
+		div.accordion,
+		aside,
+		nav ul {
+			margin: 0 auto;
+			padding: 0;
+		}
 
-    aside {
-      padding: 0.5rem;
+		aside {
+			padding: 0.5rem;
 
-      p {
-        margin: 0;
-      }
-    }
-  }
+			p {
+				margin: 0;
+			}
+		}
+	}
 
-  &.data__wrapper {
-    margin-bottom: 2rem;
-    margin-top: 2rem;
-  }
+	&.data__wrapper {
+		margin-bottom: 2rem;
+		margin-top: 2rem;
+	}
 }
 
 a {
-    border-bottom: 1px solid #f95346;
-    color: #161a26;
+	border-bottom: 1px solid #f95346;
+	color: #161a26;
 
-    transition: all .3s ease-in-out;
+	transition: all 0.3s ease-in-out;
 
-    &:hover {
-      border-bottom-color: #161a26;
-    }
+	&:hover {
+		border-bottom-color: #161a26;
+	}
 }
 
 p {
-  margin-bottom: 1.25rem;
+	margin-bottom: 1.25rem;
 }
 
 .accordion-summary {
-  font-size: 1rem;
+	font-size: 1rem;
 }

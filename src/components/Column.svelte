@@ -21,11 +21,7 @@
 	};
 </script>
 
-<div
-  class="column-group"
-  role="graphics-document"
-  aria-label="Column chart"
->
+<div class="column-group" role="graphics-document" aria-label="Column chart">
 	{#each $data as d, i}
 		{@const colHeight = columnHeight(d)}
 		{@const xGot = $xGet(d)}

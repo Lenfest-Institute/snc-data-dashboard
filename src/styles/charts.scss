@@ -1,32 +1,32 @@
 .charts {
-    &__wrapper {
-        display: flex;
-        flex-direction: column; 
-        gap: 20px 20px;
+	&__wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 20px 20px;
 
-        @media (min-width: 768px) {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
+		@media (min-width: 768px) {
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
 
-    &__chart-container {
-        border: 1px solid $gray-75;
-        border-radius: 10px;
-        padding: 10px;
+	&__chart-container {
+		border: 1px solid $gray-75;
+		border-radius: 10px;
+		padding: 10px;
 
-        &.charts__chart-container-wide {
-            grid-column: span 2;
-        }
-    }
+		&.charts__chart-container-wide {
+			grid-column: span 2;
+		}
+	}
 
-    &__chart {
-        width: 100%;
-        height: 250px;
+	&__chart {
+		width: 100%;
+		height: 250px;
 
-        &.charts__type-proportionbar {
-            width: 100%;
-            height: 100px;
-        }
-    }
+		&.charts__type-proportionbar {
+			width: 100%;
+			height: 100px;
+		}
+	}
 }
