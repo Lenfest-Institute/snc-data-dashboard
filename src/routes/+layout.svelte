@@ -147,6 +147,11 @@
 	}
 </script>
 
+<svelte:head>
+  <title>Statewide News Collective Data Dashboard | The Lenfest Institute for Journalism</title>
+  <meta name="description" content="Dashboard showcasing anonymized revenue, audience, staffing and coverage data across 48 statewide, nonprofit news outlets. These data are from INN's annual Index survey and represent performance in 2023." />
+</svelte:head>
+
 <header>
 	<h1>Statewide News Collective Data Dashboard</h1>
 </header>
