@@ -17,7 +17,7 @@
 	{#each $data as row}
 		{@const scaledYValue = $yGet(row)}
 		{@const scaledXValues = $xGet(row)}
-		<div class="dot-row" role="group" aria-label={`Data point ${i + 1}`}>
+		<div class="dot-row" role="group" aria-label='Data point'>
 			<div
 				class="line"
 				style="
