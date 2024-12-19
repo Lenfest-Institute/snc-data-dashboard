@@ -22,7 +22,7 @@
 
 	// Memoize legend items
 	$: legendItems = labels.map((label, i) => ({
-		label,
+		label: label.replace(/ million/g, 'M'),
 		color: colorScale(label),
 		id: `legend-item-${i}`
 	}));

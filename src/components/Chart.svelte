@@ -45,7 +45,7 @@
 	$: paddingCustom = padding || {
 		top: 10,
 		right: 20,
-		bottom: 70,
+		bottom: type === 'beeswarm' ? 80 : 70,
 		left:
 			(type === 'beeswarm' ? 0 : 45) +
 			(yDomainCustom && yDomainCustom.length > 0
@@ -53,7 +53,7 @@
 				: 0)
 	};
 
-	const r = 6;
+	const r = 5;
 	const fill = '#f95346';
 	const stroke = '#f95346';
 	const strokeWidth = 0.25;

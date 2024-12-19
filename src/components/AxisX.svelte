@@ -91,11 +91,13 @@
 
 	$: halfBand = isBandwidth ? $xScale.bandwidth() / 2 : 0;
 
-	$: labelBottomPadding = ['proportionbar', 'barstacked', 'beeswarm'].includes(type)
+	$: labelBottomPadding = ['proportionbar', 'barstacked'].includes(type)
 		? $padding.bottom - 40
-		: !rotateLabels
-			? $padding.bottom - 20
-			: $padding.bottom;
+		: ['beeswarm'].includes(type)
+		? $padding.bottom - 48
+			: !rotateLabels
+				? $padding.bottom - 20
+				: $padding.bottom;
 
 	// Function to split the formatted tick by lines
 	function splitFormat(tick) {
