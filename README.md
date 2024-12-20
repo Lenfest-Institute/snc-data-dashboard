@@ -16,7 +16,13 @@ Interactive data visualization dashboard for Lenfest/INN's Statewide News Collec
 `npm run preview`: Preview the production build locally
 `npm run lint`: Check code formatting, accessbility compliance and linting
 `npm run format`: Automatically format the code
-`npm run data`: Process data files
+`npm run data [path/datafile.csv]`: Process data files
+
+#### Processing Data
+
+This repo does not include the original data file. In order to process data for the app, run the command `npm run data [path/datafile.csv]` replacing the bracketed file path with the relative path to your data file, in CSV format.
+
+After running that command, the processed JSON file of the data will be available at static/data/filteredData.json.
 
 ## Project Structure
 src/
