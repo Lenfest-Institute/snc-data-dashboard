@@ -1,11 +1,8 @@
-// node-revenue-script.js
-
-import * as d3 from 'd3';
-import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { readFileSync, writeFileSync } from 'fs';
+import * as d3 from 'd3-dsv';
 
 const ignoreColumns = [
-	'NEON ID',
 	'Org Name',
 	'Primary Contact First name',
 	'Last name',
@@ -26,10 +23,7 @@ const ignoreColumns = [
 ];
 
 // Function to load and process CSV data
-async function load() {
-	// Determine the path to the CSV file
-	const filePath = join(process.cwd(), 'src/static', 'data2023.csv');
-
+async function load(filePath) {
 	// Read the CSV file content as a string
 	const fileContent = readFileSync(filePath, 'utf8');
 
@@ -64,7 +58,20 @@ async function load() {
 	console.log(`Filtered data has been written to ${outputFilePath}`);
 }
 
-// Execute the load function
-load().catch((err) => {
-	console.error('Error processing CSV:', err);
-});
+// Get the filePath from command-line arguments
+const args = process.argv.slice(2);
+if (args.length === 0) {
+	console.error('Please provide the path to the CSV file as an argument.');
+	process.exit(1);
+}
+
+const filePath = args[0];
+
+// Call the load function with the provided filePath
+load(filePath)
+	.then((data) => {
+		console.log('Data loaded successfully:', data);
+	})
+	.catch((error) => {
+		console.error('Error loading data:', error);
+	});
