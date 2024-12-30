@@ -24,6 +24,8 @@ This repo does not include the original data file. In order to process data for 
 
 After running that command, the processed JSON file of the data will be available at static/data/filteredData.json.
 
+Columns can be omitted from the data processing by putting the column key name in the `ignoreColumns` array in the process-data.js file.
+
 ## Project Structure
 src/
   ├── lib/           # Shared utilities and components
