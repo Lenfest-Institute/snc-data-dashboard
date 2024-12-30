@@ -9,6 +9,9 @@ Interactive data visualization dashboard for Lenfest/INN's Statewide News Collec
 - npm or pnpm
 
 ### Installation
+From the root folder, run `npm install` to get the dependencies up and running.
+
+To have data to work with in the dashboard, see the "Processing Data" section below.
 
 ### Commands
 `npm run dev`: Start the development server
