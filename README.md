@@ -30,13 +30,21 @@ After running that command, the processed JSON file of the data will be availabl
 Columns can be omitted from the data processing by putting the column key name in the `ignoreColumns` array in the process-data.js file.
 
 ## Project Structure
+```
 src/
   ├── lib/           # Shared utilities and components
   ├── routes/        # Page components and routing
   ├── components/    # Reusable chart components
   └── static/        # Static assets and data files
+```
 
-## Charts and Components
+### Routing
+
+Per SvelteKit convention, the frontend layouts are in the `routes` subfolder. Shared elements across all pages go in the `layout.svelte` file, while server-side operations that said elements rely upon can go in the `layout.server.js` file. 
+
+Each individual category has its own subfolder from there with a page full of its charts. We use the <Chart> Svelte component as a clearinghouse for all the possible chart types from there.
+
+### Charts and Components
 - Beeswarm Chart: Visualizes data points as a swarm of circles.
 - Column Chart: Displays data as vertical bars.
 - Cleveland Dot Plot: Also known as a lollipop chart.
